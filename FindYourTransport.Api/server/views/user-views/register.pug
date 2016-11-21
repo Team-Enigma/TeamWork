@@ -1,0 +1,25 @@
+extends ../base
+
+block content
+    form(action="/register" method="post")
+        label(for="tb-first-name") FirstName
+        input(type="text" id="tb-first-name" name="firstName")
+        br
+
+        label(for="tb-last-name") Last Name
+        input(type="text" id="tb-last-name" name="lastName")
+        br
+
+        label(for="tb-email") Email address
+        input(type="text" id="tb-email" name="email")
+        br
+
+        label(for="tb-username") Username
+        input(type="text" id="tb-username" name="username")
+        br
+
+        label(for="tb-password") Password
+        input(type="password" id="tb-password" name="password")
+        br
+
+        input(type="submit" value="Submit")
