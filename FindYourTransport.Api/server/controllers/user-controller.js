@@ -14,7 +14,7 @@ function registerNewUser(req, res) {
         .catch(err => {
             // todo: handle errors better
             res.status(409);
-            res.send(err.message);
+            res.render("user-views/register", { message: err.message });
             res.end();
         });
 }
