@@ -11,14 +11,13 @@ module.exports = function(app, config) {
 
     app.use(express.static(path.join(config.root, "public")));
 
-    app.use(passport.initialize());
-    app.use(passport.session());
-
-    app.use(bodyParser.urlencoded({ extended: true }));
     app.use(cookieParser());
+    app.use(bodyParser.urlencoded({ extended: true }));
     app.use(session({
         secret: "42noissesterces",
         resave: true,
         saveUninitialized: true
     }));
+    app.use(passport.initialize());
+    app.use(passport.session());
 };

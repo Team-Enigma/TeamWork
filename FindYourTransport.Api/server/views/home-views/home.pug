@@ -1,0 +1,9 @@
+extends ../base
+
+block content
+    h1  Works
+    a(href="/login") Login
+    a(href="/register") Register
+    -if(user)
+        h2  #{user.username}
+        a(href="/logout") Logout

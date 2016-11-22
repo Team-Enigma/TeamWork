@@ -9,7 +9,7 @@ require("./server/configurations/database")(config);
 require("./server/configurations/express")(app, config);
 require("./server/configurations/passport")();
 
-require('./server/routers')(app, config);
+require("./server/routers")(app);
 
 app.listen(config.port);
 console.log(`Server listens on ${config.port}`);

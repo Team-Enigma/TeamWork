@@ -23,6 +23,12 @@ const userSchema = mongooseSchema({
     car: { type: String }
 });
 
-const User = mongoose.model('user', userSchema);
+userSchema.methods = {
+    isValidPassword(password) {
+        const isValid = password === this.password;
+        return isValid;
+    }
+};
+const User = mongoose.model("user", userSchema);
 
 module.exports = User;
