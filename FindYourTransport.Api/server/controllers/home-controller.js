@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var pug = require("pug");
 
 function getHomePageView(req, res) {
@@ -23,3 +24,10 @@ module.exports = {
     getHomePageView,
     redirectToHome
 }
+=======
+function loadHomePage(req, res) {
+    res.render("home-views/home", { user: req.user });
+};
+
+module.exports = { loadHomePage };
+>>>>>>> 0a4828da1dd5d4140061067be7d69174a523a480
