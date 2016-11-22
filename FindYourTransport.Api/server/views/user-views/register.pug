@@ -1,8 +1,9 @@
 extends ../base
 
 block content
-    -if(message)
-        div#note #{message}
+    -if(messages)
+        each message in messages
+            div#note #{message}
     form(action="/register" method="post")
         label(for="tb-first-name") FirstName
         input(type="text" id="tb-first-name" name="firstName")

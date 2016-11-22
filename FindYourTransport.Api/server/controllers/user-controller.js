@@ -12,9 +12,22 @@ function registerNewUser(req, res) {
             res.redirect("/register");
         })
         .catch(err => {
-            // todo: handle errors better
+
+            const errors = [];
+
+            if(err.errors){
+                Object.keys(err.errors).forEach((key) => {
+                    const error = err.errors[key];
+                    errors.push(error["message"]);
+                });
+            }else if(err.message){
+                errors.push(err.message);
+            }
+
+            console.log(errors);
+
             res.status(409);
-            res.render("user-views/register", { message: err.message });
+            res.render("user-views/register", { messages: errors });
             res.end();
         });
 }

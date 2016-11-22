@@ -27,7 +27,7 @@ function registerNewUser(body) {
                 }
             })
             .then(() => {
-                createNewUser(body);
+                return createNewUser(body);
             })
             .then(() => {
                 return resolve();
