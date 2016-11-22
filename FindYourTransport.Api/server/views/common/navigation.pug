@@ -1,0 +1,17 @@
+nav
+    ul
+        li.nav-button
+            a(id="home-button", href="/home") Home
+        li.nav-button
+            a(id="rides-button", href="/rides") Rides
+        li.nav-button
+            a(id="users-button", href="/users") Users
+        if(currentUser)
+            li.nav-button
+                a(id="services-button", href="/services") Services
+            li.nav-button
+                a(id="profile-button", href="/profile") #{currentUser.username}
+            li.nav-button
+                a(id="logout-button", href="/logout") Logout
+        else
+            a(id="login-button", href="/Login") Login

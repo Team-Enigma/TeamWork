@@ -1,9 +1,9 @@
 function loadHomePage(req, res) {
-    res.render("home-views/home", { user: req.user });
+    res.render("home-views/home");
 };
 
-function redirectToHome(req, res) {
+function redirectToHomePage(req, res) {
     res.redirect("/home");
 }
 
-module.exports = { loadHomePage, redirectToHome };
+module.exports = { loadHomePage, redirectToHomePage };
