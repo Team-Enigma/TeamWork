@@ -4,6 +4,6 @@ block content
     h1  Works
     a(href="/login") Login
     a(href="/register") Register
-    -if(user)
-        h2  #{user.username}
+    -if(currentUser)
+        h2  #{currentUser.username}
         a(href="/logout") Logout

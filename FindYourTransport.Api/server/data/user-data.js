@@ -1,10 +1,16 @@
-const User = require("../models/user-model")
+const User = require("../models/user-model");
+const encryption = require("../utils/encryption");
 
 function createNewUser(body) {
     return new Promise((resolve, reject) => {
+
+        const salt = encryption.generateSalt();
+        const hashedPassword = encryption.generateHashedPassword(salt, body.password);
+
         User.create({
             username: body.username,
-            password: body.password,
+            hashedPassword,
+            salt,
             firstName: body.firstName,
             lastName: body.lastName,
             email: body.email
