@@ -12,7 +12,7 @@ module.exports = function() {
             if (!user) {
                 return done(null, false, { message: "Incorrect username." });
             }
-            if (!user.isValidPassword(password)) {
+            if (!user.authenticate(password)) {
                 return done(null, false, { message: "Incorrect password." });
             }
 

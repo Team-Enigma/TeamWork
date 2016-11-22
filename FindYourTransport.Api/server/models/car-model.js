@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+<<<<<<< HEAD
 const mongooseSchema = require("mongoose").Schema
 const validate = require("mongoose-validator");
 
@@ -55,3 +56,19 @@ const carSchema = mongooseSchema({
 const Car = mongoose.model("car", carSchema);
 
 module.exports = Car;
+=======
+const mongooseSchema = require("mongoose").Schema;
+
+const fuelTypes = ["ULP", "PULP", "CNG", "LPG", "Diesel", "Hybrid", "Electric"];
+const transmissionTypes = ["Automatic", "Manual"];
+
+const carSchema = mongooseSchema({
+    manufacturer: { type: String },
+    model: { type: String },
+    seats: { type: Number, min: 2, max: 8 },
+    fuel: { type: String, enum: fuelTypes },
+    transmission: { type: String, enum: transmissionTypes }
+});
+
+module.exports = carSchema;
+>>>>>>> c022b6d90fb61bf2a6e511da2a5aff902ff983f0

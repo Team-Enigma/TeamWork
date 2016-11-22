@@ -10,29 +10,39 @@ function loadLoginPage(req, res) {
 }
 
 function registerNewUser(req, res) {
-    const body = req.body;
+    const cashedUser = req.body;
 
-    data.registerNewUser(body)
-        .then(() => {
-            res.redirect("/login");
-        })
-        .catch(err => {
+    if (cashedUser.password !== cashedUser.confirmPassword) {
+        cashedUser.messages = ["Password does not match"];
 
-            const errors = [];
+        res.status(409);
+        res.render("user-views/register", cashedUser);
+        res.end();
+    } else {
+        data.registerNewUser(cashedUser)
+            .then(() => {
+                res.redirect("/login");
+            })
+            .catch(err => {
 
-            if (err.errors) {
-                Object.keys(err.errors).forEach((key) => {
-                    const error = err.errors[key];
-                    errors.push(error.message);
-                });
-            } else if (err.message) {
-                errors.push(err.message);
-            }
+                const messages = [];
 
-            res.status(409);
-            res.render("user-views/register", { messages: errors });
-            res.end();
-        });
+                if (err.errors) {
+                    Object.keys(err.errors).forEach((key) => {
+                        const error = err.errors[key];
+                        messages.push(error.message);
+                    });
+                } else if (err.message) {
+                    messages.push(err.message);
+                }
+
+                cashedUser.messages = messages;
+
+                res.status(409);
+                res.render("user-views/register", cashedUser);
+                res.end();
+            });
+    }
 }
 
 function loginUser(req, res, next) {

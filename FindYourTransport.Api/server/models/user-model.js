@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const mongooseSchema = require("mongoose").Schema;
+const encryption = require("../utils/encryption.js");
+const carSchema = require("./car-model");
 
 const personFirstNameErrorMessage = "First name should contain latin letters and begin with capital letter and be between 2 and 30 characters (e.g. John)";
 const personLastNameErrorMessage = "Last name should contain latin letters and begin with capital letter and be between 2 and 30 characters (e.g. Doe)";
@@ -10,23 +12,22 @@ const emailErrorMessage = "Email should contain latin letters both capital and s
 const personFirstNameMatcher = [/^([A-Z]{1}[a-z]{1,30})$/, personFirstNameErrorMessage];
 const personLastNameMatcher = [/^([A-Z]{1}[a-z]{1,30})$/, personLastNameErrorMessage];
 const usernameMatcher = [/^([A-Za-z0-9\-\._]{3,20})$/, usernameErrorMessage];
-const passwordMatcher = [/^([A-Za-z0-9!@#%&\$\^\*\.\-_]{3,20})$/, passwordErrorMessage];
 const emailMatcher = [/^([\w\d\-\._]+@[\w\d]+\.[\w]{2,3})$/, emailErrorMessage];
 
 const userSchema = mongooseSchema({
     username: { type: String, required: true, unique: true, match: usernameMatcher },
-    password: { type: String, required: true, match: passwordMatcher },
+    hashedPassword: { type: String, required: true },
+    salt: { type: String, required: true },
     firstName: { type: String, required: true, match: personFirstNameMatcher },
     lastName: { type: String, required: true, match: personLastNameMatcher },
     email: { type: String, unique: true, match: emailMatcher },
-    // todo: change car model later
-    car: { type: String }
+    car: { type: carSchema, default: {} }
 });
 
 userSchema.methods = {
-    isValidPassword(password) {
-        const isValid = password === this.password;
-        return isValid;
+    authenticate(password) {
+        const requestedHashedPassword = encryption.generateHashedPassword(this.salt, password);
+        return requestedHashedPassword === this.hashedPassword;
     }
 };
 const User = mongoose.model("user", userSchema);
