@@ -28,13 +28,16 @@ function registerNewUser(req, res) {
     if (cashedUser.password !== cashedUser.confirmPassword) {
         cashedUser.messages = ["Password does not match"];
 
+        console.log("Bad password");
         res.status(409);
         res.render("user-views/register", cashedUser);
         res.end();
     } else {
         data.registerNewUser(cashedUser)
             .then(() => {
+                console.log("redirecting to login page");
                 res.redirect("/login");
+                res.end();
             })
             .catch(err => {
 
@@ -51,6 +54,8 @@ function registerNewUser(req, res) {
 
                 cashedUser.messages = messages;
 
+                console.log("problem");
+                console.log(err);
                 res.status(409);
                 res.render("user-views/register", cashedUser);
                 res.end();
