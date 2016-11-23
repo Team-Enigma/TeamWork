@@ -4,36 +4,37 @@ block app-title
         | add ride
         
 block content
-        fieldset(class="move-new-ride")
-                legend Enter new ride:
+        include ../common/error-message
+        form(action="/add-ride" method="post" class="move-new-ride")
+                div Enter new ride:
                 div(class="form-group move-down")
-                        label(class="col-lg-2 control-label") From city:
+                        label(for="tb-from-city" class="col-lg-2 control-label") From city:
                         div(class="col-lg-10")
-                                input(type="text", class="input-sm")
+                                input(type="text" id="tb-from-city", class="input-sm")
                 div(class="form-group move-down")
-                        label(class="col-lg-2 control-label") To city:
+                        label(for="tb-to-city" class="col-lg-2 control-label") To city:
                         div(class="col-lg-10")
-                                input(type="text", class="input-sm")
+                                input(type="text" id="tb-to-city", class="input-sm")
                 div(class="form-group move-down")
-                        label(class="col-lg-2 control-label") On date:
+                        label(for="tb-date-of-travel" class="col-lg-2 control-label") On date:
                         div(class="col-lg-10")
-                                input(type="text", class="input-sm")
+                                input(type="text" id="tb-date-of-travel", class="input-sm")
                 div(class="form-group move-down")
-                        label(class="col-lg-2 control-label") Price:
+                        label(for="tb-price" class="col-lg-2 control-label") Price:
                         div(class="col-lg-10")
-                                input(type="text", class="input-sm")
+                                input(type="text" id="tb-price", class="input-sm")
                 div(class="form-group move-down")
-                        label(class="col-lg-2 control-label") Available seats:
+                        label(for="tb-free-seats" class="col-lg-2 control-label") Available seats:
                         div(class="col-lg-10")
-                                input(type="text", class="input-sm")
+                                input(type="text" id="tb-free-seats", class="input-sm")
                 div(class="form-group move-down")
-                        label(class="col-lg-2 control-label") Distance:
+                        label(for="tb-distance" class="col-lg-2 control-label") Distance:
                         div(class="col-lg-10")
-                                input(type="text", class="input-sm")
+                                input(type="text" id="tb-distance", class="input-sm")
                 div(class="form-group move-down")
-                        label(class="col-lg-2 control-label") More info:
+                        label(for="tb-more-info" class="col-lg-2 control-label") More info:
                         div(class="col-lg-10")
-                                input(type="text", class="input-sm")
+                                input(type="text" id="tb-more-info", class="input-sm")
                 div(class="form-group")
                         div(class="col-lg-10 col-lg-offset-2")
-                                a(href="#" class="btn btn-success") Add new ride
+                                input(type="submit" value="Add new ride")

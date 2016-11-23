@@ -28,7 +28,7 @@ const carSchema = mongooseSchema({
     seats: { type: Number, min: 2, max: 8 },
     fuel: { type: String, enum: fuelTypes },
     transmission: { type: String, enum: transmissionTypes },
-    registrationNumber: { type: String, required: true, unique: true }
+    registrationNumber: { type: String } // unique: true }
 });
 
 module.exports = carSchema;

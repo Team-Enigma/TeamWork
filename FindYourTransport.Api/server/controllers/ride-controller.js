@@ -1,3 +1,5 @@
+const data = require("../data")();
+
 function loadAllRides(req, res) {
     res.render("../views/ride-views/all-rides.pug");
 }
@@ -14,8 +16,11 @@ function loadNewRidePage(req, res) {
     res.render("../views/ride-views/add-new-ride.pug");
 }
 
-function addNewRide(params) {
-
+function addNewRide(req, res) {
+    data.addNewRide(req.body)
+        .then(() => {
+            res.render("../views/ride-views/add-new-ride.pug");
+        });
 }
 
 function calculatePrice(req, res) {
