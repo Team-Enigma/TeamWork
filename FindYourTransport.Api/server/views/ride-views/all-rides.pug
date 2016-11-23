@@ -13,4 +13,11 @@ block content
                         input(class="move-all-rides input-sm", type="text")
                         label(class="move-all-rides control-label") Date:                        
                         input(class="move-all-rides input-sm", type="text")
-                        a(href="#" class="btn btn-success move-all-rides") Search                      
+                        a(href="#" class="btn btn-success move-all-rides") Search    
+        div(id="all-rides")
+                ul
+                each ride in rides
+                        li From #{ride.fromCity} to #{ride.toCity} at #{ride.dateOfTravel}. There are #{ride.freePlaces} places left 
+                        - var freePlaces = ride.freePlaces
+                        if freePlaces > 0
+                                a(href=`/rides/${ride.id}`) Travel with him/her

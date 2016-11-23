@@ -47,6 +47,34 @@ function addNewRide(body) {
     });
 }
 
+function getAllRides() {
+    return Ride.find((err, rides) => {
+            if (err) {
+                return err;
+            }
+
+            return rides;
+        })
+        .then((rides) => {
+            return rides;
+        });
+}
+
+function getSpecificRide(id) {
+    return Ride.find({ _id: id }, (err, ride) => {
+            if (err) {
+                return err;
+            }
+
+            return ride;
+        })
+        .then((ride) => {
+            return ride[0];
+        });
+}
+
 module.exports = {
-    addNewRide
+    addNewRide,
+    getAllRides,
+    getSpecificRide
 }

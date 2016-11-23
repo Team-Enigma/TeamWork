@@ -1,7 +1,7 @@
 extends ../base
 
 block app-title
-        | ride: #{result.origin}
+        | Ride: #{ride.fromCity} to #{ride.toCity}
 
 block content
-        h1 Detail info for specific ride
+        h1 Detail info for #{ride.fromCity} to #{ride.toCity} at #{ride.dateOfTravel}

@@ -3,7 +3,7 @@ const controllers = require("../controllers");
 module.exports = function(app) {
     app.get("/rides", controllers.ride.loadAllRides);
 
-    app.get("/rides:id", controllers.ride.loadSpecificRide);
+    app.get("/rides/:id", controllers.ride.loadSpecificRide);
 
     app.get("/calculate-price", controllers.ride.calculatePrice);
 
