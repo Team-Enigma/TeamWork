@@ -1,7 +1,7 @@
 extends ../base
 
 block content
-    include ../error-message
+    include ../common/error-message
     form(action="/login" method="post")
         label(for="tb-username") Username
         input(type="text" id="tb-username" name="username")
@@ -12,3 +12,5 @@ block content
         br
 
         input(type="submit" value="Submit")
+
+        a(id="register-button", href="/register") Register
