@@ -22,7 +22,14 @@ function createNewRide(body) {
 
 function addNewRide(body) {
     return new Promise((resolve, reject) => {
-        Ride.findOne(Ride)
+        Ride.findOne({
+                fromCity: body.fromCity,
+                toCity: body.toCity,
+                distance: body.distance,
+                dateOfTravel: Date.parse(body.dateOfTravel),
+                freePlaces: body.freePlaces,
+                price: body.price
+            })
             .then(ride => {
                 if (ride) {
                     throw new Error("Ride already exists!");
