@@ -1,10 +1,16 @@
 doctype
 html
     head
-        title 
-              | Find Your Transport:
-              block app-title
+        title
+            | Find Your Transport:
+            block app-title
+        link(rel="stylesheet", href="/styles/common.css")
+        link(rel="stylesheet", href="/styles/bootstrap.css")
+        link(rel="stylesheet", href="/styles/bootstrap-flatlytheme-customized.css")
+        script(src="/scripts/jquery.min.js")
+        script(src="/scripts/bootstrap.min.js")
     body
-              block navigation
-        include ./common/navigation
-              block content
+        block navigation
+            include ./common/navigation
+        main
+            block content

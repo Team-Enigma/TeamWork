@@ -1,17 +1,36 @@
-nav
-    ul
-        li.nav-button
-            a(id="home-button", href="/home") Home
-        li.nav-button
-            a(id="rides-button", href="/rides") Rides
-        li.nav-button
-            a(id="users-button", href="/users") Users
-        if(currentUser)
-            li.nav-button
-                a(id="services-button", href="/services") Services
-            li.nav-button
-                a(id="profile-button", href="/profile") #{currentUser.username}
-            li.nav-button
-                a(id="logout-button", href="/logout") Logout
-        else
-            a(id="login-button", href="/Login") Login
+nav.navbar.navbar-inverse.navbar-fixed-top
+    .container
+        .navbar-header
+            a.navbar-brand(href="/home") Logo
+            button.navbar-toggle(type="button", data-toggle="collapse", data-target="#navbar-main")
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+        #navbar-main.navbar-collapse.collapse
+            ul.nav.navbar-nav
+                li
+                    a(href="/home") Home
+                li
+                    a(href="/rides") Rides
+                li
+                    a(href="/users") Users
+                if(currentUser)
+                    li.dropdown
+                        a#services.dropdown-toggle(data-toggle="dropdown", href="#")
+                            | Services
+                            span.caret
+                        ul.dropdown-menu(aria-labelledby="services")
+                            li
+                                a(href='#') Add Ride
+                            li
+                                a(href='#') Calculate Ride Price
+
+            ul.nav.navbar-nav.navbar-right
+                if(currentUser)
+                    li
+                        a(href='/profile') username
+                    li
+                        a(href='/logout') Logout
+                else
+                    li
+                        a(href='/login') Login
