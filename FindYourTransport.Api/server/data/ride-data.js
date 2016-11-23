@@ -6,7 +6,7 @@ function createNewRide(body) {
                 fromCity: body.fromCity,
                 toCity: body.toCity,
                 distance: body.distance,
-                dateOfTravel: new Date(body.dateOfTravel),
+                dateOfTravel: Date.parse(body.dateOfTravel),
                 freePlaces: body.freePlaces,
                 price: body.price,
                 remarks: body.remarks
