@@ -1,8 +1,9 @@
 const mongoose = require("mongoose")
 const mongooseSchema = require("mongoose").Schema
+const userSchema = require("./ride-model");
 
 const rideSchema = mongooseSchema({
-    // driver: { type: userSchema },
+    driver: { type: userSchema },
     fromCity: { type: String, required: true },
     toCity: { type: String, required: true },
     distance: { type: Number, required: true },

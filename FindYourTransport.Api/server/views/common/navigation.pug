@@ -28,7 +28,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top
             ul.nav.navbar-nav.navbar-right
                 if(currentUser)
                     li
-                        a(href='/profile') username
+                        a(href='/profile') #{currentUser.username}'s Profile
                     li
                         a(href='/logout') Logout
                 else

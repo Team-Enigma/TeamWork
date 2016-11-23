@@ -7,18 +7,18 @@ block content
     a(href="/login") Login
     a(href="/register") Register
     //temp added list to test the routes
-    li
-      ul
+    ul
+      li
          a(href="/rides") All rides 
-      ul 
+      li 
          a(href="/rides:id") Specific ride 
-      ul
+      li
          a(href="/calculate-price") Calculate price for a transport
-      ul
+      li
          a(href="/add-ride") Add new ride
-      ul
+      li
          a(href="/users") Users
-      ul
+      li
          a(href="/user:id") Specific user     
     -if(currentUser)
         h2  #{currentUser.username}

@@ -23,7 +23,7 @@ function loadNewRidePage(req, res) {
 }
 
 function addNewRide(req, res) {
-    data.addNewRide(req.body) // data.addNewRide(req.body, user) 
+    data.addNewRide(req.body, req.user)
         .then(() => {
             res.render("../views/ride-views/add-new-ride.pug");
         });

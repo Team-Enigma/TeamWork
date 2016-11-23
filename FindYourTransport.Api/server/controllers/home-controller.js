@@ -1,5 +1,5 @@
 function loadHomePage(req, res) {
-    res.render("home-views/home");
+    res.render("home-views/home", { currentUser: req.user });
 };
 
 function redirectToHomePage(req, res) {
