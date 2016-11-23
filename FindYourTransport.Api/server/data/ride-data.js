@@ -1,8 +1,9 @@
 const Ride = require("../models/ride-model");
 
-function createNewRide(body) {
+function createNewRide(body) { //function createNewRide(body, user)
     return new Promise((resolve, reject) => {
         Ride.create({
+                // driver: user,
                 fromCity: body.fromCity,
                 toCity: body.toCity,
                 distance: body.distance,
@@ -36,7 +37,7 @@ function addNewRide(body) {
                 }
             })
             .then(() => {
-                return createNewRide(body);
+                return createNewRide(body); // return createNewRide(body, user)
             })
             .then(() => {
                 return resolve();
