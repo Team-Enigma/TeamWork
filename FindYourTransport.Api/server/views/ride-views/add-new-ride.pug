@@ -4,4 +4,36 @@ block app-title
         | add ride
         
 block content
-        h1 Adds a new ride from...to...date...price...capacity...more info
+        fieldset 
+                legend Enter new ride:
+                div(class="form-group")
+                        label(class="col-lg-2 control-label") From city:
+                        div(class="col-lg-10")
+                                input(type="text", class="form-control")
+                div(class="form-group")
+                        label(class="col-lg-2 control-label") To city:
+                        div(class="col-lg-10")
+                                input(type="text", class="form-control")
+                div(class="form-group")
+                        label(class="col-lg-2 control-label") On date:
+                        div(class="col-lg-10")
+                                input(type="text", class="form-control")
+                div(class="form-group")
+                        label(class="col-lg-2 control-label") Price:
+                        div(class="col-lg-10")
+                                input(type="text", class="form-control")
+                div(class="form-group")
+                        label(class="col-lg-2 control-label") Available seats:
+                        div(class="col-lg-10")
+                                input(type="text", class="form-control")
+                div(class="form-group")
+                        label(class="col-lg-2 control-label") Distance:
+                        div(class="col-lg-10")
+                                input(type="text", class="form-control")
+                div(class="form-group")
+                        label(class="col-lg-2 control-label") More info:
+                        div(class="col-lg-10")
+                                input(type="text", class="form-control")
+                div(class="form-group")
+                        div(class="col-lg-10 col-lg-offset-6")
+                                a(href="#" class="btn btn-success") Add new ride

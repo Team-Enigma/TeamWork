@@ -2,8 +2,8 @@ const mongoose = require("mongoose")
 const mongooseSchema = require("mongoose").Schema
 
 const rideSchema = mongooseSchema({
-    origin: { type: String, required: true },
-    destination: { type: String, required: true },
+    fromCity: { type: String, required: true },
+    toCity: { type: String, required: true },
     distance: { type: Number, required: true },
     dateOfTravel: { type: Date, required: true },
     freePlaces: { type: Number, required: true, min: 1, max: 5 },
