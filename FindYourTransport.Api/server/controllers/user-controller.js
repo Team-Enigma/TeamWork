@@ -9,6 +9,19 @@ function loadLoginPage(req, res) {
     res.render("user-views/login");
 }
 
+function loadUsers(req, res) {
+    res.render("../views/user-views/all-users");
+}
+
+function loadUser(req, res) {
+    let id = +req.params.id;
+    //let user = req.users.find(u => u.id === id);
+
+    res.render("../views/user-views/user", {
+        //result: user
+    });
+}
+
 function registerNewUser(req, res) {
     const cashedUser = req.body;
 
@@ -74,6 +87,8 @@ function logoutUser(req, res) {
 module.exports = {
     loadRegisterPage,
     loadLoginPage,
+    loadUsers,
+    loadUser,
     registerNewUser,
     loginUser,
     logoutUser

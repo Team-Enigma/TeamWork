@@ -4,6 +4,20 @@ block content
     h1  Works
     a(href="/login") Login
     a(href="/register") Register
+    //temp added list to test the routes
+    li
+      ul
+         a(href="/rides") All rides 
+      ul 
+         a(href="/rides:id") Specific ride 
+      ul
+         a(href="/calculate-price") Calculate price for a transport
+      ul
+         a(href="/add-ride") Add new ride
+      ul
+         a(href="/users") Users
+      ul
+         a(href="/user:id") Specific user     
     -if(currentUser)
         h2  #{currentUser.username}
         a(href="/logout") Logout
