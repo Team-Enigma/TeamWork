@@ -5,3 +5,21 @@ main {
 .move {
     margin-left: 250px
 }
+
+.move-new-ride {
+    margin-left: 180px
+}
+
+.move-login-buttons {
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-right: 50px;
+}
+
+.move-all-rides {
+    margin-left: 20px;
+}
+
+.move-down {
+    padding-bottom: 30px;
+}

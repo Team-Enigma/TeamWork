@@ -4,4 +4,13 @@ block app-title
         | rides
 
 block content
-        h1 Showing all rides in the application
+        fieldset(class="move-new-ride")
+                legend Find your ride to home:
+                div
+                        label(class="move-all-rides control-label") From city:
+                        input(class="move-all-rides input-sm", type="text")
+                        label(class="move-all-rides control-label") to:
+                        input(class="move-all-rides input-sm", type="text")
+                        label(class="move-all-rides control-label") Date:                        
+                        input(class="move-all-rides input-sm", type="text")
+                        a(href="#" class="btn btn-success move-all-rides") Search                      
