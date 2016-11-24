@@ -44,8 +44,6 @@ function registerNewUser(body) {
     });
 }
 
-module.exports = function() {
-    return {
-        registerNewUser
-    }
-};
+module.exports = {
+    registerNewUser
+}
