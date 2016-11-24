@@ -5,7 +5,6 @@ block app-title
 
 block content
         include ../common/error-message
-
         .row
             .col-lg-5.col-lg-offset-1.col-md-5.col-md-offset-1.col-sm-10.col-sm-offset-1.col-xs-10.col-xs-offset-1
                 form.form-horizontal.register-container(action='/add-ride', method='post')
@@ -34,21 +33,18 @@ block content
                                     option 3
                                     option 4
                                     option 5
-                                    option 6
-                                    option 7
-                                    option 8
                         .form-group
                             label.col-lg-4.control-label(for='tb-price') Price
                             .col-lg-8
                                 input.form-control(type='text', id="tb-price", name="price", placeholder='Price', value=price)
                         .form-group
-                            label.col-lg-4.control-label(for='tb-distance') Distance
+                            label.col-lg-4.control-label(for='tb-contact-info') Contact information
                             .col-lg-8
-                                input.form-control(type='text', id="tb-distance", name="distance", placeholder='Distance', value=distance)
+                                textarea.form-control(rows="2", id="tb-contact-info", name="contact", placeholder="Contact information", value="contact")
                         .form-group
-                            label.col-lg-4.control-label(for='tb-more-info') More information
+                            label.col-lg-4.control-label(for='tb-more-info') Additional information
                             .col-lg-8
-                                textarea.form-control(rows="4", id="tb-more-info", name="remarks")
+                                textarea.form-control(rows="4", id="tb-more-info", name="remarks", placeholder="Additional information", value="remarks")
                         .form-group
                             .col-lg-8.col-lg-offset-4
                                 input.btn.btn-sm.btn-primary.btn-lg.btn-block(type='submit', value="Add ride")

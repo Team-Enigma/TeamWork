@@ -23,9 +23,33 @@ function loadNewRidePage(req, res) {
 }
 
 function addNewRide(req, res) {
+    const cashedRide = req.body;
+    console.log(cashedRide);
     data.addNewRide(req.body, req.user)
         .then(() => {
             res.render("../views/ride-views/add-new-ride.pug");
+        })
+        .catch(err => {
+            console.log("Here");
+            console.log(err);
+            const messages = [];
+
+            if (err.errors) {
+                Object.keys(err.errors).forEach((key) => {
+                    const error = err.errors[key];
+                    messages.push(error.message);
+                });
+            } else if (err.message) {
+                messages.push(err.message);
+            }
+
+            cashedRide.messages = messages;
+
+            console.log("problem");
+            console.log(err);
+            res.status(409);
+            res.render("../views/ride-views/add-new-ride.pug", cashedRide);
+            res.end();
         });
 }
 

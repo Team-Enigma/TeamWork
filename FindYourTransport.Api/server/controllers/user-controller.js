@@ -35,7 +35,6 @@ function registerNewUser(req, res) {
     } else {
         data.registerNewUser(cashedUser)
             .then(() => {
-                console.log("redirecting to login page");
                 res.redirect("/login");
                 res.end();
             })

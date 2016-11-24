@@ -6,10 +6,10 @@ function createNewRide(body, user) { //function createNewRide(body, user)
                 driver: user,
                 fromCity: body.fromCity,
                 toCity: body.toCity,
-                distance: body.distance,
                 dateOfTravel: Date.parse(body.dateOfTravel),
                 freePlaces: body.freePlaces,
                 price: body.price,
+                contact: body.contact,
                 remarks: body.remarks
             })
             .then(() => {
@@ -26,7 +26,6 @@ function addNewRide(body, user) {
         Ride.findOne({
                 fromCity: body.fromCity,
                 toCity: body.toCity,
-                distance: body.distance,
                 dateOfTravel: Date.parse(body.dateOfTravel),
                 freePlaces: body.freePlaces,
                 price: body.price
