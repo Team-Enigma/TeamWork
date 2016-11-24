@@ -21,6 +21,8 @@ function loadUser(req, res) {
 
     let user = data.getSpecificUser(id)
         .then((user) => {
+            console.log("USERAAAAA");
+            console.log(user);
             res.render("../views/user-views/user", { user: user });
         });
 }
