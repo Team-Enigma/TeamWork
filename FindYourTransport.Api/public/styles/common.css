@@ -51,3 +51,9 @@ textarea {
 .move-down {
     padding-bottom: 30px;
 }
+
+.user-image-size {
+    height: 200px;
+    width: 200px;
+    border: 2px solid black
+}

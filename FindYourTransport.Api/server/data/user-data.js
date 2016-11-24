@@ -8,19 +8,19 @@ function createNewUser(body) {
         const hashedPassword = encryption.generateHashedPassword(salt, body.password);
 
         User.create({
-            username: body.username,
-            hashedPassword,
-            salt,
-            firstName: body.firstName,
-            lastName: body.lastName,
-            email: body.email
-        })
-       .then(() => {
-           return resolve();
-       })
-       .catch(err => {
-           return reject(err);
-       });
+                username: body.username,
+                hashedPassword,
+                salt,
+                firstName: body.firstName,
+                lastName: body.lastName,
+                email: body.email
+            })
+            .then(() => {
+                return resolve();
+            })
+            .catch(err => {
+                return reject(err);
+            });
     });
 }
 
@@ -44,6 +44,30 @@ function registerNewUser(body) {
     });
 }
 
+function getAllUsers() {
+    return User.find((err, users) => {
+            if (err) {
+                return err;
+            }
+            return users;
+        })
+        .then((users) => {
+            return users;
+        });
+}
+
+function getSpecificUser(id) {
+    return User.findOne({ _id: id }, (err, user) => {
+        if (err) {
+            return err;
+        }
+
+        return user;
+    });
+}
+
 module.exports = {
-    registerNewUser
+    registerNewUser,
+    getAllUsers,
+    getSpecificUser
 }
