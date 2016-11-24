@@ -1,1 +1,0 @@
-Pug files are here for the views

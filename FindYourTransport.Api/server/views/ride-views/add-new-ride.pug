@@ -2,39 +2,57 @@ extends ../base
 
 block app-title
         | add ride
-        
+
 block content
         include ../common/error-message
-        form(action="/add-ride" method="post" class="move-new-ride")
-                div(class="move-down") Enter new ride:
-                div(class="form-group move-down")
-                        label(for="tb-from-city" class="col-lg-2 control-label") From city:
-                        div(class="col-lg-10")
-                                input(type="text" name="fromCity" id="tb-from-city", class="input-sm")
-                div(class="form-group move-down")
-                        label(for="tb-to-city" class="col-lg-2 control-label") To city:
-                        div(class="col-lg-10")
-                                input(type="text" name="toCity" id="tb-to-city", class="input-sm")
-                div(class="form-group move-down")
-                        label(for="tb-date-of-travel" class="col-lg-2 control-label") On date:
-                        div(class="col-lg-10")
-                                input(type="text" name="dateOfTravel" id="tb-date-of-travel", class="input-sm")
-                div(class="form-group move-down")
-                        label(for="tb-price" class="col-lg-2 control-label") Price:
-                        div(class="col-lg-10")
-                                input(type="text" name="price" id="tb-price", class="input-sm")
-                div(class="form-group move-down")
-                        label(for="tb-free-seats" class="col-lg-2 control-label") Available seats:
-                        div(class="col-lg-10")
-                                input(type="text" name="freePlaces" id="tb-free-seats", class="input-sm")
-                div(class="form-group move-down")
-                        label(for="tb-distance" class="col-lg-2 control-label") Distance:
-                        div(class="col-lg-10")
-                                input(type="text" name="distance" id="tb-distance", class="input-sm")
-                div(class="form-group move-down")
-                        label(for="tb-more-info" class="col-lg-2 control-label") More info:
-                        div(class="col-lg-10")
-                                input(type="text" name="remarks" id="tb-more-info", class="input-sm")
-                div(class="form-group")
-                        div(class="col-lg-10 col-lg-offset-2")
-                                input(type="submit" value="Add new ride" class="btn btn-success col-lg-2")
+
+        .row
+            .col-lg-5.col-lg-offset-1.col-md-5.col-md-offset-1.col-sm-10.col-sm-offset-1.col-xs-10.col-xs-offset-1
+                form.form-horizontal.register-container(action='/add-ride', method='post')
+                    fieldset
+                        .form-group
+                            label.col-lg-4.control-label(for='tb-from-city') From City
+                            .col-lg-8
+                                input.form-control(type="text", id="tb-from-city", name="fromCity", placeholder="City name", value=fromCity)
+                        .form-group
+                            label.col-lg-4.control-label(for="tb-to-city") To City
+                            .col-lg-8
+                                input.form-control(type="text", id="tb-to-city", name="toCity", placeholder='City name', value=toCity)
+                        .form-group
+                            label.col-lg-4.control-label(for='tb-date-of-travel') Date
+                            .col-lg-8
+                                #datetimepicker1.input-group.date
+                                    input.form-control(type='text' id="tb-date-of-travel" name="dateOfTravel", placeholder="Date")
+                                    span.input-group-addon
+                                        span.glyphicon.glyphicon-calendar
+                        .form-group
+                            label.col-lg-4.control-label(for='tb-free-seats') Seats
+                            .col-lg-8
+                                select.form-control(id="tb-free-seats" name="freePlaces")
+                                    option 1
+                                    option 2
+                                    option 3
+                                    option 4
+                                    option 5
+                                    option 6
+                                    option 7
+                                    option 8
+                        .form-group
+                            label.col-lg-4.control-label(for='tb-price') Price
+                            .col-lg-8
+                                input.form-control(type='text', id="tb-price", name="price", placeholder='Price', value=price)
+                        .form-group
+                            label.col-lg-4.control-label(for='tb-distance') Distance
+                            .col-lg-8
+                                input.form-control(type='text', id="tb-distance", name="distance", placeholder='Distance', value=distance)
+                        .form-group
+                            label.col-lg-4.control-label(for='tb-more-info') More information
+                            .col-lg-8
+                                textarea.form-control(rows="4", id="tb-more-info", name="remarks")
+                        .form-group
+                            .col-lg-8.col-lg-offset-4
+                                input.btn.btn-sm.btn-primary.btn-lg.btn-block(type='submit', value="Add ride")
+        script(type='text/javascript').
+            $(function () {
+            $('#datetimepicker1').datetimepicker();
+            });

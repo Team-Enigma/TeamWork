@@ -22,6 +22,10 @@ main {
     background-color: #FFFFFF;
 }
 
+textarea {
+    resize: none;
+}
+
 .move {
     margin-left: 180px
 }

@@ -4,27 +4,27 @@ block app-title
         | rides
 
 block content
-        fieldset(class="move-new-ride")
+        fieldset
                 legend Find your ride to home:
-                div
-                        div(class="form-group move-down")
+                div.row
+                        div.col-lg-3.form-group
                                 label(class="col-lg-2 control-label") From city:
                                 div(class="col-lg-10")
                                         input(class="input-sm", type="text")
-                        div(class="form-group move-down")
+                        div.col-lg-3.form-group
                                 label(class="col-lg-2 control-label") To city:
                                 div(class="col-lg-10")
                                         input(class="input-sm", type="text")
-                        div(class="form-group move-down")
+                        div.col-lg-3.form-group
                                 label(class="col-lg-2 control-label") Date on:
-                                div(class="col-lg-8")                        
+                                div(class="col-lg-8")
                                         input(class="input-sm", type="text")
-                        div(class="form-group move-down")
-                                a(href="#" class="btn btn-success move-search-button col-lg-2") Search    
+                        div.col-lg-3.form-group
+                                a(href="#" class="btn btn-success") Search
         div(id="all-rides")
                 ul
                 each ride in rides
-                        li From #{ride.fromCity} to #{ride.toCity} at #{ride.dateOfTravel}. There are #{ride.freePlaces} places left 
+                        li From #{ride.fromCity} to #{ride.toCity} at #{ride.dateOfTravel}. There are #{ride.freePlaces} places left
                         - var freePlaces = ride.freePlaces
                         if freePlaces > 0
                                 a(href=`/rides/${ride.id}`) Travel with him/her
