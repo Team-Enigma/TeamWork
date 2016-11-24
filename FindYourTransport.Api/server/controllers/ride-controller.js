@@ -9,7 +9,8 @@ function loadAllRides(req, res) {
 }
 
 function loadSpecificRide(req, res) {
-    let id = req.params["id"];
+    let id = req.params["id"],
+        driver;
 
     var ride = data.getSpecificRide(id)
         .then((ride) => {

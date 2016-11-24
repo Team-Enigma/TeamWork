@@ -10,5 +10,5 @@ module.exports = function(app) {
     app.get("/logout", controllers.user.logoutUser);
 
     app.get("/users", controllers.user.loadUsers);
-    app.get("/user:id", controllers.user.loadUser);
+    app.get("/user/:id", controllers.user.loadUser);
 };

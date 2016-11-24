@@ -10,16 +10,21 @@ function loadLoginPage(req, res) {
 }
 
 function loadUsers(req, res) {
-    res.render("../views/user-views/all-users");
+    let users = data.getAllUsers()
+        .then((users) => {
+            res.render("../views/user-views/all-users", { users: users });
+        });
 }
 
 function loadUser(req, res) {
-    let id = +req.params.id;
-    //let user = req.users.find(u => u.id === id);
+    let id = req.params["id"];
 
-    res.render("../views/user-views/user", {
-        //result: user
-    });
+    let user = data.getSpecificUser(id)
+        .then((user) => {
+            console.log("USERAAAAA");
+            console.log(user);
+            res.render("../views/user-views/user", { user: user });
+        });
 }
 
 function registerNewUser(req, res) {
