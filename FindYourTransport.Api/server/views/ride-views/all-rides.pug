@@ -7,13 +7,20 @@ block content
         fieldset(class="move-new-ride")
                 legend Find your ride to home:
                 div
-                        label(class="move-all-rides control-label") From city:
-                        input(class="move-all-rides input-sm", type="text")
-                        label(class="move-all-rides control-label") to:
-                        input(class="move-all-rides input-sm", type="text")
-                        label(class="move-all-rides control-label") Date:                        
-                        input(class="move-all-rides input-sm", type="text")
-                        a(href="#" class="btn btn-success move-all-rides") Search    
+                        div(class="form-group move-down")
+                                label(class="col-lg-2 control-label") From city:
+                                div(class="col-lg-10")
+                                        input(class="input-sm", type="text")
+                        div(class="form-group move-down")
+                                label(class="col-lg-2 control-label") To city:
+                                div(class="col-lg-10")
+                                        input(class="input-sm", type="text")
+                        div(class="form-group move-down")
+                                label(class="col-lg-2 control-label") Date on:
+                                div(class="col-lg-8")                        
+                                        input(class="input-sm", type="text")
+                        div(class="form-group move-down")
+                                a(href="#" class="btn btn-success move-search-button col-lg-2") Search    
         div(id="all-rides")
                 ul
                 each ride in rides

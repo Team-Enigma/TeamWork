@@ -6,7 +6,7 @@ block app-title
 block content
         include ../common/error-message
         form(action="/add-ride" method="post" class="move-new-ride")
-                div Enter new ride:
+                div(class="move-down") Enter new ride:
                 div(class="form-group move-down")
                         label(for="tb-from-city" class="col-lg-2 control-label") From city:
                         div(class="col-lg-10")
@@ -37,4 +37,4 @@ block content
                                 input(type="text" name="remarks" id="tb-more-info", class="input-sm")
                 div(class="form-group")
                         div(class="col-lg-10 col-lg-offset-2")
-                                input(type="submit" value="Add new ride")
+                                input(type="submit" value="Add new ride" class="btn btn-success col-lg-2")

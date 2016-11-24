@@ -23,7 +23,7 @@ main {
 }
 
 .move {
-    margin-left: 250px
+    margin-left: 180px
 }
 
 .move-new-ride {
@@ -38,6 +38,10 @@ main {
 
 .move-all-rides {
     margin-left: 20px;
+}
+
+.move-search-button {
+    margin-left: 60px;
 }
 
 .move-down {
