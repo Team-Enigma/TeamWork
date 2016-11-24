@@ -48,7 +48,20 @@ function addNewRide(body, user) {
 }
 
 function getAllRides() {
-    return Ride.find((err, rides) => {
+    return Ride.find().where("dateOfTravel").gt(Date.now()).sort("dateOfTravel").exec((err, rides) => {
+            if (err) {
+                return err;
+            }
+
+            return rides;
+        })
+        .then((rides) => {
+            return rides;
+        });
+}
+
+function getRidesForUser(user) {
+    return Ride.find().where("driver").eq(user.username).exec((err, rides) => {
             if (err) {
                 return err;
             }
@@ -76,5 +89,6 @@ function getSpecificRide(id) {
 module.exports = {
     addNewRide,
     getAllRides,
-    getSpecificRide
+    getSpecificRide,
+    getRidesForUser
 }

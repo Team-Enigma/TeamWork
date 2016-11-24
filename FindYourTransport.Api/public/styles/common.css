@@ -61,3 +61,21 @@ textarea {
 .width {
     width: 450px;
 }
+
+.ride-info {
+    background-color: rgba(235, 235, 235, 0.6);
+    display: block;
+    width: 19%;
+    margin: 5px;
+    float: left;
+}
+
+.ride-info>a {
+    display: block;
+    width: inherit;
+}
+
+#all-rides {
+    width: 100%;
+    display: inline-block;
+}
