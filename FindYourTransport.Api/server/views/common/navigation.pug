@@ -25,8 +25,10 @@ nav.navbar.navbar-inverse.navbar-fixed-top
                             li
                                 a(href="/calculate-price") Calculate Ride Price
 
-            ul.nav.navbar-nav.navbar-right
-                if(currentUser)
+            ul.nav.navbar-nav.navbar-right   
+                li
+                    a(href='/contact') Contact us            
+                if(currentUser)                    
                     li
                         a(href='/profile') #{currentUser.username}'s Profile
                     li
