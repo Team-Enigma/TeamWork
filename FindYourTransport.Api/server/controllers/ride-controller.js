@@ -2,7 +2,7 @@ const data = require("../data")();
 const pug = require("pug");
 
 function loadAllRides(req, res) {
-    var rides = data.getAllRides()
+    var rides = data.getAllRides(req.query)
         .then((rides) => {
             res.render("ride-views/all-rides.pug", { rides: rides });
         });
@@ -60,8 +60,19 @@ function calculatePrice(req, res) {
     res.render("../views/ride-views/calculate-price.pug");
 }
 
+function loadFilteredRides(req, res) {
+    data.getFilteredRides(req.query)
+        .then((rides) => {
+            res.render("ride-views/all-rides.pug", { rides: rides });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
 module.exports = {
     loadAllRides,
+    loadFilteredRides,
     loadSpecificRide,
     loadNewRidePage,
     addNewRide,

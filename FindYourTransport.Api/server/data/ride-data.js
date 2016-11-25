@@ -1,6 +1,6 @@
 const Ride = require("../models/ride-model");
 
-function createNewRide(body, user) { //function createNewRide(body, user)
+function createNewRide(body, user) {
     return new Promise((resolve, reject) => {
         Ride.create({
                 driver: user,
@@ -36,7 +36,7 @@ function addNewRide(body, user) {
                 }
             })
             .then(() => {
-                return createNewRide(body, user); // return createNewRide(body, user)
+                return createNewRide(body, user);
             })
             .then(() => {
                 return resolve();
@@ -73,6 +73,39 @@ function getRidesForUser(user) {
         });
 }
 
+function getFilteredRides(filter) {
+    var rides = Ride.find();
+
+    if (filter.fromCity !== undefined && filter.fromCity !== '') {
+        rides.where("fromCity").eq(filter.fromCity);
+    }
+
+    if (filter.toCity !== undefined && filter.toCity !== '') {
+        rides.where("toCity").eq(filter.toCity);
+    }
+
+    console.log(filter);
+    if (filter.startDate !== undefined && filter.startDate !== '') {
+        rides.where("dateOfTravel").gte(new Date(filter.startDate));
+    }
+
+    if (filter.endDate !== undefined && filter.startDate !== '') {
+        rides.where("dateOfTravel").lte(filter.endDate);
+    }
+
+    return rides.exec((err, rides) => {
+            if (err) {
+                return err;
+            }
+            return rides;
+        })
+        .then((rides) => {
+            console.log("Data rides");
+            console.log(rides);
+            return rides;
+        });
+}
+
 function getSpecificRide(id) {
     return Ride.find({ _id: id }, (err, ride) => {
             if (err) {
@@ -90,5 +123,6 @@ module.exports = {
     addNewRide,
     getAllRides,
     getSpecificRide,
-    getRidesForUser
+    getRidesForUser,
+    getFilteredRides
 }

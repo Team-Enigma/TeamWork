@@ -7,20 +7,37 @@ block content
         fieldset
                 legend Find your ride to home:
                 div.row
-                        div.col-lg-3.form-group
-                                label(class="col-lg-2 control-label") From city:
-                                div(class="col-lg-10")
-                                        input(class="input-sm", type="text")
-                        div.col-lg-3.form-group
-                                label(class="col-lg-2 control-label") To city:
-                                div(class="col-lg-10")
-                                        input(class="input-sm", type="text")
-                        div.col-lg-3.form-group
-                                label(class="col-lg-2 control-label") Date on:
-                                div(class="col-lg-8")
-                                        input(class="input-sm", type="text")
-                        div.col-lg-3.form-group
-                                a(href="#" class="btn btn-success") Search
+                        form.form-horizontal(action="/rides/filtered?", method="get")
+                                fieldset
+                                        div.col-lg-3.form-group
+                                                label(for="tb-from-city", class="col-lg-2 control-label") From city:
+                                                div(class="col-lg-8")
+                                                        input(id="tb-from-city", class="input-sm", type="text", name="fromCity")
+                                        div.col-lg-3.form-group
+                                                label(for="tb-to-city", class="col-lg-2 control-label") To city:
+                                                div(class="col-lg-8")
+                                                        input(id="tb-from-city", class="input-sm", type="text", name="toCity")
+                                        div.col-lg-3.form-group
+                                                label(for="tb-start-date", class="col-lg-2 control-label") From date:
+                                                div(class="col-lg-8")
+                                                        #startdatepicker.input-group.date
+                                                                input(id="tb-start-date", class="input-sm", type="text", name="startDate")
+                                                                span.input-group-addon
+                                                                        span.glyphicon.glyphicon-calendar
+                                        div.col-lg-3.form-group
+                                                label(for="tb-end-date", class="col-lg-2 control-label") To date:
+                                                div(class="col-lg-8")
+                                                        #enddatepicker.input-group.date
+                                                                input(id="tb-end-date", class="input-sm", type="text", name="endDate")
+                                                                span.input-group-addon
+                                                                        span.glyphicon.glyphicon-calendar
+                                        div.text-center
+                                                input.btn.btn-success(type="submit", value="Search")
+                script(type='text/javascript').
+                        $(function () {
+                        $('#startdatepicker').datetimepicker();
+                        $('#enddatepicker').datetimepicker();
+                        });
         div(id="all-rides")
                 ul
                 each ride in rides
@@ -35,3 +52,5 @@ block content
                                         - var freePlaces = ride.freePlaces
                                         if freePlaces > 0
                                                 a(href=`/rides/${ride.id}` class="btn btn-success") Travel with him/her
+
+                
