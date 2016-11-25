@@ -1,16 +1,55 @@
 const constants = require("./constants");
 
+function validateRequired(field, requiredMessage, messages) {
+    if (!field) {
+        messages.push(requiredMessage);
+    }
+}
+
+function validateMatcher(field, matcher, matchingMessage, messages) {
+    if (field) {
+        if (!field.match(matcher)) {
+            messages.push(matchingMessage);
+        }
+    }
+}
+
+function validateEquality(firstField, secondField, matchingMessage, messages) {
+    if (firstField && secondField) {
+        if (firstField !== secondField) {
+            messages.push(matchingMessage);
+        }
+    }
+}
+
+function validateDate(field, matchedMessage, messages) {
+    if (field) {
+        const date = new Date(field);
+        if (date.getTime() < Date.now()) {
+            messages.push(matchedMessage);
+        }
+    }
+}
+
+function validateNumberRange(field, lowerBoundary, higherBoundary, matchMessage, messages) {
+    if (field) {
+        if (field < lowerBoundary && field > higherBoundary) {
+            messages.push(matchMessage);
+        }
+    }
+}
+
 function validateUserLogin(req, res, next) {
     const cashedUser = req.body;
     const messages = [];
 
-    if (!cashedUser.username) {
-        messages.push(constants.user.messages.requiredUsername);
-    }
+    validateRequired(cashedUser.username,
+        constants.user.messages.requiredUsername,
+        messages);
 
-    if (!cashedUser.password) {
-        messages.push(constants.user.messages.requiredPassword);
-    }
+    validateRequired(cashedUser.password,
+        constants.user.messages.requiredPassword,
+        messages)
 
     if (messages.length > 0) {
         cashedUser.messages = messages;
@@ -69,21 +108,16 @@ function validateUserRegistration(req, res, next) {
         return registrationFormFields[key];
     });
 
-    if (cashedUser.confirmPassword && cashedUser.password) {
-        if (cashedUser.password !== cashedUser.confirmPassword) {
-            messages.push(constants.user.messages.confirmPassword);
-        }
-    }
-
     fields.forEach(f => {
-        if (f.field) {
-            if (!f.field.match(f.matcher)) {
-                messages.push(f.matchMessage);
-            }
-        } else {
-            messages.push(f.requiredMessage);
-        }
+        validateRequired(f.field, f.requiredMessage, messages);
+        validateMatcher(f.field, f.matcher, f.matchingMessage, messages);
     });
+
+    validateEquality(
+        cashedUser.password,
+        cashedUser.confirmPassword,
+        constants.user.messages.confirmPassword,
+        messages);
 
     if (messages.length > 0) {
         cashedUser.messages = messages;
@@ -102,10 +136,14 @@ function validateRideCreation(req, res, next) {
     const rideFormFields = {
         fromCity: {
             field: cashedRide.fromCity,
+            matcher: constants.ride.matchers.city,
+            matchMessage: constants.ride.messages.city,
             requiredMessage: constants.ride.messages.requiredStartCity
         },
         toCity: {
             field: cashedRide.toCity,
+            matcher: constants.ride.matchers.city,
+            matchMessage: constants.ride.messages.city,
             requiredMessage: constants.ride.messages.requiredStartCity
         },
         dateOfTravel: {
@@ -114,6 +152,8 @@ function validateRideCreation(req, res, next) {
         },
         price: {
             field: cashedRide.price,
+            matcher: constants.ride.matchers.price,
+            matchMessage: constants.ride.messages.priceNumber,
             requiredMessage: constants.ride.messages.requiredPrice
         },
         contact: {
@@ -127,39 +167,17 @@ function validateRideCreation(req, res, next) {
     });
 
     fields.forEach(f => {
-        if (!f.field) {
-            messages.push(f.requiredMessage);
+        validateRequired(f.field, f.requiredMessage, messages);
+        if(f.matcher) {
+            validateMatcher(f.field, f.matcher, f.matchMessage, messages);
         }
     });
 
-    if (cashedRide.fromCity) {
-        if (cashedRide.fromCity.match(constants.ride.matchers.city)) {
-            messages.push(constants.ride.messages.city);
-        }
-    }
+    validateDate(cashedRide.dateOfTravel,
+        constants.ride.messages.date,
+        messages);
 
-    if (cashedRide.toCity) {
-        if (cashedRide.toCity.match(constants.ride.matchers.city)) {
-            messages.push(constants.ride.messages.city);
-        }
-    }
-
-    if (cashedRide.dateOfTravel) {
-        const date = new Date(cashedRide.dateOfTravel);
-        if (date.getTime() < Date.now()) {
-            messages.push(constants.ride.messages.date);
-        }
-    }
-
-    if (cashedRide.price) {
-        if (!cashedRide.price.match(constants.ride.matchers.price)) {
-            messages.push(constants.ride.messages.priceNumber);
-        }
-
-        if (cashedRide.price < 0 && cashedRide > 1000) {
-            messages.push(constants.ride.messages.price);
-        }
-    }
+    validateNumberRange(cashedRide.price, 0, 1000, constants.ride.messages.price, messages);
 
     if (messages.length > 0) {
         cashedRide.messages = messages;
