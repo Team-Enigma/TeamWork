@@ -12,6 +12,7 @@ const personFirstNameMatcher = [/^([A-Z]{1}[a-z]{1,30})$/, personFirstNameErrorM
 const personLastNameMatcher = [/^([A-Z]{1}[a-z]{1,30})$/, personLastNameErrorMessage];
 const usernameMatcher = [/^([A-Za-z0-9\-\._]{3,20})$/, usernameErrorMessage];
 const emailMatcher = [/^([\w\d\-\._]+@[\w\d]+\.[\w]{2,3})$/, emailErrorMessage];
+const roleTypes = ["User", "Admin"];
 
 const userSchema = mongooseSchema({
     username: {
@@ -38,7 +39,8 @@ const userSchema = mongooseSchema({
         required: [true, "Email is required"],
         match: emailMatcher
     },
-    car: { type: carSchema, default: {} }
+    car: { type: carSchema, default: {} },
+    role: { type: String, enum: roleTypes, default: "User" }
 });
 
 userSchema.methods = {
