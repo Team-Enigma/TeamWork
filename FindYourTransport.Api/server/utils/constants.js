@@ -33,9 +33,13 @@ const ride = {
         requiredContact: "Contact information is required",
         city: "City name should contain only latin letters and be between 2 and 30 characters (e.g. Sofia)",
         date: "Date cannot be set before current date and time",
-        price: "Price should be between 0 and 1000"
+        price: "Price should be between 0 and 1000",
+        priceNumber: "Price should be a valid number"
     },
-    matchers: { city: /^([\w+\s*]{2,30})$/ }
+    matchers: {
+        city: /^([\w+\s*]{2,30})$/,
+        price: /^([0-9]+)$/
+    }
 };
 
 const car = {

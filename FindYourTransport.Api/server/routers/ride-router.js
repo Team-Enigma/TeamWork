@@ -8,5 +8,5 @@ module.exports = function(app, authenticator, validator) {
     app.get("/calculate-price", authenticator.authenticateLoggedUser, controllers.ride.calculatePrice);
 
     app.get("/add-ride", authenticator.authenticateLoggedUser, controllers.ride.loadNewRidePage);
-    app.post("/add-ride", controllers.ride.addNewRide);
+    app.post("/add-ride", validator.validateRideCreation, controllers.ride.addNewRide);
 };
