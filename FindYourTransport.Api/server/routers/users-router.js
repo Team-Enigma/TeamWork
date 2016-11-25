@@ -10,5 +10,6 @@ module.exports = function(app, authenticator, validator) {
     app.get("/logout", controllers.user.logoutUser);
 
     app.get("/users", controllers.user.loadUsers);
+    app.get("/users/filtered", controllers.user.loadFilteredUsers);
     app.get("/user/:id", controllers.user.loadUser);
 };

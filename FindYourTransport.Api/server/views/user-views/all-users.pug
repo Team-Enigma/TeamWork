@@ -7,13 +7,14 @@ block content
         fieldset
                 legend Search for specific user:
                 div.row
-                        div.col-lg-1.form-group
-                                label(class="col-lg-2 control-label") Username:
-                        div.col-lg-2.form-group
-                                div(class="col-lg-10")
-                                        input(class="input-sm", type="text")
-                        div.col-lg-1.form-group
-                                a(href="#" class="btn btn-success") Search
+                        form.form-horizontal(action="/users/filtered?", method="get")
+                                div.col-lg-1.form-group
+                                        label(class="col-lg-2 control-label") Username:
+                                div.col-lg-2.form-group
+                                        div(class="col-lg-10")
+                                                input(class="input-sm", type="text", name="username")
+                                div.col-lg-1.form-group
+                                        input.btn.btn-success(type="submit", value="Search")
         fieldset
                 legend.row.col-lg-4.col-lg-offset-4.col-md-6.col-md-offset-3.col-sm-offset-2.col-sm-8.col-xs-10.col-xs-offset-1 All registered users:
                                 each user in users

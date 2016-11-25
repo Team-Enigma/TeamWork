@@ -80,11 +80,22 @@ function logoutUser(req, res) {
     res.redirect("/");
 }
 
+function loadFilteredUsers(req, res) {
+    data.getFilteredUsers(req.query)
+        .then((users) => {
+            res.render("../views/user-views/all-users.pug", { users: users });
+        })
+        .catch((error) => {
+            return error;
+        });
+}
+
 module.exports = {
     loadRegisterPage,
     loadLoginPage,
     loadUsers,
     loadUser,
+    loadFilteredUsers,
     registerNewUser,
     loginUser,
     logoutUser

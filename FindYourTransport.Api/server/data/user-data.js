@@ -26,11 +26,13 @@ function createNewUser(body) {
 
 function registerNewUser(body) {
     return new Promise((resolve, reject) => {
-        User.findOne({ $or: [
-            { username: body.username },
-            { email: body.email }
-        ]})
-        .then(user => {
+        User.findOne({
+                $or: [
+                    { username: body.username },
+                    { email: body.email }
+                ]
+            })
+            .then(user => {
                 if (user) {
                     throw new Error("A user with this username or email already exists");
                 }
@@ -69,8 +71,27 @@ function getSpecificUser(id) {
     });
 }
 
+function getFilteredUsers(filter) {
+    let users = User.find();
+
+    if (filter.username !== undefined && filter.username !== "") {
+        users.where("username").eq(filter.username);
+    }
+
+    return users.exec((err, users) => {
+            if (err) {
+                return err;
+            }
+            return users
+        })
+        .then((users) => {
+            return users;
+        });
+}
+
 module.exports = {
     registerNewUser,
     getAllUsers,
-    getSpecificUser
+    getSpecificUser,
+    getFilteredUsers
 }
