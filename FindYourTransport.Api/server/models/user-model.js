@@ -1,46 +1,40 @@
 const mongoose = require("mongoose");
 const mongooseSchema = require("mongoose").Schema;
-const encryption = require("../utils/encryption.js");
+const encryption = require("../utils/encryption");
 const carSchema = require("./car-model");
-
-const personFirstNameErrorMessage = "First name should contain latin letters and begin with capital letter and be between 2 and 30 characters (e.g. John)";
-const personLastNameErrorMessage = "Last name should contain latin letters and begin with capital letter and be between 2 and 30 characters (e.g. Doe)";
-const usernameErrorMessage = "Username should contain latin letters both capital and small as well as digits and -._ symbols and be between 3 and 20 characters (e.g. john.42)";
-const emailErrorMessage = "Email should contain latin letters both capital and small as well as digits and -._ symbols (e.g. john.42@mail.com)";
-
-const personFirstNameMatcher = [/^([A-Z]{1}[a-z]{1,30})$/, personFirstNameErrorMessage];
-const personLastNameMatcher = [/^([A-Z]{1}[a-z]{1,30})$/, personLastNameErrorMessage];
-const usernameMatcher = [/^([A-Za-z0-9\-\._]{3,20})$/, usernameErrorMessage];
-const emailMatcher = [/^([\w\d\-\._]+@[\w\d]+\.[\w]{2,3})$/, emailErrorMessage];
-const roleTypes = ["User", "Admin"];
+const constants = require("../utils/constants");
 
 const userSchema = mongooseSchema({
     username: {
         type: String,
-        required: [true, "Username is required"],
-        unique: true,
-        match: usernameMatcher
+        required: [true, constants.user.messages.requiredUsername],
+        unique: [true, constants.user.messages.uniqueUsername],
+        match: [constants.user.matchers.username, constants.user.messages.username]
     },
     hashedPassword: { type: String, required: true },
     salt: { type: String, required: true },
     firstName: {
         type: String,
-        required: [true, "First name is required"],
-        match: personFirstNameMatcher
+        required: [true, constants.user.messages.requiredFirstName],
+        match: [constants.user.matchers.personName, constants.user.messages.personFirstName]
     },
     lastName: {
         type: String,
-        required: [true, "Last name is required"],
-        match: personLastNameMatcher
+        required: [true, constants.user.messages.requiredLastName],
+        match: [constants.user.matchers.personName, constants.user.messages.personLastName]
     },
     email: {
         type: String,
-        unique: [true, "A user with this email already exists"],
-        required: [true, "Email is required"],
-        match: emailMatcher
+        unique: [true, constants.user.messages.uniqueEmail],
+        required: [true, constants.user.messages.requiredEmail],
+        match: [constants.user.matchers.email, constants.user.messages.email]
     },
     car: { type: carSchema, default: {} },
-    role: { type: String, enum: roleTypes, default: "User" }
+    role: {
+        type: String,
+        enum: constants.user.enums.roleTypes,
+        default: "User"
+    }
 });
 
 userSchema.methods = {

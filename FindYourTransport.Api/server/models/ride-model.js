@@ -1,41 +1,39 @@
 const mongoose = require("mongoose");
 const mongooseSchema = require("mongoose").Schema;
 const userSchema = require("./ride-model");
-
-const cityErrorMessage = "City name should contain only latin letters and be between 2 and 30 characters (e.g. Sofia)";
-const cityNameMatcher = [/^([\w+\s*]{2,30})$/, cityErrorMessage];
+const constants = require("../utils/constants");
 
 const rideSchema = mongooseSchema({
     driver: { type: userSchema },
     fromCity: {
         type: String,
-        required: [true, "Start city is required"],
-        match: cityNameMatcher
+        required: [true, constants.ride.messages.requiredStartCity],
+        match: [constants.ride.matchers.city, constants.ride.messages.city]
     },
     toCity: {
         type: String,
-        required: [true, "End city is required"],
-        match: cityNameMatcher
+        required: [true, constants.ride.messages.requiredEndCity],
+        match: [constants.ride.matchers.city, constants.ride.messages.city]
     },
     dateOfTravel: {
         type: Date,
-        required: [true, "Date is required"],
+        required: [true, constants.ride.messages.requiredDate],
         validate: {
             validator: function (inputDate) {
                 const date = new Date(inputDate);
                 return date.getTime() >= Date.now();
             },
-            message: "Date cannot be set before current date and time"
+            message: constants.ride.messages.date
         }
     },
     freePlaces: { type: Number, required: true, min: 1, max: 5 },
     price: {
         type: Number,
-        required: [true, "Price is required"],
-        min: [0, "Price should be between 0 and 1000"],
-        max: [1000, "Price should be between 0 and 1000"]
+        required: [true, constants.ride.messages.requiredPrice],
+        min: [0, constants.ride.messages.price],
+        max: [1000, constants.ride.messages.price]
     },
-    contact: { type: String, required: [true, "Contact information is required"] },
+    contact: { type: String, required: [true, constants.ride.messages.requiredContact] },
     remarks: { type: String },
     passengers: { type: [] }
 });
