@@ -1,11 +1,11 @@
 const controllers = require("../controllers");
 
-module.exports = function(app, authenticator) {
+module.exports = function(app, authenticator, validator) {
     app.get("/register", authenticator.authenticateNotLoggedUser, controllers.user.loadRegisterPage);
-    app.post("/register", controllers.user.registerNewUser);
+    app.post("/register", validator.validateUserRegistration, controllers.user.registerNewUser);
 
     app.get("/login", authenticator.authenticateNotLoggedUser, controllers.user.loadLoginPage);
-    app.post("/login", controllers.user.loginUser);
+    app.post("/login", validator.validateUserLogin, controllers.user.loginUser);
 
     app.get("/logout", controllers.user.logoutUser);
 

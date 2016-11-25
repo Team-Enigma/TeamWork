@@ -26,10 +26,13 @@ function createNewUser(body) {
 
 function registerNewUser(body) {
     return new Promise((resolve, reject) => {
-        User.findOne({ username: body.username })
-            .then(user => {
+        User.findOne({ $or: [
+            { username: body.username },
+            { email: body.email }
+        ]})
+        .then(user => {
                 if (user) {
-                    throw new Error("User already in database");
+                    throw new Error("A user with this username or email already exists");
                 }
             })
             .then(() => {

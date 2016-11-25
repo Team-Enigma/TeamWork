@@ -1,6 +1,6 @@
 const controllers = require("../controllers");
 
-module.exports = function(app, authenticator) {
+module.exports = function(app, authenticator, validator) {
     app.get("/rides", controllers.ride.loadAllRides);
     app.get("/rides/filtered", controllers.ride.loadFilteredRides);
     app.get("/rides/:id", controllers.ride.loadSpecificRide);

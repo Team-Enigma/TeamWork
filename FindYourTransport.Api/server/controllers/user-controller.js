@@ -10,61 +10,48 @@ function loadLoginPage(req, res) {
 }
 
 function loadUsers(req, res) {
-    let users = data.getAllUsers()
+    data.getAllUsers()
         .then((users) => {
-            res.render("../views/user-views/all-users", { users: users });
+            res.render("../views/user-views/all-users", { users });
         });
 }
 
 function loadUser(req, res) {
-    let id = req.params["id"];
+    let id = req.params.id;
 
-    let user = data.getSpecificUser(id)
+    data.getSpecificUser(id)
         .then((user) => {
-            console.log("USERAAAAA");
-            console.log(user);
-            res.render("../views/user-views/user", { user: user });
+            res.render("../views/user-views/user", { user });
         });
 }
 
 function registerNewUser(req, res) {
     const cashedUser = req.body;
 
-    if (cashedUser.password !== cashedUser.confirmPassword) {
-        cashedUser.messages = ["Password does not match"];
+    data.registerNewUser(cashedUser)
+        .then(() => {
+            res.redirect("/login");
+            res.end();
+        })
+        .catch(err => {
 
-        console.log("Bad password");
-        res.status(409);
-        res.render("user-views/register", cashedUser);
-        res.end();
-    } else {
-        data.registerNewUser(cashedUser)
-            .then(() => {
-                res.redirect("/login");
-                res.end();
-            })
-            .catch(err => {
+            const messages = [];
 
-                const messages = [];
+            if (err.errors) {
+                Object.keys(err.errors).forEach((key) => {
+                    const error = err.errors[key];
+                    messages.push(error.message);
+                });
+            } else if (err.message) {
+                messages.push(err.message);
+            }
 
-                if (err.errors) {
-                    Object.keys(err.errors).forEach((key) => {
-                        const error = err.errors[key];
-                        messages.push(error.message);
-                    });
-                } else if (err.message) {
-                    messages.push(err.message);
-                }
+            cashedUser.messages = messages;
 
-                cashedUser.messages = messages;
-
-                console.log("problem");
-                console.log(err);
-                res.status(409);
-                res.render("user-views/register", cashedUser);
-                res.end();
-            });
-    }
+            res.status(409);
+            res.render("user-views/register", cashedUser);
+            res.end();
+        });
 }
 
 function loginUser(req, res, next) {

@@ -6,11 +6,14 @@ const user = {
         requiredFirstName: "First name is required",
         requiredLastName: "Last name is required",
         requiredEmail: "Email is required",
+        requiredPassword: "Password is required",
+        requiredConfirmPassword: "Confirm password is required",
         personFirstName: "First name should contain latin letters and begin with capital letter and be between 2 and 30 characters (e.g. John)",
         personLastName: "Last name should contain latin letters and begin with capital letter and be between 2 and 30 characters (e.g. Doe)",
         username: "Username should contain latin letters both capital and small as well as digits and -._ symbols and be between 3 and 20 characters (e.g. john.42)",
         email: "Email should contain latin letters both capital and small as well as digits and -._ symbols (e.g. john.42@mail.com)",
-        password: "Password should contain latin letters both capital and small as well as digits and special symbols and be between 3 and 20 characters (e.g. Pasword#!42)"
+        password: "Password should contain latin letters both capital and small as well as digits and special symbols and be between 3 and 20 characters (e.g. Pasword#!42)",
+        confirmPassword: "Passwords does not match"
     },
     matchers: {
         personName: /^([A-Z]{1}[a-z]{1,30})$/,
