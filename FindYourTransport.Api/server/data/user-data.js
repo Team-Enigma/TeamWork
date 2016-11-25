@@ -61,8 +61,8 @@ function getAllUsers() {
         });
 }
 
-function getSpecificUser(id) {
-    return User.findOne({ _id: id }, (err, user) => {
+function getUserByUsername(username) {
+    return User.findOne({ username: username }, (err, user) => {
         if (err) {
             return err;
         }
@@ -92,6 +92,6 @@ function getFilteredUsers(filter) {
 module.exports = {
     registerNewUser,
     getAllUsers,
-    getSpecificUser,
+    getUserByUsername,
     getFilteredUsers
 }

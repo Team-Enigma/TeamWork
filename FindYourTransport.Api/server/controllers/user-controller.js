@@ -16,10 +16,10 @@ function loadUsers(req, res) {
         });
 }
 
-function loadUser(req, res) {
-    let id = req.params.id;
+function loadUserByUserName(req, res) {
+    let username = req.params.username;
 
-    data.getSpecificUser(id)
+    data.getUserByUsername(username)
         .then((user) => {
             res.render("../views/user-views/user", { user });
         });
@@ -94,7 +94,7 @@ module.exports = {
     loadRegisterPage,
     loadLoginPage,
     loadUsers,
-    loadUser,
+    loadUserByUserName,
     loadFilteredUsers,
     registerNewUser,
     loginUser,

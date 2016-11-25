@@ -90,14 +90,18 @@ function getFilteredRides(filter) {
     }
 
     if (filter.startDate !== undefined && filter.startDate !== "") {
-        rides.where("dateOfTravel").gte(new Date(filter.startDate));
+        rides.where("dateOfTravel").gte(filter.startDate);
     }
 
     if (filter.endDate !== undefined && filter.startDate !== "") {
         rides.where("dateOfTravel").lte(filter.endDate);
     }
 
-    return rides.sort("dateOfTravel").exec((err, rides) => {
+    return rides
+        .where("dateOfTravel")
+        .gt(Date.now())
+        .sort("dateOfTravel")
+        .exec((err, rides) => {
             if (err) {
                 return err;
             }

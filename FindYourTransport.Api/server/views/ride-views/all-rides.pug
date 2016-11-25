@@ -7,7 +7,7 @@ block content
         fieldset
                 legend Find your ride to home:
                 div.row
-                        form.form-horizontal(action="/rides", method="post")
+                        form.form-horizontal(id="rides-search-form" action="/rides", method="post")
                                 fieldset
                                         div.col-lg-3.form-group
                                                 label(for="tb-from-city", class="col-lg-2 control-label") From city:
@@ -45,12 +45,13 @@ block content
                                 div.panel-heading
                                         p.text-center.text-bold From #{ride.fromCity} to #{ride.toCity} 
                                 div.panel-body
-                                        -var username = ride.driver.username
                                         p Date:#{moment(ride.dateOfTravel).calendar()}. 
                                         p There are #{ride.freePlaces} places left
-                                        a(href="user/" + username) Driver: #{username}
-                                        - var freePlaces = ride.freePlaces
-                                        if freePlaces > 0
-                                                a(href=`/rides/${ride.id}` class="btn btn-success") Travel with him/her
+                                        p Driver: 
+                                                a(href=`/users/${ride.driver.username}`) #{ride.driver.username}
+                                if ride.freePlaces > 0 && Date.parse(ride.dateOfTravel) >= Date.now() 
+                                        a(href=`/rides/${ride.id}` class="btn btn-success") Travel with him/her
+                                else 
+                                        p.text-danger.text-center This ride has no more free places                                        
 
                 

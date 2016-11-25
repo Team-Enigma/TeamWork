@@ -71,11 +71,14 @@ textarea {
 }
 
 .ride-info>a {
-    display: block;
-    width: inherit;
+    width: 100%;
 }
 
 #all-rides {
     width: 100%;
     display: inline-block;
+}
+
+#rides-search-form {
+    width: 100%;
 }

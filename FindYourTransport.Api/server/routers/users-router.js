@@ -11,5 +11,5 @@ module.exports = function(app, authenticator, validator) {
 
     app.get("/users", controllers.user.loadUsers);
     app.get("/users/filtered", controllers.user.loadFilteredUsers);
-    app.get("/user/:id", controllers.user.loadUser);
+    app.get("/users/:username", controllers.user.loadUserByUserName);
 };
