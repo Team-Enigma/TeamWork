@@ -1,5 +1,5 @@
 const data = require("../data")();
-const pug = require("pug");
+// const pug = require("pug");
 
 function loadAllRides(req, res) {
     var rides = data.getAllRides(req.query)

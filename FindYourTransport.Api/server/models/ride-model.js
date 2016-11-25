@@ -1,5 +1,5 @@
-const mongoose = require("mongoose")
-const mongooseSchema = require("mongoose").Schema
+const mongoose = require("mongoose");
+const mongooseSchema = require("mongoose").Schema;
 const userSchema = require("./ride-model");
 
 const cityErrorMessage = "City name should contain only latin letters and be between 2 and 30 characters (e.g. Sofia)";
@@ -26,7 +26,7 @@ const rideSchema = mongooseSchema({
                 return date.getTime() >= Date.now();
             },
             message: "Date cannot be set before current date and time"
-        },
+        }
     },
     freePlaces: { type: Number, required: true, min: 1, max: 5 },
     price: {
