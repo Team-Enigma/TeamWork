@@ -31,7 +31,6 @@ function addNewRide(req, res) {
             res.render("../views/ride-views/add-new-ride.pug");
         })
         .catch(err => {
-            console.log("Here");
             console.log(err);
             const messages = [];
 
@@ -46,7 +45,6 @@ function addNewRide(req, res) {
 
             cashedRide.messages = messages;
 
-            console.log("problem");
             console.log(err);
             res.status(409);
             res.render("../views/ride-views/add-new-ride.pug", cashedRide);
@@ -61,6 +59,7 @@ function calculatePrice(req, res) {
 }
 
 function loadFilteredRides(req, res) {
+
     data.getFilteredRides(req.query)
         .then((rides) => {
             res.render("ride-views/all-rides.pug", { rides: rides });
