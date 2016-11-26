@@ -1,5 +1,4 @@
 ## Views
-- /rides/id
 - /users (some changes)
 - /users/id (some changes)
 - /calculate-ride
