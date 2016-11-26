@@ -23,7 +23,7 @@ function checkRequestForQuery(req, res) {
 
 module.exports = function(app, authenticator, validator) {
     app.get("/rides", takeRideController);
-    app.get("/rides/:id", controllers.ride.loadSpecificRide);
+    app.get("/rides/:id", authenticator.authenticateLoggedUser, controllers.ride.loadSpecificRide);
     app.post("/rides", queryStringBuilder.buildAndRedirect);
 
     app.post("/sign-for-ride", controllers.ride.addPassenger, controllers.user.loadUserByUserName);

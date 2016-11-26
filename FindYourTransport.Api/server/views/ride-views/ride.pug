@@ -4,27 +4,70 @@ block app-title
         | Ride: #{ride.fromCity} to #{ride.toCity}
 
 block content
-        h2.ride-info-title Detail info for ride from #{ride.fromCity} to #{ride.toCity}
-        h3 Date: #{moment(ride.dateOfTravel).calendar()}
-        div.specific-ride-info
-                a.text-info(href=`/users/${ride.driver.username}`) #{ride.driver.username} 
-                span is going to take you there
-                div.panel.panel-info.passengers-info
-                        p.panel-heading.text-center Passengers:
-                        if ride.passengers.length > 0
-                                each passenger in ride.passengers
-                                        p.text-info User: 
-                                                a(href=`/users/${passenger}`) #{passenger} 
-                        else
-                                p.text-danger No passengers signed for this travel
-        form(action="/sign-for-ride" method="post")
-                input.hidden(type="text" value=`${ride.id}` name="rideId") 
-                if user
-                        if user.username !== ride.driver.username
-                                input.hidden(type="text" value=`${user.username}` name="passengerUsername")
-                                input.btn.btn-success(type="submit" value="Sign for it")
-                        else
-                                p.text-warning You are the driver of the ride.
-                                p.text-warning You can't sign for it but you can remove it from your profile page.
-                else
-                        p.text-danger You need to be logged in to sign for the travel
+    - var isPassenger = false;
+    div.ride-detailed-container
+        .row
+            .col-lg-12
+                .row.main-row
+                    .col-lg-5.ride-xlg.text-center
+                        span #{ride.fromCity}
+                    .col-lg-2.ride-lg.text-center
+                        span.glyphicon.glyphicon-chevron-right
+                    .col-lg-5.ride-xlg.text-center
+                        span #{ride.toCity}
+                hr
+        .row
+            .col-lg-12
+                ul.nav.nav-tabs
+                    li.active
+                        a.tab-title(href='#information', data-toggle='tab', aria-expanded='true') Information
+                    li
+                        a.tab-title(href='#passengers', data-toggle='tab', aria-expanded='false') Passengers
+                #myTabContent.tab-content
+                    #information.tab-pane.fade.active.in
+                        .matchheight.detailed-information
+                            ul
+                                li
+                                    span Driver:&nbsp
+                                    a(href=`/users/${ride.driver.username}`) #{ride.driver.username}
+                                li
+                                    span Date of travel:&nbsp
+                                    | #{moment(ride.dateOfTravel).format("lll")}
+                                li
+                                    span Available seats:&nbsp
+                                    | #{ride.freePlaces}
+                                li
+                                    span Price:&nbsp
+                                    | #{ride.price}
+                                li
+                                    span Contact information:
+                                    p #{ride.contact}
+                                li
+                                    span Detailed information:
+                                    p #{ride.remarks}
+                    #passengers.tab-pane.fade
+                        .matchheight.detailed-information
+                            if ride.passengers.length > 0
+                                ul
+                                    each passenger in ride.passengers
+                                        li
+                                            a(href=`/users/${passenger}`) #{passenger}
+                                        if(user.username === passenger)
+                                            -isPassenger = true
+                            else
+                                ul
+                                    li No passengers signed for this travel
+        if(user.username !== ride.driver.username && !isPassenger)
+            .row
+                .col-lg-12
+                    hr
+            .row.centered
+                form(action="/sign-for-ride" method="post")
+                    input.hidden(type="text" value=`${ride.id}` name="rideId")
+                    input.hidden(type="text" value=`${user.username}` name="passengerUsername")
+                    input.btn.btn-success.btn-special(type="submit" value="Sign for it")
+
+        script(type='text/javascript').
+            jQuery(function($){
+            $('.matchheight').matchHeight({byRow: false});
+            });

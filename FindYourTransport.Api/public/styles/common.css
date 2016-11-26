@@ -12,6 +12,11 @@ body {
     background-size: cover;
 }
 
+.centered {
+    display: flex;
+    justify-content: center;
+}
+
 .nav-logo {
     margin-top: -8px;
 }
@@ -121,12 +126,44 @@ textarea {
     margin: 5px 0px;
 }
 
+.ride-xlg {
+    font-size: 1.7em;
+}
+
 .ride-lg {
     font-size: 1.4em;
 }
 
 .ride-md {
     font-size: 1.1em;
+}
+
+/* Ride detailed page */
+
+.ride-detailed-container {
+    background-color: #FFFFFF;
+    padding: 20px 0px;
+}
+
+.detailed-information {
+    margin: 50px 0px;
+}
+
+.tab-title {
+    font-size: 1.2em;
+}
+
+.detailed-information > ul {
+    list-style: none;
+}
+
+.detailed-information > ul > li {
+    margin-top: 15px;
+    font-size: 1.1em;
+}
+
+.detailed-information > ul > li > span{
+    font-weight: bold;
 }
 
 /* Add ride page*/
