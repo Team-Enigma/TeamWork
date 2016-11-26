@@ -19,14 +19,14 @@ const rideSchema = mongooseSchema({
         type: Date,
         required: [true, constants.ride.messages.requiredDate],
         validate: {
-            validator: function (inputDate) {
+            validator: function(inputDate) {
                 const date = new Date(inputDate);
                 return date.getTime() >= Date.now();
             },
             message: constants.ride.messages.date
         }
     },
-    freePlaces: { type: Number, required: true, min: 1, max: 5 },
+    freePlaces: { type: Number, required: true, min: 0, max: 5 },
     price: {
         type: Number,
         required: [true, constants.ride.messages.requiredPrice],

@@ -1,5 +1,5 @@
 const data = require("../data")();
-// const pug = require("pug");
+const passport = require("passport");
 
 function loadAllRides(req, res) {
     var rides = data.getAllRides(req.query)
@@ -9,14 +9,20 @@ function loadAllRides(req, res) {
 }
 
 function loadSpecificRide(req, res) {
-    let id = req.params["id"],
-        driver;
+    let rideId = req.params["id"],
+        currentUser = req.user;
 
-    var ride = data.getSpecificRide(id)
-        .then((ride) => {
-            console.log(ride);
-            res.render("ride-views/ride.pug", { ride });
-        });
+    if (!currentUser) {
+        res.redirect("/login");
+    } else {
+        data.getSpecificRide(rideId)
+            .then((resultRide) => {
+                res.render("ride-views/ride.pug", { ride: resultRide, user: currentUser });
+            })
+            .then(() => {
+                res.redirect("/rides/" + rideId);
+            });
+    }
 }
 
 function loadNewRidePage(req, res) {
@@ -69,11 +75,30 @@ function loadFilteredRides(req, res) {
         });
 }
 
+function addPassenger(req, res) {
+    var id = req.query.rideId,
+        user = req.query.passengerUsername;
+
+    data.getSpecificRide(id)
+        .then((ride) => {
+            ride.passengers.push(user);
+            ride.freePlaces--;
+        })
+        .then(() => {
+            res.redirect("/users/" + user);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
+}
+
 module.exports = {
     loadAllRides,
     loadFilteredRides,
     loadSpecificRide,
     loadNewRidePage,
     addNewRide,
+    addPassenger,
     calculatePrice
 };

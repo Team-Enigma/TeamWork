@@ -113,7 +113,7 @@ function getFilteredRides(filter) {
 }
 
 function getSpecificRide(id) {
-    return Ride.find({ _id: id }, (err, ride) => {
+    return Ride.findOne({ _id: id }, (err, ride) => {
             if (err) {
                 return err;
             }
@@ -121,7 +121,7 @@ function getSpecificRide(id) {
             return ride;
         })
         .then((ride) => {
-            return ride[0];
+            return ride;
         });
 }
 

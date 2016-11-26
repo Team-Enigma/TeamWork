@@ -4,5 +4,12 @@ block app-title
         | Ride: #{ride.fromCity} to #{ride.toCity}
 
 block content
-        h1 Detail info for ride #{ride.fromCity} to #{ride.toCity} Date: #{moment(ride.dateOfTravel).calendar()}
-        p #{ride.driver.username} is going to take you there
+        h2 Detail info for ride from #{ride.fromCity} to #{ride.toCity}
+        h3 Date: #{moment(ride.dateOfTravel).calendar()}
+        div.specific-ride-info
+                a(href=`/users/${ride.driver.username}`) #{ride.driver.username} 
+                span is going to take you there
+        form(action="/sign-for-ride" method="get")
+                input.hidden(type="text" value=`${ride.id}` name="rideId") 
+                input.hidden(type="text" value=`${user.username}` name="passengerUsername")
+                input.btn.btn-success(type="submit" value="Sign for it")
