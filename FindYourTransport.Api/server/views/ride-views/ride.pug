@@ -4,12 +4,17 @@ block app-title
         | Ride: #{ride.fromCity} to #{ride.toCity}
 
 block content
-        h2 Detail info for ride from #{ride.fromCity} to #{ride.toCity}
+        h2.ride-info-title Detail info for ride from #{ride.fromCity} to #{ride.toCity}
         h3 Date: #{moment(ride.dateOfTravel).calendar()}
         div.specific-ride-info
                 a(href=`/users/${ride.driver.username}`) #{ride.driver.username} 
                 span is going to take you there
-        form(action="/sign-for-ride" method="get")
+                div.panel.panel-info.passengers-info
+                        p.panel-heading.text-center Passengers:
+                        each passenger in ride.passengers
+                                p.passenger-username User: 
+                                        a(href=`/users/${passenger}`) #{passenger} 
+        form(action="/sign-for-ride" method="post")
                 input.hidden(type="text" value=`${ride.id}` name="rideId") 
                 input.hidden(type="text" value=`${user.username}` name="passengerUsername")
                 input.btn.btn-success(type="submit" value="Sign for it")

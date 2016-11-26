@@ -27,7 +27,7 @@ module.exports = function(app, authenticator, validator) {
     app.get("/rides/:id", controllers.ride.loadSpecificRide);
     app.post("/rides", queryStringBuilder.buildAndRedirect);
 
-    app.get("/sign-for-ride", controllers.ride.addPassenger, controllers.user.loadUserByUserName);
+    app.post("/sign-for-ride", controllers.ride.addPassenger, controllers.user.loadUserByUserName);
 
     app.get("/calculate-price", authenticator.authenticateLoggedUser, controllers.ride.calculatePrice);
 
