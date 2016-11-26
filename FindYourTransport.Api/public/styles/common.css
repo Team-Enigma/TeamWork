@@ -22,6 +22,7 @@ main {
 
 footer {
     margin-top: 100px;
+    margin-top: 50px;
     background-color: #3CC477;
 }
 
@@ -32,15 +33,18 @@ footer {
 .footer-lower-boundary {
     margin-bottom: 20px;
 }
+
 footer a {
     color: #FFFFFF;
     text-decoration: none;
 }
 
 footer a:hover{
+footer a:hover {
     color: #1E392A;
     text-decoration: none;
 }
+
 
 /* Home page */
 
@@ -49,6 +53,8 @@ footer a:hover{
 }
 
 .home-section .right-section, .left-section {
+.home-section .right-section,
+.left-section {
     margin: 30px 0px;
 }
 
@@ -175,4 +181,24 @@ textarea {
 #all-rides {
     width: 100%;
     display: inline-block;
+}
+
+.passengers-info {
+    background-color: rgba(235, 235, 235, 0.6);
+    display: block;
+    width: 23%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.passengers-info>p {
+    padding-left: 5px;
+}
+
+.passengers-info>a {
+    width: 100%;
+}
+
+.ride-info-title {
+    margin-top: -70px;
 }

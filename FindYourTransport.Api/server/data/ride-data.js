@@ -125,10 +125,17 @@ function getSpecificRide(id) {
         });
 }
 
+function updateRideInfo(ride) {
+    Ride.update({ _id: ride._id }, { freePlaces: ride.freePlaces, passengers: ride.passengers }, null, function() {
+        return 0;
+    });
+}
+
 module.exports = {
     addNewRide,
     getAllRides,
     getSpecificRide,
     getRidesForUser,
-    getFilteredRides
+    getFilteredRides,
+    updateRideInfo
 };
