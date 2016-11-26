@@ -98,6 +98,14 @@ function addPassenger(req, res) {
 
 }
 
+function removeRideById(req, res) {
+    var id = req.body.rideId;
+    data.removeRideById(id)
+        .then(() => {
+            res.redirect(`/users/${req.user.username}`);
+        });
+}
+
 module.exports = {
     loadAllRides,
     loadFilteredRides,
@@ -105,5 +113,6 @@ module.exports = {
     loadNewRidePage,
     addNewRide,
     addPassenger,
-    calculatePrice
+    calculatePrice,
+    removeRideById
 };

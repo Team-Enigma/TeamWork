@@ -131,11 +131,16 @@ function updateRideInfo(ride) {
     });
 }
 
+function removeRideById(rideId) {
+    return Ride.remove({ _id: rideId });
+}
+
 module.exports = {
     addNewRide,
     getAllRides,
     getSpecificRide,
     getRidesForUser,
     getFilteredRides,
-    updateRideInfo
+    updateRideInfo,
+    removeRideById
 };
