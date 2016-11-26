@@ -88,6 +88,45 @@ textarea {
     resize: none;
 }
 
+/* All rides page */
+.all-rides-container {
+    background-color: #FFFFFF;
+}
+
+.all-rides-container label {
+    padding: 5px 0px;
+}
+
+.search-btn {
+    display: flex;
+}
+
+.search-btn > input {
+    align-self: flex-end;
+}
+
+.btn-special {
+    padding: 13px 54px;
+}
+
+.ride-container {
+    border: 2px solid #DCE4EC;
+    margin: 10px 15px;
+    padding: 20px 0px;
+}
+
+.ride-container .row {
+    margin: 5px 0px;
+}
+
+.ride-lg {
+    font-size: 1.4em;
+}
+
+.ride-md {
+    font-size: 1.1em;
+}
+
 /* Add ride page*/
 
 .img-add-ride {
@@ -101,16 +140,6 @@ textarea {
 
 .move-new-ride {
     margin-left: 180px
-}
-
-.move-login-buttons {
-    margin-top: 20px;
-    margin-left: 30px;
-    margin-right: 50px;
-}
-
-.move-all-rides {
-    margin-left: 20px;
 }
 
 .move-search-button {

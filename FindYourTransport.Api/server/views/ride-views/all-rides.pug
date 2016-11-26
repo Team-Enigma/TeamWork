@@ -4,54 +4,61 @@ block app-title
         | rides
 
 block content
-        fieldset
-                legend Find your ride to home:
-                div.row
-                        form.form-horizontal(id="rides-search-form" action="/rides", method="post")
-                                fieldset
-                                        div.col-lg-3.form-group
-                                                label(for="tb-from-city", class="col-lg-2 control-label") From city:
-                                                div(class="col-lg-8")
-                                                        input(id="tb-from-city", class="input-sm", type="text", name="fromCity")
-                                        div.col-lg-3.form-group
-                                                label(for="tb-to-city", class="col-lg-2 control-label") To city:
-                                                div(class="col-lg-8")
-                                                        input(id="tb-from-city", class="input-sm", type="text", name="toCity")
-                                        div.col-lg-3.form-group
-                                                label(for="tb-start-date", class="col-lg-2 control-label") From date:
-                                                div(class="col-lg-8")
-                                                        #startdatepicker.input-group.date
-                                                                input(id="tb-start-date", class="input-sm", type="text", name="startDate")
-                                                                span.input-group-addon
-                                                                        span.glyphicon.glyphicon-calendar
-                                        div.col-lg-3.form-group
-                                                label(for="tb-end-date", class="col-lg-2 control-label") To date:
-                                                div(class="col-lg-8")
-                                                        #enddatepicker.input-group.date
-                                                                input(id="tb-end-date", class="input-sm", type="text", name="endDate")
-                                                                span.input-group-addon
-                                                                        span.glyphicon.glyphicon-calendar
-                                        div.text-center
-                                                input.btn.btn-success(type="submit", value="Search")
-                script(type='text/javascript').
-                        $(function () {
-                        $('#startdatepicker').datetimepicker();
-                        $('#enddatepicker').datetimepicker();
-                        });
-        div(id="all-rides")
-                ul
-                each ride in rides
-                        li(class="ride-info panel panel-info")
-                                div.panel-heading
-                                        p.text-center.text-bold From #{ride.fromCity} to #{ride.toCity} 
-                                div.panel-body
-                                        p Date:#{moment(ride.dateOfTravel).calendar()}. 
-                                        p There are #{ride.freePlaces} places left
-                                        p Driver: 
-                                                a(href=`/users/${ride.driver.username}`) #{ride.driver.username}
-                                if ride.freePlaces > 0 && Date.parse(ride.dateOfTravel) >= Date.now() 
-                                        a(href=`/rides/${ride.id}` class="btn btn-success") Travel with him/her
-                                else 
-                                        p.text-danger.text-center This ride has no more free places                                        
+    div.all-rides-container
+        .row
+            form.form-horizontal(action='/rides', method='post')
+                fieldset
+                        .col-lg-3.matchheight
+                            label.control-label(for="tb-from-city") From city:
+                            input.form-control(id="tb-from-city", type="text", name="fromCity")
+                        .col-lg-3.matchheight
+                            label.control-label(for="tb-to-city") To city:
+                            input.form-control(id="tb-from-city", type="text", name="toCity")
+                        .col-lg-2.matchheight
+                            label.control-label(for="tb-start-date") From date
+                            #startdatepicker.input-group.date
+                                    input.form-control(id="tb-start-date", type="text", name="startDate")
+                                    span.input-group-addon
+                                        span.glyphicon.glyphicon-calendar
+                        .col-lg-2.matchheight
+                            label.control-label(for="tb-end-date") To date:
+                            #enddatepicker.input-group.date
+                                    input.form-control(id="tb-end-date", type="text", name="endDate")
+                                    span.input-group-addon
+                                        span.glyphicon.glyphicon-calendar
+                        .col-lg-2.matchheight.search-btn
+                            input.btn.btn-success.btn-special(type="submit", value="Search")
+            div(id="all-rides")
+                    each ride in rides
+                        .row.ride-container
+                            .col-lg-12
+                                .row.main-row
+                                    .col-lg-4.ride-lg
+                                        span #{ride.fromCity}
+                                    .col-lg-1.ride-lg
+                                        span.glyphicon.glyphicon-chevron-right
+                                    .col-lg-4.ride-lg
+                                        span #{ride.toCity}
+                                    .col-lg-3.ride-lg
+                                        span #{moment(ride.dateOfTravel).format("lll")}
+                                hr
+                                .row.secondary-row
+                                    .col-lg-5.ride-md
+                                        span Available seats:
+                                        span  #{ride.freePlaces}
+                                    .col-lg-4.ride-md
+                                        span Price:
+                                        span  #{ride.price}
+                                    .col-lg-3.ride-md
+                                        a(href=`/rides/${ride.id}`) Details
 
-                
+            script(type='text/javascript').
+                    $(function () {
+                    $('#startdatepicker').datetimepicker();
+                    $('#enddatepicker').datetimepicker();
+                    });
+
+            script(type='text/javascript').
+                jQuery(function($){
+                $('.matchheight').matchHeight({byRow: false});
+                });

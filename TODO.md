@@ -1,5 +1,4 @@
 ## Views
-- /rides (some changes)
 - /rides/id
 - /users (some changes)
 - /users/id (some changes)
