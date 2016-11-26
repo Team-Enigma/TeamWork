@@ -2,7 +2,7 @@ const data = require("../data")();
 const passport = require("passport");
 
 function loadAllRides(req, res) {
-    var rides = data.getAllRides(req.query)
+    data.getAllRides(req.query)
         .then((rides) => {
             res.render("ride-views/all-rides.pug", { rides: rides });
         });

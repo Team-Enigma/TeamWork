@@ -2,18 +2,18 @@ const controllers = require("../controllers");
 const queryStringBuilder = require("../utils/query-string-builder");
 
 function takeRideController(req, res) {
-    var reqHasValues = checkRequestForQuery(req, res);
+    var reqHasValues = checkRequestForQuery(req.query);
 
     if (reqHasValues) {
-        controllers.ride.loadFilteredRides(req, res);
+        return controllers.ride.loadFilteredRides(req, res);
     } else {
-        controllers.ride.loadAllRides(req, res);
+        return controllers.ride.loadAllRides(req, res);
     }
 }
 
-function checkRequestForQuery(req, res) {
-    for (param in req.query) {
-        if (req.query[param] !== '') {
+function checkRequestForQuery(params) {
+    for (param in params) {
+        if (params[param] !== '') {
             return true;
         }
     }
@@ -23,8 +23,8 @@ function checkRequestForQuery(req, res) {
 
 module.exports = function(app, authenticator, validator) {
     app.get("/rides", takeRideController);
-    app.get("/rides/:id", controllers.ride.loadSpecificRide);
     app.post("/rides", queryStringBuilder.buildAndRedirect);
+    app.get("/rides/:id", controllers.ride.loadSpecificRide);
     app.post("/rides/:id", controllers.ride.removeRideById);
 
     app.post("/sign-for-ride", authenticator.authenticateLoggedUser, controllers.ride.addPassenger, controllers.user.loadUserByUserName);
