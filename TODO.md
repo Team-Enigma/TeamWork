@@ -1,6 +1,6 @@
 ## Views
 - /rides (some changes)
-- /rides/id
+- /rides/id - maybe some styles left to finish view?
 - /users (some changes)
 - /users/id (some changes)
 - /calculate-ride

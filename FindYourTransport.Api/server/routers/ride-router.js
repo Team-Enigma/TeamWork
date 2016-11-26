@@ -12,7 +12,6 @@ function takeRideController(req, res) {
 }
 
 function checkRequestForQuery(req, res) {
-    console.log("here");
     for (param in req.query) {
         if (req.query[param] !== '') {
             return true;

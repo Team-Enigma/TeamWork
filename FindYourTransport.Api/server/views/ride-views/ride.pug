@@ -7,14 +7,24 @@ block content
         h2.ride-info-title Detail info for ride from #{ride.fromCity} to #{ride.toCity}
         h3 Date: #{moment(ride.dateOfTravel).calendar()}
         div.specific-ride-info
-                a(href=`/users/${ride.driver.username}`) #{ride.driver.username} 
+                a.text-info(href=`/users/${ride.driver.username}`) #{ride.driver.username} 
                 span is going to take you there
                 div.panel.panel-info.passengers-info
                         p.panel-heading.text-center Passengers:
-                        each passenger in ride.passengers
-                                p.passenger-username User: 
-                                        a(href=`/users/${passenger}`) #{passenger} 
+                        if ride.passengers.length > 0
+                                each passenger in ride.passengers
+                                        p.text-info User: 
+                                                a(href=`/users/${passenger}`) #{passenger} 
+                        else
+                                p.text-danger No passengers signed for this travel
         form(action="/sign-for-ride" method="post")
                 input.hidden(type="text" value=`${ride.id}` name="rideId") 
-                input.hidden(type="text" value=`${user.username}` name="passengerUsername")
-                input.btn.btn-success(type="submit" value="Sign for it")
+                if user
+                        if user.username !== ride.driver.username
+                                input.hidden(type="text" value=`${user.username}` name="passengerUsername")
+                                input.btn.btn-success(type="submit" value="Sign for it")
+                        else
+                                p.text-warning You are the driver of the ride.
+                                p.text-warning You can't sign for it but you can remove it from your profile page.
+                else
+                        p.text-danger You need to be logged in to sign for the travel

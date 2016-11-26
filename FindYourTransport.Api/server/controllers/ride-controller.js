@@ -12,17 +12,13 @@ function loadSpecificRide(req, res) {
     let rideId = req.params["id"],
         currentUser = req.user;
 
-    if (!currentUser) {
-        res.redirect("/login");
-    } else {
-        data.getSpecificRide(rideId)
-            .then((resultRide) => {
-                res.render("ride-views/ride.pug", { ride: resultRide, user: currentUser });
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }
+    data.getSpecificRide(rideId)
+        .then((resultRide) => {
+            res.render("ride-views/ride.pug", { ride: resultRide, user: currentUser });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 }
 
 function loadNewRidePage(req, res) {
@@ -81,6 +77,8 @@ function addPassenger(req, res) {
 
     data.getSpecificRide(id)
         .then((ride) => {
+            console.log(ride);
+
             if (ride.passengers.indexOf(user) === -1) {
                 ride.passengers.push(user);
                 ride.freePlaces--;
