@@ -4,7 +4,7 @@ const path = require("path");
 const root = path.join(__dirname, "/../../");
 
 const fav = require("serve-favicon");
-const favicon = fav(path.join(__dirname, "../../public/images/Cemagraphics-Classic-Cars-Vw-beetle.ico"));
+const favicon = fav(path.join(__dirname, "../../public/images/favicon.ico"));
 
 
 module.exports = {

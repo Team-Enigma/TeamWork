@@ -1,28 +1,22 @@
 extends ../base
 
-
-
 block content
-    h1  Works
-    a(href="/login") Login
-    a(href="/register") Register
-    //temp added list to test the routes
-    ul
-      li
-         a(href="/rides") All rides 
-      li 
-         a(href="/rides:id") Specific ride 
-      li
-         a(href="/calculate-price") Calculate price for a transport
-      li
-         a(href="/add-ride") Add new ride
-      li
-         a(href="/users") Users
-      li
-         a(href="/user:id") Specific user     
-    -if(currentUser)
-        h2  #{currentUser.username}
-        a(href="/logout") Logout
-
-    h1 Welcome to our homepage
-
+    .row.home-section
+      .col-xs-10.col-xs-offset-1.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-0.matchheight.left-section
+        .col-inner
+          .section-heading
+            h1.home-title FYT
+            p
+              | Have you ever struggled with finding a convenient transport? If yes, then FYT is the place for you. With just a few clicks you can easily find a transport for your destination.
+          // .section-heading
+          .section-content
+            a.btn.btn-success(href='#about') START NOW
+          // .section-content
+      .col-xs-10.col-xs-offset-1.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-0.matchheight.right-section
+        .col-inner.clearfix
+            .col-xs-8.col-xs-offset-2
+                img.img-responsive.img-home(src="/images/fyt-home-picture.png")
+    script(type='text/javascript').
+        jQuery(function($){
+        $('.matchheight').matchHeight({byRow: false});
+        });

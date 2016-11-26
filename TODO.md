@@ -1,10 +1,8 @@
 ## Views
-- /home
 - /rides (some changes)
 - /rides/id
 - /users (some changes)
 - /users/id (some changes)
-- /add-ride (some small changes)
 - /calculate-ride
 - /contact
 - /profile

@@ -49,7 +49,7 @@ function validateUserLogin(req, res, next) {
 
     validateRequired(cashedUser.password,
         constants.user.messages.requiredPassword,
-        messages)
+        messages);
 
     if (messages.length > 0) {
         cashedUser.messages = messages;
@@ -168,7 +168,7 @@ function validateRideCreation(req, res, next) {
 
     fields.forEach(f => {
         validateRequired(f.field, f.requiredMessage, messages);
-        if(f.matcher) {
+        if (f.matcher) {
             validateMatcher(f.field, f.matcher, f.matchMessage, messages);
         }
     });

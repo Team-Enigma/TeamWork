@@ -7,17 +7,18 @@ html
         link(rel="stylesheet", href="/styles/libs/bootstrap.min.css")
         link(rel="stylesheet", href="/styles/libs/bootstrap-flatlytheme-customized.css")
         link(rel="stylesheet", href="/styles/libs/bootstrap-datetimepicker.min.css")
+        link(rel="stylesheet", href="/styles/common.css")
 
         script(src="/scripts/libs/moment.min.js")
         script(src="/scripts/libs/jquery.min.js")
         script(src="/scripts/libs/bootstrap.min.js")
         script(src="/scripts/libs/bootstrap-datetimepicker.min.js")
-        link(rel="stylesheet", href="/styles/common.css")
+        script(src="/scripts/libs/jquery.matchHeight-min.js")
 
     body
         block navigation
             include ./common/navigation
-        main
+        main.container
             block content
         block footer
             include ./common/footer
