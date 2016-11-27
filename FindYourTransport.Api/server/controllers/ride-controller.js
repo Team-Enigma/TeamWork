@@ -2,7 +2,7 @@ const data = require("../data")();
 const passport = require("passport");
 
 function loadAllRides(req, res) {
-    var rides = data.getAllRides(req.query)
+    data.getAllRides(req.query)
         .then((rides) => {
             res.render("ride-views/all-rides.pug", { rides: rides });
         });
@@ -98,6 +98,14 @@ function addPassenger(req, res) {
 
 }
 
+function removeRideById(req, res) {
+    var id = req.body.rideId;
+    data.removeRideById(id)
+        .then(() => {
+            res.redirect(`/users/${req.user.username}`);
+        });
+}
+
 module.exports = {
     loadAllRides,
     loadFilteredRides,
@@ -105,5 +113,6 @@ module.exports = {
     loadNewRidePage,
     addNewRide,
     addPassenger,
-    calculatePrice
+    calculatePrice,
+    removeRideById
 };

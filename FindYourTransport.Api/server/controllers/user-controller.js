@@ -35,7 +35,22 @@ function loadDetailedUserPage(req, res) {
 
     data.getUserByUsername(username)
         .then((user) => {
-            res.render("../views/user-views/user", { user });
+            return data.getRidesForUser(username)
+                .then((rides) => {
+                    return data.getAllRides()
+                        .then((rides) => {
+                            return {
+                                user: user,
+                                userRides: rides
+                            }
+                        });
+                });
+        })
+        .then((result) => {
+            res.render("../views/user-views/user", { user: result.user, rides: result.userRides });
+        })
+        .catch((err) => {
+            console.log(err);
         });
 }
 
