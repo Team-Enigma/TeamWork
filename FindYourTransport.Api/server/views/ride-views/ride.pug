@@ -9,11 +9,11 @@ block content
         .row
             .col-lg-12
                 .row.main-row
-                    .col-lg-5.ride-xlg.text-center
+                    .col-lg-5.font-xlg.text-center
                         span #{ride.fromCity}
-                    .col-lg-2.ride-lg.text-center
+                    .col-lg-2.font-lg.text-center
                         span.glyphicon.glyphicon-chevron-right
-                    .col-lg-5.ride-xlg.text-center
+                    .col-lg-5.font-xlg.text-center
                         span #{ride.toCity}
                 hr
         .row
@@ -23,7 +23,7 @@ block content
                         a.tab-title(href='#information', data-toggle='tab', aria-expanded='true') Information
                     li
                         a.tab-title(href='#passengers', data-toggle='tab', aria-expanded='false') Passengers
-                #myTabContent.tab-content
+                #my-tab-content.tab-content
                     #information.tab-pane.fade.active.in
                         .matchheight.detailed-information
                             ul

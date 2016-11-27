@@ -27,16 +27,16 @@ nav.navbar.navbar-inverse.navbar-fixed-top
                                 a(href="/calculate-price") Calculate Ride Price
                 if(currentUser && currentUser.role == "Admin")
                     li
-                        a(href='/admin') Admin
+                        a(href="/admin") Admin
 
             ul.nav.navbar-nav.navbar-right
                 li
-                    a(href='/contact') Contact us
+                    a(href="/contact") Contact us
                 if(currentUser)
                     li
-                        a(href=`/users/${currentUser.username}`) #{currentUser.username}'s Profile
+                        a(href="/profile") #{currentUser.username}"s Profile
                     li
-                        a(href='/logout') Logout
+                        a(href="/logout") Logout
                 else
                     li
-                        a(href='/login') Login
+                        a(href="/login") Login

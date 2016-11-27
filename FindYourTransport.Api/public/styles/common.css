@@ -104,11 +104,11 @@ textarea {
     padding: 5px 0px;
 }
 
-.search-btn {
+.bot-vert-align {
     display: flex;
 }
 
-.search-btn > input {
+.bot-vert-align > * {
     align-self: flex-end;
 }
 
@@ -126,15 +126,15 @@ textarea {
     margin: 5px 0px;
 }
 
-.ride-xlg {
+.font-xlg {
     font-size: 1.7em;
 }
 
-.ride-lg {
+.font-lg {
     font-size: 1.4em;
 }
 
-.ride-md {
+.font-md {
     font-size: 1.1em;
 }
 
@@ -170,6 +170,28 @@ textarea {
 
 .img-add-ride {
     width: 100%;
+}
+
+/* Profile page */
+.avatar-image {
+    width: 125px;
+    height: 125px;
+    border: 2px solid #DCE4EC;
+}
+
+.profile-username {
+    font-size: 3em;
+    margin: 0px;
+}
+
+.profile-names {
+    font-size: 1.5em;
+    margin: 0px;
+    color: #3CC477;
+}
+
+#tb-avatar {
+    display: none;
 }
 
 /* clean these later */

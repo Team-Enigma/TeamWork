@@ -4,11 +4,64 @@ block app-title
         | Profile
 
 block content
+    div.ride-detailed-container
         .row
-            h1 #{currentUser.username}
-            img(src=`/images/users-avatars/${currentUser.avatar}` alt="No image!")
-        form.form-horizontal.form-container(action='/profile/upload-avatar', method='post', enctype="multipart/form-data")
-            .form-group
-                label.col-lg-4.control-label(for='tb-avatar') Avatar
-                input.form-control(type="file" id="tb-avatar" name="avatar" accept="image/*")
-                input(type="submit" value="Upload" class="btn btn-success")
+            .col-lg-12
+                .row.main-row
+                    .col-lg-2.matchheight
+                        img.avatar-image(src=`/images/users-avatars/${currentUser.avatar}` alt="No image!")
+                    .col-lg-10.matchheight.bot-vert-align
+                        div
+                            .row
+                                h1.profile-username #{currentUser.username}
+                            .row
+                                h2.profile-names #{currentUser.firstName} #{currentUser.lastName}
+                hr
+        .row
+            .col-lg-3
+                ul.nav.nav-pills.nav-stacked
+                    li.active
+                        a(href="#profile" data-toggle="pill", aria-expanded="true") Profile
+                    li
+                        a(href="#rides" data-toggle="pill", aria-expanded="true") Rides
+                    li
+                        a(href="#update-profile" data-toggle="pill", aria-expanded="false") Update profile
+                    li
+                        a(href="#update-profile-picture" data-toggle="pill", aria-expanded="false") Update profile picture
+                    li
+                        a(href="#update-car" data-toggle="pill", aria-expanded="false") Update car
+            .col-lg-9
+                #my-tab-content.tab-content
+                    #profile.tab-pane.fade.active.in
+                        .matchheight
+                            p Profile information
+                    #rides.tab-pane.fade
+                        .matchheight
+                            p Rides
+                    #update-profile.tab-pane.fade
+                        .matchheight
+                            p Profile
+                    #update-profile-picture.tab-pane.fade
+                        .matchheight
+                            .row
+                                form(id="upload", action="/profile/upload-avatar", method="post", enctype="multipart/form-data")
+                                    .form-group
+                                        p.font-md Please select image
+                                        label.btn.btn-primary.btn-file(for="tb-avatar")
+                                            | Browse
+                                        input(type="file", id="tb-avatar" name="avatar" accept="image/*")
+                    #update-car.tab-pane.fade
+                        .matchheight
+                            p Car
+
+    script(type="text/javascript").
+        jQuery(function($){
+        $("#tb-avatar").change(function() {
+                $("#upload").submit();
+            });
+        });
+
+    script(type="text/javascript").
+        jQuery(function($){
+        $(".matchheight").matchHeight({byRow: false});
+        });

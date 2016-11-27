@@ -26,30 +26,30 @@ block content
                                     input.form-control(id="tb-end-date", type="text", name="endDate")
                                     span.input-group-addon
                                         span.glyphicon.glyphicon-calendar
-                        .col-lg-2.matchheight.search-btn
+                        .col-lg-2.matchheight.bot-vert-align
                             input.btn.btn-success.btn-special(type="submit", value="Search")
             div(id="all-rides")
                     each ride in rides
                         .row.ride-container
                             .col-lg-12
                                 .row.main-row
-                                    .col-lg-4.ride-lg
+                                    .col-lg-4.font-lg
                                         span #{ride.fromCity}
-                                    .col-lg-1.ride-lg
+                                    .col-lg-1.font-lg
                                         span.glyphicon.glyphicon-chevron-right
-                                    .col-lg-4.ride-lg
+                                    .col-lg-4.font-lg
                                         span #{ride.toCity}
-                                    .col-lg-3.ride-lg
+                                    .col-lg-3.font-lg
                                         span #{moment(ride.dateOfTravel).format("lll")}
                                 hr
                                 .row.secondary-row
-                                    .col-lg-5.ride-md
+                                    .col-lg-5.font-md
                                         span Available seats:
                                         span  #{ride.freePlaces}
-                                    .col-lg-4.ride-md
+                                    .col-lg-4.font-md
                                         span Price:
                                         span  #{ride.price}
-                                    .col-lg-3.ride-md
+                                    .col-lg-3.font-md
                                         a(href=`/rides/${ride.id}`) Details
 
             script(type='text/javascript').

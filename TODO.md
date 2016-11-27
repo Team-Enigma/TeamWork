@@ -3,9 +3,8 @@
 - /users/id (some changes)
 - /calculate-ride
 - /contact
-- /profile
+- /profile (some changes)
 ## Functionalities
-- buttons for travel
 - search for users
 - /users/id - show rides of user (if he has ones)
 - calculate price
