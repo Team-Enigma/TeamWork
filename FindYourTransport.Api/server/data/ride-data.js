@@ -66,6 +66,7 @@ function getAllRides() {
 function getRidesForUser(username) {
     return Ride.find().where("driver")
         .eq(username)
+        .sort("dateOfTravel")
         .exec((err, rides) => {
             if (err) {
                 return err;

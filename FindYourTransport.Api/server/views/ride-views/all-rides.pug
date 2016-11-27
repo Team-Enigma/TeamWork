@@ -6,7 +6,7 @@ block app-title
 block content
     div.all-rides-container
         .row
-            form.form-horizontal(action='/rides', method='post')
+            form.form-horizontal(action="/rides", method="post")
                 fieldset
                         .col-lg-3.matchheight
                             label.control-label(for="tb-from-city") From city:
@@ -52,13 +52,13 @@ block content
                                     .col-lg-3.font-md
                                         a(href=`/rides/${ride.id}`) Details
 
-            script(type='text/javascript').
+            script(type="text/javascript").
                     $(function () {
-                    $('#startdatepicker').datetimepicker();
-                    $('#enddatepicker').datetimepicker();
+                    $("#startdatepicker").datetimepicker();
+                    $("#enddatepicker").datetimepicker();
                     });
 
-            script(type='text/javascript').
+            script(type="text/javascript").
                 jQuery(function($){
-                $('.matchheight').matchHeight({byRow: false});
+                $(".matchheight").matchHeight({byRow: false});
                 });

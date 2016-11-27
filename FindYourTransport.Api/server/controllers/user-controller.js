@@ -40,18 +40,14 @@ function loadFilteredUsersPage(req, res) {
 
 function loadDetailedUserPage(req, res) {
     let username = req.params.username;
-
     data.getUserByUsername(username)
         .then((user) => {
             return data.getRidesForUser(username)
                 .then((rides) => {
-                    return data.getAllRides()
-                        .then((rides) => {
-                            return {
-                                user: user,
-                                userRides: rides
-                            }
-                        });
+                    return {
+                        user: user,
+                        userRides: rides
+                    }
                 });
         })
         .then((result) => {

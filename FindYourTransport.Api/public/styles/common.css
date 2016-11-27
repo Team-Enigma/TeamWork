@@ -59,6 +59,10 @@ footer a:hover {
     margin: 30px 0px;
 }
 
+.left-section {
+    padding-left: 70px;
+}
+
 .right-section {
     display: flex;
     justify-content: center;
@@ -180,6 +184,12 @@ textarea {
     width: 100%;
 }
 
+/* User detailed page*/
+.user-detailed-container {
+    background-color: #FFFFFF;
+    padding: 20px 0px;
+}
+
 /* Profile page */
 .avatar-image {
     width: 125px;
@@ -202,7 +212,11 @@ textarea {
     display: none;
 }
 
-#rides, #update-profile-picture .font-md {
+#rides .font-md p {
+    font-weight: bold;
+}
+
+#update-profile-picture .font-md {
     font-weight: bold;
 }
 
@@ -234,67 +248,4 @@ textarea {
 
 .all-users-container .user-container a:hover{
     text-decoration: none;
-}
-/* clean these later */
-.move {
-    margin-left: 180px
-}
-
-.move-new-ride {
-    margin-left: 180px
-}
-
-.move-search-button {
-    margin-left: 60px;
-}
-
-.move-down {
-    padding-bottom: 30px;
-}
-
-.user-image-size {
-    height: 200px;
-    width: 200px;
-    border: 2px solid black
-}
-
-.width {
-    width: 450px;
-}
-
-.ride-info {
-    background-color: rgba(235, 235, 235, 0.6);
-    display: block;
-    width: 19%;
-    margin: 5px;
-    float: left;
-}
-
-.ride-info>a {
-    width: 100%;
-}
-
-#all-rides {
-    width: 100%;
-    display: inline-block;
-}
-
-.passengers-info {
-    background-color: rgba(235, 235, 235, 0.6);
-    display: block;
-    width: 23%;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.passengers-info>p {
-    padding-left: 5px;
-}
-
-.passengers-info>a {
-    width: 100%;
-}
-
-.ride-info-title {
-    margin-top: -70px;
 }

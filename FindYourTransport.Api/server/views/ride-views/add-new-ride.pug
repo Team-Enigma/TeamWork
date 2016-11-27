@@ -8,25 +8,25 @@ block content
     .row.home-section
       .col-xs-10.col-xs-offset-1.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-0.matchheight
         .col-inner
-            form.form-horizontal.form-container(action='/add-ride', method='post')
+            form.form-horizontal.form-container(action="/add-ride", method="post")
                 fieldset
                     .form-group
-                        label.col-lg-4.control-label(for='tb-from-city') From City
+                        label.col-lg-4.control-label(for="tb-from-city") From City
                         .col-lg-8
                             input.form-control(type="text", id="tb-from-city", name="fromCity", placeholder="City name", value=fromCity)
                     .form-group
                         label.col-lg-4.control-label(for="tb-to-city") To City
                         .col-lg-8
-                            input.form-control(type="text", id="tb-to-city", name="toCity", placeholder='City name', value=toCity)
+                            input.form-control(type="text", id="tb-to-city", name="toCity", placeholder="City name", value=toCity)
                     .form-group
-                        label.col-lg-4.control-label(for='tb-date-of-travel') Date
+                        label.col-lg-4.control-label(for="tb-date-of-travel") Date
                         .col-lg-8
                             #datetimepicker1.input-group.date
-                                input.form-control(type='text' id="tb-date-of-travel" name="dateOfTravel", placeholder="Date" value=dateOfTravel)
+                                input.form-control(type="text" id="tb-date-of-travel" name="dateOfTravel", placeholder="Date" value=dateOfTravel)
                                 span.input-group-addon
                                     span.glyphicon.glyphicon-calendar
                     .form-group
-                        label.col-lg-4.control-label(for='tb-free-seats') Seats
+                        label.col-lg-4.control-label(for="tb-free-seats") Seats
                         .col-lg-8
                             select.form-control(id="tb-free-seats" name="freePlaces")
                                 option 1
@@ -35,31 +35,31 @@ block content
                                 option 4
                                 option 5
                     .form-group
-                        label.col-lg-4.control-label(for='tb-price') Price
+                        label.col-lg-4.control-label(for="tb-price") Price
                         .col-lg-8
-                            input.form-control(type='text', id="tb-price", name="price", placeholder='Price', value=price)
+                            input.form-control(type="text", id="tb-price", name="price", placeholder="Price", value=price)
                     .form-group
-                        label.col-lg-4.control-label(for='tb-contact-info') Contact information
+                        label.col-lg-4.control-label(for="tb-contact-info") Contact information
                         .col-lg-8
                             textarea.form-control(rows="2", id="tb-contact-info", name="contact", placeholder="Contact information", value="contact")
                     .form-group
-                        label.col-lg-4.control-label(for='tb-more-info') Additional information
+                        label.col-lg-4.control-label(for="tb-more-info") Additional information
                         .col-lg-8
                             textarea.form-control(rows="4", id="tb-more-info", name="remarks", placeholder="Additional information", value="remarks")
                     .form-group
                         .col-lg-8.col-lg-offset-4
-                            input.btn.btn-sm.btn-primary.btn-lg.btn-block(type='submit', value="Add ride")
+                            input.btn.btn-sm.btn-primary.btn-lg.btn-block(type="submit", value="Add ride")
       .col-xs-10.col-xs-offset-1.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-0.matchheight.right-section
         .col-inner
             .col-xs-8.col-xs-offset-2
                 img.img-responsive.img-add-ride(src="/images/add-ride-picture.png")
 
-        script(type='text/javascript').
+        script(type="text/javascript").
             $(function () {
-            $('#datetimepicker1').datetimepicker();
+            $("#datetimepicker1").datetimepicker();
             });
 
-        script(type='text/javascript').
+        script(type="text/javascript").
             jQuery(function($){
-            $('.matchheight').matchHeight({byRow: false});
+            $(".matchheight").matchHeight({byRow: false});
             });

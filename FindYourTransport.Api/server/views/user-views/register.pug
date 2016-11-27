@@ -7,32 +7,32 @@ block content
     include ../common/error-message
     .row.vertical-align
         .col-lg-6.col-lg-offset-3.col-md-6.col-md-offset-3.col-sm-offset-2.col-sm-8.col-xs-10.col-xs-offset-1
-            form.form-horizontal.form-container(action='/register', method='post')
+            form.form-horizontal.form-container(action="/register", method="post")
                 fieldset
                     .form-group
-                        label.col-lg-4.control-label(for='tb-first-name') First Name
+                        label.col-lg-4.control-label(for="tb-first-name") First Name
                         .col-lg-8
                             input.form-control(type="text", id="tb-first-name", name="firstName", placeholder="First Name", value=firstName)
                     .form-group
                         label.col-lg-4.control-label(for="tb-last-name") Last Name
                         .col-lg-8
-                            input.form-control(type="text", id="tb-last-name", name="lastName", placeholder='Last name', value=lastName)
+                            input.form-control(type="text", id="tb-last-name", name="lastName", placeholder="Last name", value=lastName)
                     .form-group
-                        label.col-lg-4.control-label(for='tb-username') Username
+                        label.col-lg-4.control-label(for="tb-username") Username
                         .col-lg-8
                             input.form-control(type="text", id="tb-username", name="username", placeholder="Username", value=username)
                     .form-group
-                        label.col-lg-4.control-label(for='tb-email') Email
+                        label.col-lg-4.control-label(for="tb-email") Email
                         .col-lg-8
-                            input.form-control(type="text", id="tb-email", name="email", placeholder='Email Address', value=email)
+                            input.form-control(type="text", id="tb-email", name="email", placeholder="Email Address", value=email)
                     .form-group
-                        label.col-lg-4.control-label(for='tb-password') Password
+                        label.col-lg-4.control-label(for="tb-password") Password
                         .col-lg-8
-                            input.form-control(type='password', id="tb-password", name="password", placeholder='Password', value=password)
+                            input.form-control(type="password", id="tb-password", name="password", placeholder="Password", value=password)
                     .form-group
-                        label.col-lg-4.control-label(for='tb-confirm-password') Confirm password
+                        label.col-lg-4.control-label(for="tb-confirm-password") Confirm password
                         .col-lg-8
-                            input.form-control(type='password', id="tb-confirm-password", name="confirmPassword", placeholder='Confirm password', value=confirmPassword)
+                            input.form-control(type="password", id="tb-confirm-password", name="confirmPassword", placeholder="Confirm password", value=confirmPassword)
                     .form-group
                         .col-lg-8.col-lg-offset-4
-                            input.btn.btn-sm.btn-primary.btn-lg.btn-block(type='submit', value="Register")
+                            input.btn.btn-sm.btn-primary.btn-lg.btn-block(type="submit", value="Register")

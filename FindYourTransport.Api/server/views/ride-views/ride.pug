@@ -20,9 +20,9 @@ block content
             .col-lg-12
                 ul.nav.nav-tabs
                     li.active
-                        a.tab-title(href='#information', data-toggle='tab', aria-expanded='true') Information
+                        a.tab-title(href="#information", data-toggle="tab", aria-expanded="true") Information
                     li
-                        a.tab-title(href='#passengers', data-toggle='tab', aria-expanded='false') Passengers
+                        a.tab-title(href="#passengers", data-toggle="tab", aria-expanded="false") Passengers
                 #my-tab-content.tab-content
                     #information.tab-pane.fade.active.in
                         .matchheight.detailed-information
@@ -67,7 +67,7 @@ block content
                     input.hidden(type="text" value=`${user.username}` name="passengerUsername")
                     input.btn.btn-success.btn-special(type="submit" value="Sign for it")
 
-        script(type='text/javascript').
+        script(type="text/javascript").
             jQuery(function($){
-            $('.matchheight').matchHeight({byRow: false});
+            $(".matchheight").matchHeight({byRow: false});
             });

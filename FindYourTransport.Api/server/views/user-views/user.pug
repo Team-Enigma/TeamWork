@@ -2,54 +2,74 @@ extends ../base
 
 block app-title
         | information for user: #{user.username}
- 
+
 block content
-        //- img.user-avatar(src=`${user.avatar}`, alt=`${user.username}'s avatar`)
-        div.user-info
-                p First name: #{user.firstName}
-                p Last name: #{user.lastName}
-                p Username: #{user.username}
-                div.panel.panel-info(id="user-rides")
-                        p.panel-heading.text-center Rides:
-                        each ride in rides
+    div.user-detailed-container
+        .row
+            .col-lg-12
+                .row.main-row
+                    .col-md-2.matchheight-title
+                        img.avatar-image(src=`/images/users-avatars/${user.avatar}` alt="No image!")
+                    .col-md-10.matchheight-title.bot-vert-align
+                        div
+                            .row
+                                h1.profile-username #{user.username}
+                            .row
+                                h2.profile-names #{user.firstName} #{user.lastName}
+                hr
+        .row
+            .col-lg-12
+                ul.nav.nav-tabs
+                    li.active
+                        a.tab-title(href="#information", data-toggle="tab", aria-expanded="true") Information
+                    li
+                        a.tab-title(href="#rides", data-toggle="tab", aria-expanded="false") Rides
+                #my-tab-content.tab-content
+                    #information.tab-pane.fade.active.in
+                        .matchheight.detailed-information
+                            ul
+                                li
+                                    span First name:&nbsp
+                                    | #{user.firstName}
+                                li
+                                    span Last name:&nbsp
+                                    | #{user.lastName}
+                                li
+                                    span Email address:&nbsp
+                                    | #{user.email}
+                                li
+                                    span Place any additional information later
+                    #rides.tab-pane.fade
+                        .matchheight.detailed-information
+                            if rides.length > 0
+                            each ride in rides
                                 .row.ride-container
                                         .col-lg-12
-                                                .row.main-row
-                                                .col-lg-4.ride-lg
+                                            .row.main-row
+                                                .col-lg-3.font-smlg
                                                         span #{ride.fromCity}
-                                                .col-lg-1.ride-lg
+                                                .col-lg-1.font-md
                                                         span.glyphicon.glyphicon-chevron-right
-                                                .col-lg-4.ride-lg
+                                                .col-lg-3.font-smlg
                                                         span #{ride.toCity}
-                                                .col-lg-3.ride-lg
+                                                .col-lg-4.font-smlg
                                                         span #{moment(ride.dateOfTravel).format("lll")}
-                                                hr
-                                                .row.secondary-row
-                                                .col-lg-5.ride-md
+                                            hr
+                                            .row.secondary-row
+                                                .col-lg-4.font-md
                                                         span Available seats:
                                                         span  #{ride.freePlaces}
-                                                .col-lg-4.ride-md
+                                                .col-lg-3.font-md
                                                         span Price:
                                                         span  #{ride.price}
-                                                .col-lg-3.ride-md
-                                                        a(href=`/rides/${ride.id}`) Details 
+                                                .col-lg-2.font-md
+                                                        a(href=`/rides/${ride.id}`) Details
+                            else
+                                ul
+                                    li
+                                        span No rides information for this user
 
-        //- .row
-        //-         .col-lg-4.col-lg-offset-4.col-md-6.col-md-offset-3.col-sm-offset-2.col-sm-8.col-xs-10.col-xs-offset-1
-        //-                 div.panel.panel-info
-        //-                         div.panel-heading
-        //-                                 h3.panel-title Full user information:
-        //-                         div.panel-body
-        //-                                 span Firstname: #{user.firstName}
-        //-                         div.panel-body
-        //-                                 span Lastname: #{user.lastName}
-        //-                         div.panel-body
-        //-                                 span Lastname: #{user.email}
-                        //- form(class="form-horizontal")
-                        //-         fieldset
-                        //-                 legend Full user information:
-                        //-                         div.form-group
-                        //-                                 label.control-label Firstname: #{user.firstName}
-                        //-                         div.form-group
-                        //-                                 label.coll-lg-2.control-label Lastname: #{user.lastName}
-                                                        
+    script(type="text/javascript").
+        jQuery(function($){
+        $(".matchheight").matchHeight({byRow: false});
+        });
