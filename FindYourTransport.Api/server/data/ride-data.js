@@ -3,7 +3,7 @@ const Ride = require("../models/ride-model");
 function createNewRide(body, user) {
     return new Promise((resolve, reject) => {
         Ride.create({
-                driver: user,
+                driver: user.username,
                 fromCity: body.fromCity,
                 toCity: body.toCity,
                 dateOfTravel: Date.parse(body.dateOfTravel),
@@ -63,9 +63,9 @@ function getAllRides() {
         });
 }
 
-function getRidesForUser(user) {
+function getRidesForUser(username) {
     return Ride.find().where("driver")
-        .eq(user.username)
+        .eq(username)
         .exec((err, rides) => {
             if (err) {
                 return err;

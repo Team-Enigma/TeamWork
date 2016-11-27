@@ -10,7 +10,11 @@ function loadLoginPage(req, res) {
 }
 
 function loadProfilePage(req, res) {
-    res.render("user-views/profile");
+    data.getRidesForUser(req.user.username)
+        .then((rides) => {
+            console.log(rides);
+            res.render("user-views/profile", { rides });
+        });
 }
 
 function loadUsersPage(req, res) {
@@ -112,7 +116,6 @@ function logoutUser(req, res) {
 function uploadAvatar(req, res) {
     const user = req.user;
     const filename = req.file.filename;
-    console.log(user);
     data.getUserByUsername(user.username)
         .then((user) => {
             return user;
