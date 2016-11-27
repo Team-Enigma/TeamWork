@@ -8,9 +8,9 @@ block content
         .row
             .col-lg-12
                 .row.main-row
-                    .col-lg-2.matchheight
+                    .col-md-2.matchheight-title
                         img.avatar-image(src=`/images/users-avatars/${currentUser.avatar}` alt="No image!")
-                    .col-lg-10.matchheight.bot-vert-align
+                    .col-md-10.matchheight-title.bot-vert-align
                         div
                             .row
                                 h1.profile-username #{currentUser.username}
@@ -25,9 +25,11 @@ block content
                     li
                         a(href="#rides" data-toggle="pill", aria-expanded="true") Rides
                     li
+                        a(href="#update-profile-picture" data-toggle="pill", aria-expanded="false") Update profile picture
+                    li
                         a(href="#update-profile" data-toggle="pill", aria-expanded="false") Update profile
                     li
-                        a(href="#update-profile-picture" data-toggle="pill", aria-expanded="false") Update profile picture
+                        a(href="#update-password" data-toggle="pill", aria-expanded="false") Update password
                     li
                         a(href="#update-car" data-toggle="pill", aria-expanded="false") Update car
             .col-lg-9
@@ -37,58 +39,82 @@ block content
                                     p Profile information
                     #rides.tab-pane.fade
                         .matchheight
-                            p Rides
-                            if rides.length > 0    
+                            if rides.length > 0
                             each ride in rides
                                 .row.ride-container
                                         .col-lg-12
-                                                .row.main-row
-                                                .col-lg-4.ride-lg
+                                            .row.main-row
+                                                .col-lg-3.font-smlg
                                                         span #{ride.fromCity}
-                                                .col-lg-1.ride-lg
+                                                .col-lg-1.font-md
                                                         span.glyphicon.glyphicon-chevron-right
-                                                .col-lg-4.ride-lg
+                                                .col-lg-3.font-smlg
                                                         span #{ride.toCity}
-                                                .col-lg-3.ride-lg
+                                                .col-lg-4.font-smlg
                                                         span #{moment(ride.dateOfTravel).format("lll")}
-                                                hr
-                                                .row.secondary-row
-                                                .col-lg-5.ride-md
+                                                .col-lg-1
+                                                    form(action=`/rides/${ride.id}` method="post")
+                                                            input.hidden(type="text" name="rideId" value=`${ride.id}`)
+                                                            button.btn.btn-danger.btn-xs(type="submit")
+                                                                span.font-xs.glyphicon.glyphicon-remove
+                                            hr
+                                            .row.secondary-row
+                                                .col-lg-4.font-md
                                                         span Available seats:
                                                         span  #{ride.freePlaces}
-                                                .col-lg-4.ride-md
+                                                .col-lg-3.font-md
                                                         span Price:
                                                         span  #{ride.price}
-                                                .col-lg-3.ride-md
-                                                        form(action=`/rides/${ride.id}` method="post")
-                                                                a(href=`/rides/${ride.id}`) Details 
-                                                                input.hidden(type="text" name="rideId" value=`${ride.id}`)
-                                                                input.btn.btn-danger.btn-sm(type="submit" value="Remove ride")
-                            else 
-                                span.text-info This user has no rides
+                                                .col-lg-2.font-md
+                                                        a(href=`/rides/${ride.id}`) Details
+
+                            else
+                                p.font-md This user has no rides
                     #update-profile.tab-pane.fade
                         .matchheight
-                            p Profile
-                            .matchheight
-                                form(id="update-profile" action="/profile/update-info", method="post")
-                                    .group
-                                        label.control-label(for="tb-first-name") First name:
-                                        input(id="tb-first-name", type="text", name="firstName", value=`${currentUser.firstName}`)
-                                    .group
-                                        label.control-label(for="tb-last-name") Last name:
-                                        input(id="tb-last-name", type="text", name="lastName", value=`${currentUser.lastName}`)
-                                    .group    
-                                        label.control-label(for="tb-email") E-mail
-                                        input(id="tb-email", type="email", name="email", value=`${currentUser.email}`) 
-                                    .group
-                                        input.btn.btn-success.btn-special(type="submit", value="Update")
+                            form.form-horizontal(id="update-profile" action="/profile/update-info", method="post")
+                                fieldset
+                                    .form-group
+                                        label.col-sm-3.control-label(for="tb-first-name") First Name
+                                        .col-sm-4
+                                            input.form-control(type="text", id="tb-first-name", name="firstName", value=`${currentUser.firstName}`)
+                                    .form-group
+                                        label.col-sm-3.control-label(for="tb-last-name") Last Name
+                                        .col-sm-4
+                                            input.form-control(type="text", id="tb-last-name", name="lastName", value=`${currentUser.lastName}`)
+                                    .form-group
+                                        label.col-sm-3.control-label(for="tb-email") Email
+                                        .col-sm-4
+                                            input.form-control(type="text", id="tb-email", name="email", value=`${currentUser.email}`)
+                                    .form-group
+                                        .col-sm-4.col-sm-offset-3
+                                            input.btn.btn-block.btn-primary(type="submit", value="Update")
+                    #update-password.tab-pane.fade
+                        .matchheight
+                            form.form-horizontal(id="update-profile" action="/profile/update-password", method="post")
+                                fieldset
+                                    .form-group
+                                        label.col-sm-3.control-label(for="tb-password") Password
+                                        .col-sm-4
+                                            input.form-control(type="password", id="tb-password", name="oldPassword", placeholder=)
+                                    .form-group
+                                        label.col-sm-3.control-label(for="tb-new-password") New password
+                                        .col-sm-4
+                                            input.form-control(type="text", id="tb-new-password", name="newPassword")
+                                    .form-group
+                                        label.col-sm-3.control-label(for="tb-new-password-confirm") Confirm password
+                                        .col-sm-4
+                                            input.form-control(type="text", id="tb-new-password-confirm", name="newPasswordConfirm")
+                                    .form-group
+                                        .col-sm-4.col-sm-offset-3
+                                            input.btn.btn-block.btn-primary(type="submit", value="Update")
                     #update-profile-picture.tab-pane.fade
                         .matchheight
                             .row
                                 form(id="upload", action="/profile/upload-avatar", method="post", enctype="multipart/form-data")
                                     .form-group
                                         p.font-md Please select image
-                                        label.btn.btn-primary.btn-file(for="tb-avatar")
+                                        label.btn.btn-primary.btn-md.btn-file(for="tb-avatar")
                                             | Browse
                                         input(type="file", id="tb-avatar" name="avatar" accept="image/*")
                     #update-car.tab-pane.fade
@@ -104,5 +130,6 @@ block content
 
     script(type="text/javascript").
         jQuery(function($){
+        $(".matchheight-title").matchHeight({byRow: false});
         $(".matchheight").matchHeight({byRow: false});
         });

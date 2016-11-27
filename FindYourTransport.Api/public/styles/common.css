@@ -134,8 +134,16 @@ textarea {
     font-size: 1.4em;
 }
 
+.font-smlg {
+    font-size: 1.2em;
+}
+
 .font-md {
     font-size: 1.1em;
+}
+
+.font-xs {
+    font-size: 0.9em;
 }
 
 /* Ride detailed page */
@@ -192,6 +200,14 @@ textarea {
 
 #tb-avatar {
     display: none;
+}
+
+#rides, #update-profile-picture .font-md {
+    font-weight: bold;
+}
+
+#rides .ride-container hr {
+    width: 100%;
 }
 
 /* All users page */
