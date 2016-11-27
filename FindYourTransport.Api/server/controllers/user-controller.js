@@ -9,14 +9,28 @@ function loadLoginPage(req, res) {
     res.render("user-views/login");
 }
 
-function loadUsers(req, res) {
+function loadProfilePage(req, res) {
+    res.render("user-views/profile");
+}
+
+function loadUsersPage(req, res) {
     data.getAllUsers()
         .then((users) => {
             res.render("../views/user-views/all-users", { users });
         });
 }
 
-function loadUserByUserName(req, res) {
+function loadFilteredUsersPage(req, res) {
+    data.getFilteredUsers(req.query)
+        .then((users) => {
+            res.render("../views/user-views/all-users.pug", { users });
+        })
+        .catch((error) => {
+            return error;
+        });
+}
+
+function loadDetailedUserPage(req, res) {
     let username = req.params.username;
 
     data.getUserByUsername(username)
@@ -80,23 +94,34 @@ function logoutUser(req, res) {
     res.redirect("/");
 }
 
-function loadFilteredUsers(req, res) {
-    data.getFilteredUsers(req.query)
-        .then((users) => {
-            res.render("../views/user-views/all-users.pug", { users: users });
+function uploadAvatar(req, res) {
+    const user = req.user;
+    const filename = req.file.filename;
+    console.log(user);
+    data.getUserByUsername(user.username)
+        .then((user) => {
+            return user;
         })
-        .catch((error) => {
-            return error;
+        .then((user) => {
+            data.updateUserAvatar(user, filename);
+        })
+        .then(() => {
+            res.redirect("/profile");
+        })
+        .catch((err) => {
+            console.log(err);
         });
 }
 
 module.exports = {
     loadRegisterPage,
     loadLoginPage,
-    loadUsers,
-    loadUserByUserName,
-    loadFilteredUsers,
+    loadProfilePage,
+    loadUsersPage,
+    loadDetailedUserPage,
+    loadFilteredUsersPage,
     registerNewUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    uploadAvatar
 };

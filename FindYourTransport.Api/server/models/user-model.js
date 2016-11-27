@@ -34,6 +34,10 @@ const userSchema = mongooseSchema({
         type: String,
         enum: constants.user.enums.roleTypes,
         default: "User"
+    },
+    avatar: {
+        type: String,
+        default: "default-avatar.jpg"
     }
 });
 

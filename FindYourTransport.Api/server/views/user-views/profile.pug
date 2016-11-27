@@ -1,0 +1,14 @@
+extends ../base
+
+block app-title
+        | Profile
+
+block content
+        .row
+            h1 #{currentUser.username}
+            img(src=`/images/users-avatars/${currentUser.avatar}` alt="No image!")
+        form.form-horizontal.form-container(action='/profile/upload-avatar', method='post', enctype="multipart/form-data")
+            .form-group
+                label.col-lg-4.control-label(for='tb-avatar') Avatar
+                input.form-control(type="file" id="tb-avatar" name="avatar" accept="image/*")
+                input(type="submit" value="Upload" class="btn btn-success")

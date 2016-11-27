@@ -89,9 +89,21 @@ function getFilteredUsers(filter) {
         });
 }
 
+function updateUserAvatar(user, filename) {
+    console.log(filename);
+    User.update({ _id: user._id }, { avatar: filename }, null, (err) => {
+        if (err) {
+            return err;
+        }
+
+        return;
+    });
+}
+
 module.exports = {
     registerNewUser,
     getAllUsers,
     getUserByUsername,
-    getFilteredUsers
+    getFilteredUsers,
+    updateUserAvatar
 }

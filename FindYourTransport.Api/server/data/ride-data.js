@@ -126,8 +126,12 @@ function getSpecificRide(id) {
 }
 
 function updateRideInfo(ride) {
-    Ride.update({ _id: ride._id }, { freePlaces: ride.freePlaces, passengers: ride.passengers }, null, function() {
-        return 0;
+    Ride.update({ _id: ride._id }, { freePlaces: ride.freePlaces, passengers: ride.passengers }, null, (err) => {
+        if (err) {
+            return err;
+        }
+
+        return;
     });
 }
 

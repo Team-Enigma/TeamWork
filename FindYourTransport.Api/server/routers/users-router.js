@@ -1,4 +1,5 @@
 const controllers = require("../controllers");
+const upload = require("../configurations/multer");
 
 module.exports = function(app, authenticator, validator) {
     app.get("/register", authenticator.authenticateNotLoggedUser, controllers.user.loadRegisterPage);
@@ -9,7 +10,10 @@ module.exports = function(app, authenticator, validator) {
 
     app.get("/logout", controllers.user.logoutUser);
 
-    app.get("/users", controllers.user.loadUsers);
-    app.get("/users/filtered", controllers.user.loadFilteredUsers);
-    app.get("/users/:username", controllers.user.loadUserByUserName);
+    app.get("/profile", authenticator.authenticateLoggedUser, controllers.user.loadProfilePage);
+    app.post("/profile/upload-avatar", upload.single("avatar"), controllers.user.uploadAvatar);
+
+    app.get("/users", controllers.user.loadUsersPage);
+    app.get("/users/filtered", controllers.user.loadFilteredUsersPage);
+    app.get("/users/:username", controllers.user.loadDetailedUserPage);
 };

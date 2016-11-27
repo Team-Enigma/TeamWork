@@ -90,7 +90,7 @@ function addPassenger(req, res) {
             data.updateRideInfo(ride);
         })
         .then(() => {
-            res.redirect(`/rides/${id}`);
+            res.render(`/rides/${id}`);
         })
         .catch((err) => {
             console.log(err);
