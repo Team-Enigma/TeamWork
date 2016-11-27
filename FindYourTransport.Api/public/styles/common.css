@@ -194,6 +194,31 @@ textarea {
     display: none;
 }
 
+/* All users page */
+
+.all-users-container {
+    background-color: #FFFFFF;
+    padding: 0px 10px 40px 10px;
+}
+
+.all-users-container #tb-username {
+    margin-bottom: 20px;
+}
+
+.all-users-container .user-container {
+    border: 2px solid #DCE4EC;
+    padding: 20px 10px;
+    margin-bottom: 25px;
+
+}
+
+.all-users-container .user-container a{
+    color: #1E392A;
+}
+
+.all-users-container .user-container a:hover{
+    text-decoration: none;
+}
 /* clean these later */
 .move {
     margin-left: 180px
