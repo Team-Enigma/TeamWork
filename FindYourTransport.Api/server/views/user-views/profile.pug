@@ -34,7 +34,7 @@ block content
                 #my-tab-content.tab-content
                     #profile.tab-pane.fade.active.in
                         .matchheight
-                            p Profile information
+                                    p Profile information
                     #rides.tab-pane.fade
                         .matchheight
                             p Rides
@@ -69,6 +69,19 @@ block content
                     #update-profile.tab-pane.fade
                         .matchheight
                             p Profile
+                            .matchheight
+                                form(id="update-profile" action="/profile/update-info", method="post")
+                                    .group
+                                        label.control-label(for="tb-first-name") First name:
+                                        input(id="tb-first-name", type="text", name="firstName", value=`${currentUser.firstName}`)
+                                    .group
+                                        label.control-label(for="tb-last-name") Last name:
+                                        input(id="tb-last-name", type="text", name="lastName", value=`${currentUser.lastName}`)
+                                    .group    
+                                        label.control-label(for="tb-email") E-mail
+                                        input(id="tb-email", type="email", name="email", value=`${currentUser.email}`) 
+                                    .group
+                                        input.btn.btn-success.btn-special(type="submit", value="Update")
                     #update-profile-picture.tab-pane.fade
                         .matchheight
                             .row

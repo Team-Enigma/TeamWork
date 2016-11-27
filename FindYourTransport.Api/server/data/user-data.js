@@ -100,10 +100,29 @@ function updateUserAvatar(user, filename) {
     });
 }
 
+function updateUserInfo(user, params) {
+    var changes = {};
+
+    for (param in params) {
+        if (params[param] !== user[param]) {
+            changes[param] = params[param];
+        }
+    }
+
+    User.update({ _id: user._id }, changes, null, (err) => {
+        if (err) {
+            return err;
+        }
+
+        return;
+    });
+}
+
 module.exports = {
     registerNewUser,
     getAllUsers,
     getUserByUsername,
     getFilteredUsers,
-    updateUserAvatar
+    updateUserAvatar,
+    updateUserInfo
 }

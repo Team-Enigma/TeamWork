@@ -10,11 +10,15 @@ function loadLoginPage(req, res) {
 }
 
 function loadProfilePage(req, res) {
-    data.getRidesForUser(req.user.username)
-        .then((rides) => {
-            console.log(rides);
-            res.render("user-views/profile", { rides });
-        });
+    var username = req.user.username;
+
+    data.getUserByUsername(username)
+        .then((currentUser) => {
+            data.getRidesForUser(currentUser.username)
+                .then((rides) => {
+                    res.render("user-views/profile", { rides, currentUser });
+                });
+        })
 }
 
 function loadUsersPage(req, res) {
@@ -131,6 +135,24 @@ function uploadAvatar(req, res) {
         });
 }
 
+function updateInfo(req, res) {
+    var user = req.user;
+
+    data.getUserByUsername(user.username)
+        .then((user) => {
+            return user;
+        })
+        .then((user) => {
+            data.updateUserInfo(user, req.body);
+        })
+        .then(() => {
+            res.redirect("/profile");
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
 module.exports = {
     loadRegisterPage,
     loadLoginPage,
@@ -141,5 +163,6 @@ module.exports = {
     registerNewUser,
     loginUser,
     logoutUser,
-    uploadAvatar
+    uploadAvatar,
+    updateInfo
 };
