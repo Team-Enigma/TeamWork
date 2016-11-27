@@ -4,7 +4,7 @@ const userSchema = require("./ride-model");
 const constants = require("../utils/constants");
 
 const rideSchema = mongooseSchema({
-    driver: { type: userSchema },
+    driver: { type: String, required: true },
     fromCity: {
         type: String,
         required: [true, constants.ride.messages.requiredStartCity],

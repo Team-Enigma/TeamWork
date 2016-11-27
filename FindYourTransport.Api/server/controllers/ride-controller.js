@@ -102,7 +102,7 @@ function removeRideById(req, res) {
     var id = req.body.rideId;
     data.removeRideById(id)
         .then(() => {
-            res.redirect(`/users/${req.user.username}`);
+            res.redirect(`/profile`);
         });
 }
 

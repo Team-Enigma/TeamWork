@@ -38,6 +38,34 @@ block content
                     #rides.tab-pane.fade
                         .matchheight
                             p Rides
+                            if rides.length > 0    
+                            each ride in rides
+                                .row.ride-container
+                                        .col-lg-12
+                                                .row.main-row
+                                                .col-lg-4.ride-lg
+                                                        span #{ride.fromCity}
+                                                .col-lg-1.ride-lg
+                                                        span.glyphicon.glyphicon-chevron-right
+                                                .col-lg-4.ride-lg
+                                                        span #{ride.toCity}
+                                                .col-lg-3.ride-lg
+                                                        span #{moment(ride.dateOfTravel).format("lll")}
+                                                hr
+                                                .row.secondary-row
+                                                .col-lg-5.ride-md
+                                                        span Available seats:
+                                                        span  #{ride.freePlaces}
+                                                .col-lg-4.ride-md
+                                                        span Price:
+                                                        span  #{ride.price}
+                                                .col-lg-3.ride-md
+                                                        form(action=`/rides/${ride.id}` method="post")
+                                                                a(href=`/rides/${ride.id}`) Details 
+                                                                input.hidden(type="text" name="rideId" value=`${ride.id}`)
+                                                                input.btn.btn-danger.btn-sm(type="submit" value="Remove ride")
+                            else 
+                                span.text-info This user has no rides
                     #update-profile.tab-pane.fade
                         .matchheight
                             p Profile
