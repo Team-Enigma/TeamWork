@@ -3,49 +3,48 @@ const encryption = require("../utils/encryption");
 
 function createNewUser(body) {
     return new Promise((resolve, reject) => {
-
         const salt = encryption.generateSalt();
         const hashedPassword = encryption.generateHashedPassword(salt, body.password);
 
         User.create({
-            username: body.username,
-            hashedPassword,
-            salt,
-            firstName: body.firstName,
-            lastName: body.lastName,
-            email: body.email
-        })
-        .then(() => {
-            return resolve();
-        })
-        .catch(err => {
-            return reject(err);
-        });
+                username: body.username,
+                hashedPassword,
+                salt,
+                firstName: body.firstName,
+                lastName: body.lastName,
+                email: body.email
+            })
+            .then(() => {
+                return resolve();
+            })
+            .catch(err => {
+                return reject(err);
+            });
     });
 }
 
 function registerNewUser(body) {
     return new Promise((resolve, reject) => {
         User.findOne({
-            $or: [
-                { username: body.username },
-                { email: body.email }
-            ]
-        })
-        .then(user => {
-            if (user) {
-                throw new Error("A user with this username or email already exists");
-            }
-        })
-        .then(() => {
-            return createNewUser(body);
-        })
-        .then(() => {
-            return resolve();
-        })
-        .catch(err => {
-            return reject(err);
-        });
+                $or: [
+                    { username: body.username },
+                    { email: body.email }
+                ]
+            })
+            .then(user => {
+                if (user) {
+                    throw new Error("A user with this username or email already exists");
+                }
+            })
+            .then(() => {
+                return createNewUser(body);
+            })
+            .then(() => {
+                return resolve();
+            })
+            .catch(err => {
+                return reject(err);
+            });
     });
 }
 
@@ -112,11 +111,25 @@ function updateUserInfo(user, params) {
     });
 }
 
+function changeUserPassword(user, newPassword) {
+    const hashedNewPassword = encryption.generateHashedPassword(user.salt, newPassword);
+    var newPassword = { hashedPassword: hashedNewPassword };
+
+    User.update({ _id: user._id }, newPassword, null, (err) => {
+        if (err) {
+            return err;
+        }
+
+        return;
+    });
+}
+
 module.exports = {
     registerNewUser,
     getAllUsers,
     getUserByUsername,
     getFilteredUsers,
     updateUserAvatar,
-    updateUserInfo
+    updateUserInfo,
+    changeUserPassword
 };

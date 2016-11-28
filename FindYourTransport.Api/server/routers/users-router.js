@@ -13,6 +13,7 @@ module.exports = function(app, authenticator, validator) {
     app.get("/profile", authenticator.authenticateLoggedUser, controllers.user.loadProfilePage);
     app.post("/profile/upload-avatar", upload.single("avatar"), controllers.user.uploadAvatar);
     app.post("/profile/update-info", authenticator.authenticateLoggedUser, controllers.user.updateInfo);
+    app.post("/profile/update-password", validator.validatePasswordChange, controllers.user.updatePassword);
 
     app.get("/users", controllers.user.loadUsersPage);
     app.get("/users/filtered", controllers.user.loadFilteredUsersPage);

@@ -1,3 +1,5 @@
+const encryption = require("./encryption");
+
 const user = {
     messages: {
         uniqueUsername: "A user with this username already exists",

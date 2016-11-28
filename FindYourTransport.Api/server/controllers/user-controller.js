@@ -150,6 +150,22 @@ function updateInfo(req, res) {
         });
 }
 
+function updatePassword(req, res) {
+    var currentUser = req.user;
+    var newPassword = req.body.newPassword;
+
+    data.getUserByUsername(currentUser.username)
+        .then((user) => {
+            data.changeUserPassword(user, newPassword);
+        })
+        .then(() => {
+            res.redirect("/profile");
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
 module.exports = {
     loadRegisterPage,
     loadLoginPage,
@@ -161,5 +177,6 @@ module.exports = {
     loginUser,
     logoutUser,
     uploadAvatar,
-    updateInfo
+    updateInfo,
+    updatePassword
 };

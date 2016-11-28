@@ -1,7 +1,7 @@
 const data = require("../data")();
 
 function loadAllRides(req, res) {
-    data.getAllRides(req.query)
+    data.getAllRides()
         .then((rides) => {
             res.render("ride-views/all-rides.pug", { rides });
         });
@@ -73,7 +73,7 @@ function addPassenger(req, res) {
 
             if (ride.passengers.indexOf(user) === -1) {
                 ride.passengers.push(user);
-                ride.freePlaces -=1;
+                ride.freePlaces -= 1;
             }
 
             return ride;

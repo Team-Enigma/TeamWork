@@ -189,8 +189,60 @@ function validateRideCreation(req, res, next) {
     }
 }
 
+function validatePasswordChange(req, res, next) {
+    var cachedUser = req.user;
+    var formData = req.body;
+    var messages = [];
+
+    const changePasswordFormFields = {
+        oldPassword: {
+            field: formData.oldPassword,
+            matcher: constants.user.matchers.password,
+            matchMessage: constants.user.messages.password,
+            requiredMessage: constants.user.messages.requiredPassword
+        },
+        newPassword: {
+            field: formData.newPassword,
+            matcher: constants.user.matchers.password,
+            matchMessage: constants.user.messages.password,
+            requiredMessage: constants.user.messages.requiredPassword
+        },
+        confirmPassword: {
+            field: formData.newPasswordConfirm,
+            matcher: constants.user.matchers.password,
+            matchMessage: constants.user.messages.password,
+            requiredMessage: constants.user.messages.requiredConfirmPassword
+        }
+    };
+
+    const fields = Object.keys(changePasswordFormFields).map(key => {
+        return changePasswordFormFields[key];
+    });
+
+    fields.forEach(f => {
+        validateRequired(f.field, f.requiredMessage, messages);
+        validateMatcher(f.field, f.matcher, f.matchingMessage, messages);
+    });
+
+    validateEquality(
+        formData.newPassword,
+        formData.newPasswordConfirm,
+        constants.user.messages.confirmPassword,
+        messages);
+
+    if (messages.length > 0) {
+        cashedUser.messages = messages;
+        res.status(409);
+        res.render("user-views/register", cashedUser);
+        res.end();
+    } else {
+        next();
+    }
+}
+
 module.exports = {
     validateUserLogin,
     validateUserRegistration,
-    validateRideCreation
+    validateRideCreation,
+    validatePasswordChange
 };
