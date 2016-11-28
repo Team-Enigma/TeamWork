@@ -38,7 +38,11 @@ block content
                                     span Email address:&nbsp
                                     | #{user.email}
                                 li
-                                    span Place any additional information later
+                                    span City:&nbsp
+                                    | #{user.city}
+                                li
+                                    span Contact information:&nbsp
+                                    | #{user.contact}
                     #rides.tab-pane.fade
                         .matchheight.detailed-information
                             if rides.length > 0

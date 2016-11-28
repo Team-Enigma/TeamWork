@@ -87,6 +87,14 @@ block content
                                         .col-sm-4
                                             input.form-control(type="text", id="tb-email", name="email", value=`${currentUser.email}`)
                                     .form-group
+                                        label.col-sm-3.control-label(for="tb-city") City
+                                        .col-sm-4
+                                            input.form-control(type="text", id="tb-city", name="city", value=`${currentUser.city}`)
+                                    .form-group
+                                        label.col-sm-3.control-label(for="tb-contact") Contact information
+                                        .col-sm-4
+                                            input.form-control(type="text", id="tb-contact", name="contact", value=`${currentUser.contact}`)
+                                    .form-group
                                         .col-sm-4.col-sm-offset-3
                                             input.btn.btn-block.btn-primary(type="submit", value="Update")
                     #update-password.tab-pane.fade

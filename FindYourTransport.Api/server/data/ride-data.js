@@ -49,6 +49,8 @@ function addNewRide(body, user) {
 
 function getAllRides() {
     return Ride.find()
+        .where("isRemoved")
+        .equals(false)
         .where("dateOfTravel")
         .gt(Date.now())
         .sort("dateOfTravel")
@@ -62,8 +64,11 @@ function getAllRides() {
 }
 
 function getRidesForUser(username) {
-    return Ride.find().where("driver")
-        .eq(username)
+    return Ride.find()
+        .where("isRemoved")
+        .equals(false)
+        .where("driver")
+        .equals(username)
         .sort("dateOfTravel")
         .exec((err, rides) => {
             if (err) {
@@ -94,6 +99,8 @@ function getFilteredRides(filter) {
     }
 
     return filteredRides
+        .where("isRemoved")
+        .equals(false)
         .where("dateOfTravel")
         .gt(Date.now())
         .sort("dateOfTravel")
@@ -126,7 +133,15 @@ function updateRideInfo(ride) {
 }
 
 function removeRideById(rideId) {
-    return Ride.remove({ _id: rideId });
+    return new Promise((resolve, reject) => {
+        Ride.update({ _id: rideId }, { isRemoved: true }, null, (err) => {
+            if (err) {
+                return reject(err);
+            }
+
+            return resolve();
+        });
+    });
 }
 
 module.exports = {

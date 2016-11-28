@@ -12,14 +12,18 @@ const user = {
         personLastName: "Last name should contain latin letters and begin with capital letter and be between 2 and 30 characters (e.g. Doe)",
         username: "Username should contain latin letters both capital and small as well as digits and -._ symbols and be between 3 and 20 characters (e.g. john.42)",
         email: "Email should contain latin letters both capital and small as well as digits and -._ symbols (e.g. john.42@mail.com)",
+        city: "City name should contain latin letters and begin with capital letter and be between 2 and 30 characters (e.g. Sofia)",
+        contact: "Contact information should not have any  (e.g. Sofia)",
         password: "Password should contain latin letters both capital and small as well as digits and special symbols and be between 3 and 20 characters (e.g. Pasword#!42)",
         confirmPassword: "Passwords does not match"
     },
     matchers: {
         personName: /^([A-Z]{1}[a-z]{1,30})$/,
+        city: /^([A-Z]{1}[a-z\s]{1,30})$/,
         username: /^([A-Za-z0-9\-\._]{3,20})$/,
         email: /^([\w\d\-\._]+@[\w\d]+\.[\w]{2,3})$/,
-        password: /^([A-Za-z0-9!@#%&\$\^\*\.\-_]{3,20})$/
+        contact: /^([A-Za-z0-9\+\s.\-_]{3,20})$/,
+        password: /^([A-Za-z0-9!@#%&\$\^\*\.\-_]{3,40})$/
     },
     enums: { roleTypes: ["User", "Admin"] }
 };

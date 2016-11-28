@@ -29,6 +29,16 @@ const userSchema = mongooseSchema({
         required: [true, constants.user.messages.requiredEmail],
         match: [constants.user.matchers.email, constants.user.messages.email]
     },
+    city: {
+        type: String,
+        match: [constants.user.matchers.city, constants.user.messages.city],
+        default: ""
+    },
+    contact: {
+        type: String,
+        match: [constants.user.matchers.contact, constants.user.messages.contact],
+        default: ""
+    },
     car: { type: carSchema, default: {} },
     role: {
         type: String,
