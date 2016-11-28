@@ -10,15 +10,12 @@ function loadLoginPage(req, res) {
 }
 
 function loadProfilePage(req, res) {
-    var username = req.user.username;
+    const currentUser = req.user;
 
-    data.getUserByUsername(username)
-        .then((currentUser) => {
-            data.getRidesForUser(currentUser.username)
-                .then((rides) => {
-                    res.render("user-views/profile", { rides, currentUser });
-                });
-        })
+    data.getRidesForUser(currentUser.username)
+        .then((rides) => {
+            res.render("user-views/profile", { rides });
+        });
 }
 
 function loadUsersPage(req, res) {
@@ -39,16 +36,20 @@ function loadFilteredUsersPage(req, res) {
 }
 
 function loadDetailedUserPage(req, res) {
-    let username = req.params.username;
+    const username = req.params.username;
+    let foundUser;
     data.getUserByUsername(username)
         .then((user) => {
-            return data.getRidesForUser(username)
-                .then((rides) => {
-                    return {
-                        user: user,
-                        userRides: rides
-                    }
-                });
+            foundUser = user;
+        })
+        .then(() => {
+            return data.getRidesForUser(username);
+        })
+        .then((rides) => {
+            return {
+                user: foundUser,
+                userRides: rides
+            };
         })
         .then((result) => {
             res.render("../views/user-views/user", { user: result.user, rides: result.userRides });
@@ -97,7 +98,7 @@ function loginUser(req, res, next) {
             req.login(user, (err2) => {
                 if (err2) {
                     // server error from passport.login
-                    return next(err);
+                    return next(err2);
                 }
                 return res.redirect("/");
             });
@@ -114,9 +115,9 @@ function logoutUser(req, res) {
 }
 
 function uploadAvatar(req, res) {
-    const user = req.user;
+    const currentUser = req.user;
     const filename = req.file.filename;
-    data.getUserByUsername(user.username)
+    data.getUserByUsername(currentUser.username)
         .then((user) => {
             return user;
         })
@@ -132,9 +133,9 @@ function uploadAvatar(req, res) {
 }
 
 function updateInfo(req, res) {
-    var user = req.user;
+    const currentUser = req.user;
 
-    data.getUserByUsername(user.username)
+    data.getUserByUsername(currentUser.username)
         .then((user) => {
             return user;
         })
