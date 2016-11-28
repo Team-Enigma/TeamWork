@@ -3,7 +3,7 @@ const jsdom = require("jsdom").jsdom,
     window = doc.defaultView,
     $ = require("jquery")(window);
 
-function parseFuelPrise(firstSelector, secondSelector, html) {
+function parseFuelPrice(firstSelector, secondSelector, html) {
     $("body").html(html);
     let fuels = [];
     let textForFuelName = $(firstSelector).html();
@@ -20,4 +20,4 @@ function parseFuelPrise(firstSelector, secondSelector, html) {
         });
 }
 
-module.exports = { parseFuelPrise };
+module.exports = { parseFuelPrice };

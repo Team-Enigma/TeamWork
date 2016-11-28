@@ -14,4 +14,4 @@ function get(url) {
     return promise;
 }
 
-module.exports = {get };
+module.exports = { get };
