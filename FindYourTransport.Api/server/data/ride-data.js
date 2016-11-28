@@ -83,11 +83,11 @@ function getFilteredRides(filter) {
     let filteredRides = Ride.find();
     console.log(filter);
     if (filter.fromCity !== undefined && filter.fromCity !== "") {
-        filteredRides.where("fromCity").eq(filter.fromCity);
+        filteredRides.where({ fromCity: new RegExp(filter.fromCity, "i") });
     }
 
     if (filter.toCity !== undefined && filter.toCity !== "") {
-        filteredRides.where("toCity").eq(filter.toCity);
+        filteredRides.where({ toCity: new RegExp(filter.toCity, "i") });
     }
 
     if (filter.startDate !== undefined && filter.startDate !== "") {

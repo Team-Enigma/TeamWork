@@ -1,15 +1,15 @@
 ## Views
-- /users (some changes)
-- /users/id (some changes)
+- /admin
 - /calculate-ride
 - /contact
 - /profile (some changes)
+
 ## Functionalities
-- search for users
-- /users/id - show rides of user (if he has ones)
 - calculate price
 - add contact to base
 - eventually admin page
 - profile page
-	- edit personal information
+	- edit personal information (password change left)
 	- add/edit car
+- * server validations for places where data is inserted into db
+- * eventually find a way to implement pagination for listing rides/users

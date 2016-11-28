@@ -72,7 +72,7 @@ function getFilteredUsers(filter) {
     let filteredUsers = User.find();
 
     if (filter.username !== undefined && filter.username !== "") {
-        filteredUsers.where("username").eq(filter.username);
+        filteredUsers.where({ username: new RegExp(filter.username, "i") });
     }
 
     return filteredUsers.exec((err, users) => {
