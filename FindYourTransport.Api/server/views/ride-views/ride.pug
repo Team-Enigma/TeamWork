@@ -4,7 +4,7 @@ block app-title
         | Ride: #{ride.fromCity} to #{ride.toCity}
 
 block content
-    - var isPassenger = false;
+    - let isPassenger = false;
     div.ride-detailed-container
         .row
             .col-lg-12
@@ -57,7 +57,7 @@ block content
                             else
                                 ul
                                     li No passengers signed for this travel
-        if(currentUser.username !== ride.driver && !isPassenger)
+        if currentUser.username !== ride.driver && !isPassenger
             .row
                 .col-lg-12
                     hr

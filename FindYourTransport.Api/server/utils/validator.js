@@ -190,9 +190,9 @@ function validateRideCreation(req, res, next) {
 }
 
 function validatePasswordChange(req, res, next) {
-    var cachedUser = req.user;
-    var formData = req.body;
-    var messages = [];
+    let cachedUser = req.user;
+    let formData = req.body;
+    let messages = [];
 
     const changePasswordFormFields = {
         oldPassword: {
@@ -241,7 +241,7 @@ function validatePasswordChange(req, res, next) {
 }
 
 function validateCarCreation(req, res, next) {
-    var cachedCar = req.body;
+    let cachedCar = req.body;
     const messages = [];
 
     const carFormFields = {

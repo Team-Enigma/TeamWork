@@ -191,9 +191,9 @@ block content
 
     script(type="text/javascript").
         jQuery(function($){
-            var manualTransmission = $("#tb-transmission-type").children()[1];
+            let manualTransmission = $("#tb-transmission-type").children()[1];
 
-            var selectedOption = $(manualTransmission);
+            let selectedOption = $(manualTransmission);
 
             selectedOption.attr("selected", "selected");
         })

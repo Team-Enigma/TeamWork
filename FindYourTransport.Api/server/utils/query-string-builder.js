@@ -1,7 +1,7 @@
 function buildAndRedirect(req, res) {
-    var queryString = req.path;
+    let queryString = req.path;
 
-    var params = req.body;
+    let params = req.body;
 
     for (element in params) {
         if (params[element] !== '') {

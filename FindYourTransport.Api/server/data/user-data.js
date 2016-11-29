@@ -111,9 +111,9 @@ function updateUserInfo(user, params) {
     });
 }
 
-function changeUserPassword(user, newPassword) {
-    const hashedNewPassword = encryption.generateHashedPassword(user.salt, newPassword);
-    var newPassword = { hashedPassword: hashedNewPassword };
+function changeUserPassword(user, requestPassword) {
+    const hashedNewPassword = encryption.generateHashedPassword(user.salt, requestPassword);
+    let newPassword = { hashedPassword: hashedNewPassword };
 
     User.update({ _id: user._id }, newPassword, null, (err) => {
         if (err) {
@@ -125,7 +125,6 @@ function changeUserPassword(user, newPassword) {
 }
 
 function updateUserCarInfo(user, carInfo) {
-
     User.update({ _id: user._id }, { car: carInfo }, null, (err) => {
         if (err) {
             return err;

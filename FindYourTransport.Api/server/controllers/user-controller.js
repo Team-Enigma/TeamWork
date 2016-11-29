@@ -134,7 +134,7 @@ function uploadAvatar(req, res) {
 }
 
 function updateInfo(req, res) {
-    var currentUser = req.user;
+    let currentUser = req.user;
 
     data.getUserByUsername(currentUser.username)
         .then((user) => {
@@ -149,8 +149,8 @@ function updateInfo(req, res) {
 }
 
 function updatePassword(req, res) {
-    var currentUser = req.user;
-    var newPassword = req.body.newPassword;
+    let currentUser = req.user;
+    let newPassword = req.body.newPassword;
 
     data.getUserByUsername(currentUser.username)
         .then((user) => {
@@ -165,8 +165,8 @@ function updatePassword(req, res) {
 }
 
 function updateCarInfo(req, res) {
-    var currentUser = req.user;
-    var car = {
+    let currentUser = req.user;
+    let car = {
         manufacturer: req.body.manufacturer,
         model: req.body.model,
         seats: req.body.seats,

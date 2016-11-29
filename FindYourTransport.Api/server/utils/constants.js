@@ -60,7 +60,7 @@ const car = {
     matchers: {
         manufacturer: /^([\w+\s*]{2,25})$/,
         model: /^([\w+\s*]{2,15})$/,
-        registrationNumber: /^[A-Z]{1}[0-9]{4}[A-Z]{2}$/
+        registrationNumber: /^[A-Z]{1,2}[0-9]{4}[A-Z]{2}$/
     },
     enums: {
         fuelTypes: ["ULP", "PULP", "CNG", "LPG", "Diesel", "Hybrid", "Electric"],
