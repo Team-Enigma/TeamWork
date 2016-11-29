@@ -124,6 +124,17 @@ function changeUserPassword(user, newPassword) {
     });
 }
 
+function updateUserCarInfo(user, carInfo) {
+
+    User.update({ _id: user._id }, { car: carInfo }, null, (err) => {
+        if (err) {
+            return err;
+        }
+
+        return;
+    });
+}
+
 module.exports = {
     registerNewUser,
     getAllUsers,
@@ -131,5 +142,6 @@ module.exports = {
     getFilteredUsers,
     updateUserAvatar,
     updateUserInfo,
+    updateUserCarInfo,
     changeUserPassword
 };

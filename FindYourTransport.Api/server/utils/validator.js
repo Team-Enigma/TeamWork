@@ -240,9 +240,56 @@ function validatePasswordChange(req, res, next) {
     }
 }
 
+function validateCarCreation(req, res, next) {
+    var cachedCar = req.body;
+    const messages = [];
+
+    const carFormFields = {
+        manufacturer: {
+            field: cachedCar.manufacturer,
+            matcher: constants.car.matchers.manufacturer,
+            matchMessage: constants.car.messages.manufacturer,
+            requiredMessage: constants.car.messages.requiredManufacturer
+        },
+        model: {
+            field: cachedCar.model,
+            matcher: constants.car.matchers.model,
+            matchMessage: constants.car.messages.model,
+            requiredMessage: constants.car.messages.requiredModel
+        },
+        registrationNumber: {
+            field: cachedCar.registrationNumber,
+            matcher: constants.car.matchers.registrationNumber,
+            matchMessage: constants.car.messages.registrationNumber,
+            requiredMessage: constants.car.messages.requiredRegistrationNumber
+        }
+    };
+
+    const fields = Object.keys(carFormFields).map(key => {
+        return carFormFields[key];
+    });
+
+    fields.forEach(f => {
+        validateRequired(f.field, f.requiredMessage, messages);
+        if (f.matcher) {
+            validateMatcher(f.field, f.matcher, f.matchMessage, messages);
+        }
+    });
+
+    if (messages.length > 0) {
+        cachedCar.messages = messages;
+        res.status(409);
+        res.redirect('back'); // messed up a little bit with the rendering
+        res.end();
+    } else {
+        next();
+    }
+}
+
 module.exports = {
     validateUserLogin,
     validateUserRegistration,
     validateRideCreation,
+    validateCarCreation,
     validatePasswordChange
 };

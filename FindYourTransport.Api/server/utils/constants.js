@@ -49,6 +49,19 @@ const ride = {
 };
 
 const car = {
+    messages: {
+        requiredManufacturer: "Manufacturer is required",
+        requiredModel: "Model is required",
+        requiredRegistrationNumber: "Registration number is required",
+        manufacturer: "Manufacturer should contain only latin letters and be between 2 and 25 symbols long",
+        model: "Model should contain only latin letters and be between 2 and 15 symbols long",
+        registrationNumber: "Registration number should contain a latin letter, followed by 4 digits and two more latin letters (e.g. C2332KK)"
+    },
+    matchers: {
+        manufacturer: /^([\w+\s*]{2,25})$/,
+        model: /^([\w+\s*]{2,15})$/,
+        registrationNumber: /^[A-Z]{1}[0-9]{4}[A-Z]{2}$/
+    },
     enums: {
         fuelTypes: ["ULP", "PULP", "CNG", "LPG", "Diesel", "Hybrid", "Electric"],
         transmissionTypes: ["Automatic", "Manual"]

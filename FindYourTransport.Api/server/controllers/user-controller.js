@@ -1,5 +1,6 @@
 const data = require("../data")();
 const passport = require("passport");
+const constants = require("../utils/constants")
 
 function loadRegisterPage(req, res) {
     res.render("user-views/register");
@@ -14,7 +15,7 @@ function loadProfilePage(req, res) {
 
     data.getRidesForUser(currentUser.username)
         .then((rides) => {
-            res.render("user-views/profile", { rides });
+            res.render("user-views/profile", { rides: rides, fuelTypes: constants.car.enums.fuelTypes, transmissionTypes: constants.car.enums.transmissionTypes });
         });
 }
 
@@ -133,12 +134,9 @@ function uploadAvatar(req, res) {
 }
 
 function updateInfo(req, res) {
-    const currentUser = req.user;
+    var currentUser = req.user;
 
     data.getUserByUsername(currentUser.username)
-        .then((user) => {
-            return user;
-        })
         .then((user) => {
             data.updateUserInfo(user, req.body);
         })
@@ -166,6 +164,29 @@ function updatePassword(req, res) {
         });
 }
 
+function updateCarInfo(req, res) {
+    var currentUser = req.user;
+    var car = {
+        manufacturer: req.body.manufacturer,
+        model: req.body.model,
+        seats: req.body.seats,
+        fuel: req.body.fuelType,
+        transmission: req.body.transmissionType,
+        registrationNumber: req.body.registrationNumber
+    };
+
+    data.getUserByUsername(currentUser.username)
+        .then((user) => {
+            data.updateUserCarInfo(user, car);
+        })
+        .then(() => {
+            res.redirect("/profile");
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
 module.exports = {
     loadRegisterPage,
     loadLoginPage,
@@ -178,5 +199,6 @@ module.exports = {
     logoutUser,
     uploadAvatar,
     updateInfo,
-    updatePassword
+    updatePassword,
+    updateCarInfo
 };

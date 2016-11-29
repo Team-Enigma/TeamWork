@@ -99,7 +99,7 @@ block content
                                             input.btn.btn-block.btn-primary(type="submit", value="Update")
                     #update-password.tab-pane.fade
                         .matchheight
-                            form.form-horizontal(id="update-profile" action="/profile/update-password", method="post")
+                            form.form-horizontal(id="update-password" action="/profile/update-password", method="post")
                                 fieldset
                                     .form-group
                                         label.col-sm-3.control-label(for="tb-password") Password
@@ -127,7 +127,54 @@ block content
                                         input(type="file", id="tb-avatar" name="avatar" accept="image/*")
                     #update-car.tab-pane.fade
                         .matchheight
-                            p Car
+                            form.form-horizontal(id="update-car" action="/profile/update-car", method="post")
+                                fieldset
+                                    .form-group
+                                        label.col-sm-3.control-label(for="tb-manufacturer") Manufacturer
+                                        .col-sm-4
+                                            if currentUser.car.manufacturer !== undefined
+                                                input.form-control(type="text", id="tb-manufacturer", name="manufacturer", value=`${currentUser.car.manufacturer}`)
+                                            else
+                                                input.form-control(type="text", id="tb-manufacturer", name="manufacturer", placeholder="Manufacturer")
+                                    .form-group
+                                        label.col-sm-3.control-label(for="tb-model") Model
+                                        .col-sm-4
+                                            if currentUser.car.model !== undefined
+                                                input.form-control(type="text", id="tb-model", name="model", value=`${currentUser.car.model}`)
+                                            else
+                                                input.form-control(type="text", id="tb-model", name="model", placeholder="Model")
+                                    .form-group
+                                        label.col-sm-3.control-label(for="tb-seats") Seats
+                                        .col-sm-4
+                                            select.form-control(id="tb-seats" name="seats")
+                                                option 2
+                                                option 5
+                                    .form-group
+                                        label.col-sm-3.control-label(for="tb-fuel-type") Fuel type
+                                        .col-sm-4
+                                            select.form-control(id="tb-fuel-type" name="fuelType")
+                                                option(value="", disabled, selected) Select fuel type
+                                                each fuelType in fuelTypes
+                                                    option #{fuelType}
+                                    .form-group
+                                        label.col-sm-3.control-label(for="tb-transmission-type") Transmission
+                                        .col-sm-4
+                                            select.form-control(id="tb-transmission-type" name="transmissionType")
+                                                each transmissionType in transmissionTypes
+                                                    option #{transmissionType}
+                                    .form-group
+                                        label.col-sm-3.control-label(for="tb-registration-number") Registration number
+                                        .col-sm-4
+                                            if currentUser.car.registrationNumber !== undefined
+                                                input.form-control(type="text", id="tb-registration-number", name="registrationNumber", value=`${currentUser.car.registrationNumber}`)
+                                            else
+                                                input.form-control(type="text", id="tb-registration-number", name="registrationNumber", placeholder="Example: C2332EB")
+                                    .form-group
+                                        .col-sm-4.col-sm-offset-3
+                                        if currentUser.car.manufacturer
+                                            input.btn.btn-block.btn-primary(type="submit", value="Update")
+                                        else
+                                            input.btn.btn-block.btn-primary(type="submit", value="Add car")
 
     script(type="text/javascript").
         jQuery(function($){
@@ -141,3 +188,12 @@ block content
         $(".matchheight-title").matchHeight({byRow: false});
         $(".matchheight").matchHeight({byRow: false});
         });
+
+    script(type="text/javascript").
+        jQuery(function($){
+            var manualTransmission = $("#tb-transmission-type").children()[1];
+
+            var selectedOption = $(manualTransmission);
+
+            selectedOption.attr("selected", "selected");
+        })

@@ -24,6 +24,8 @@ block content
                         a.tab-title(href="#information", data-toggle="tab", aria-expanded="true") Information
                     li
                         a.tab-title(href="#rides", data-toggle="tab", aria-expanded="false") Rides
+                    li
+                        a.tab-title(href="#car", data-toggle="tab", aria-expanded="false") Car
                 #my-tab-content.tab-content
                     #information.tab-pane.fade.active.in
                         .matchheight.detailed-information
@@ -72,6 +74,30 @@ block content
                                 ul
                                     li
                                         span No rides information for this user
+                                                    
+                    #car.tab-pane.fade
+                        .matchheight.detailed-information
+                            if user.car.manufacturer 
+                                ul
+                                    li
+                                        span Manufacturer:&nbsp
+                                        | #{user.car.manufacturer}
+                                    li
+                                        span Model:&nbsp
+                                        | #{user.car.model}
+                                    li
+                                        span Seats:&nbsp
+                                        | #{user.car.seats}
+                                    li
+                                        span Fuel:&nbsp
+                                        | #{user.car.fuel}
+                                    li
+                                        span Registration number:&nbsp
+                                        | #{user.car.registrationNumber}
+                            else
+                                ul
+                                    li
+                                        span This user has no car
 
     script(type="text/javascript").
         jQuery(function($){
