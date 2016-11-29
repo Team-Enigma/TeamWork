@@ -55,7 +55,8 @@ footer a:hover {
     background-color: #FFFFFF;
 }
 
-.home-section .right-section, .left-section {
+.home-section .right-section,
+.left-section {
     margin: 30px 0px;
 }
 
@@ -68,7 +69,7 @@ footer a:hover {
     justify-content: center;
 }
 
-.right-section > div {
+.right-section>div {
     align-self: center;
 }
 
@@ -87,6 +88,7 @@ footer a:hover {
     width: 100%;
 }
 
+
 /* Forms */
 
 .form-container {
@@ -99,7 +101,9 @@ textarea {
     resize: none;
 }
 
+
 /* All rides page */
+
 .all-rides-container {
     background-color: #FFFFFF;
 }
@@ -112,7 +116,7 @@ textarea {
     display: flex;
 }
 
-.bot-vert-align > * {
+.bot-vert-align>* {
     align-self: flex-end;
 }
 
@@ -150,6 +154,7 @@ textarea {
     font-size: 0.9em;
 }
 
+
 /* Ride detailed page */
 
 .ride-detailed-container {
@@ -165,18 +170,23 @@ textarea {
     font-size: 1.2em;
 }
 
-.detailed-information > ul {
+.detailed-information>ul {
     list-style: none;
 }
 
-.detailed-information > ul > li {
+.detailed-information>ul>li {
     margin-top: 15px;
     font-size: 1.1em;
 }
 
-.detailed-information > ul > li > span{
+.detailed-information>ul>li>span {
     font-weight: bold;
 }
+
+#car-info {
+    list-style-type: none;
+}
+
 
 /* Add ride page*/
 
@@ -184,13 +194,17 @@ textarea {
     width: 100%;
 }
 
+
 /* User detailed page*/
+
 .user-detailed-container {
     background-color: #FFFFFF;
     padding: 20px 0px;
 }
 
+
 /* Profile page */
+
 .avatar-image {
     width: 125px;
     height: 125px;
@@ -224,6 +238,7 @@ textarea {
     width: 100%;
 }
 
+
 /* All users page */
 
 .all-users-container {
@@ -239,13 +254,12 @@ textarea {
     border: 2px solid #DCE4EC;
     padding: 20px 10px;
     margin-bottom: 25px;
-
 }
 
-.all-users-container .user-container a{
+.all-users-container .user-container a {
     color: #1E392A;
 }
 
-.all-users-container .user-container a:hover{
+.all-users-container .user-container a:hover {
     text-decoration: none;
 }

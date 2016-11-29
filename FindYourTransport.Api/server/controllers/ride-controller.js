@@ -1,10 +1,18 @@
 const data = require("../data")();
 
 function loadAllRides(req, res) {
-    data.getAllRides()
-        .then((rides) => {
-            res.render("ride-views/all-rides.pug", { rides });
-        });
+    loadFilteredRides(req, res);
+
+    // let pageSize = parseInt(req.body.pageSize) || 5;
+
+    // let pagesCount = data.getAllRides().then((rides) => {
+    //     return Math.ceil(rides.length / pageSize);
+    // });
+
+    // data.getFilteredRides(req.body)
+    //     .then((rides) => {
+    //         res.render("ride-views/all-rides.pug", { rides, pagesCount });
+    //     });
 }
 
 function loadSpecificRide(req, res) {
@@ -54,10 +62,14 @@ function calculatePrice(req, res) {
 }
 
 function loadFilteredRides(req, res) {
+    let pageSize = req.query.size !== undefined ? req.query.size : 5;
+    let currentPage = req.query.page !== undefined ? req.query.page : 1;
 
     data.getFilteredRides(req.query)
         .then((rides) => {
-            res.render("ride-views/all-rides.pug", { rides });
+            let pagesCount = Math.ceil(rides.length / pageSize);
+
+            res.render("ride-views/all-rides.pug", { rides, pageSize, currentPage, pagesCount });
         })
         .catch((err) => {
             console.log(err);

@@ -36,7 +36,35 @@ block content
                 #my-tab-content.tab-content
                     #profile.tab-pane.fade.active.in
                         .matchheight
-                                    p Profile information
+                            div(id="profile-info")
+                                p.font-xlg #{currentUser.firstName} #{currentUser.lastName} from #{currentUser.city}
+                                    .row
+                                        p.col-md-2.font-smlg.text-left Contact info:
+                                        span.col-md-2.font-md #{currentUser.contact}
+                                    .row
+                                        p.col-md-2.font-smlg.text-left E-mail:
+                                        span.col-md-2.font-md #{currentUser.email}
+                                    .panel.panel-info
+                                        p.font-lg.panel-heading Car info:
+                                            ul(id="car-info")
+                                                .row
+                                                    li.col-lg-3.font-smlg Manufacturer:
+                                                    span.col-lg-2.font-md #{currentUser.car.manufacturer}
+                                                .row
+                                                    li.col-lg-3.font-smlg Model:
+                                                    span.col-lg-2.font-md #{currentUser.car.model}
+                                                .row
+                                                    li.col-lg-3.font-smlg Reg. number:
+                                                    span.col-lg-2.font-md #{currentUser.car.registrationNumber}
+                                                .row
+                                                    li.col-lg-3.font-smlg Seats:
+                                                    span.col-lg-2.font-md #{currentUser.car.seats}
+                                                .row
+                                                    li.col-lg-3.font-smlg Fuel:
+                                                    span.col-lg-2.font-md #{currentUser.car.fuel}
+                                                .row
+                                                    li.col-lg-3.font-smlg Transmission:
+                                                    span.col-lg-2.font-md #{currentUser.car.transmission}
                     #rides.tab-pane.fade
                         .matchheight
                             if rides.length > 0

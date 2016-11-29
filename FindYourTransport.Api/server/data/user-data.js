@@ -12,6 +12,7 @@ function createNewUser(body) {
                 salt,
                 firstName: body.firstName,
                 lastName: body.lastName,
+                city: body.city,
                 email: body.email
             })
             .then(() => {

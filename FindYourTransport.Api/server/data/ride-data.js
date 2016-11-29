@@ -3,64 +3,66 @@ const Ride = require("../models/ride-model");
 function createNewRide(body, user) {
     return new Promise((resolve, reject) => {
         Ride.create({
-            driver: user.username,
-            fromCity: body.fromCity,
-            toCity: body.toCity,
-            dateOfTravel: Date.parse(body.dateOfTravel),
-            freePlaces: body.freePlaces,
-            price: body.price,
-            contact: body.contact,
-            remarks: body.remarks
-        })
-        .then(() => {
-            return resolve();
-        })
-        .catch(err => {
-            return reject(err);
-        });
+                driver: user.username,
+                fromCity: body.fromCity,
+                toCity: body.toCity,
+                dateOfTravel: Date.parse(body.dateOfTravel),
+                freePlaces: body.freePlaces,
+                price: body.price,
+                contact: body.contact,
+                remarks: body.remarks
+            })
+            .then(() => {
+                return resolve();
+            })
+            .catch(err => {
+                return reject(err);
+            });
     });
 }
 
 function addNewRide(body, user) {
     return new Promise((resolve, reject) => {
         Ride.findOne({
-            fromCity: body.fromCity,
-            toCity: body.toCity,
-            dateOfTravel: Date.parse(body.dateOfTravel),
-            freePlaces: body.freePlaces,
-            price: body.price
-        })
-        .then(ride => {
-            if (ride) {
-                throw new Error("Ride already exists!");
-            }
-        })
-        .then(() => {
-            return createNewRide(body, user);
-        })
-        .then(() => {
-            return resolve();
-        })
-        .catch(err => {
-            return reject(err);
-        });
+                fromCity: body.fromCity,
+                toCity: body.toCity,
+                dateOfTravel: Date.parse(body.dateOfTravel),
+                freePlaces: body.freePlaces,
+                price: body.price
+            })
+            .then(ride => {
+                if (ride) {
+                    throw new Error("Ride already exists!");
+                }
+            })
+            .then(() => {
+                return createNewRide(body, user);
+            })
+            .then(() => {
+                return resolve();
+            })
+            .catch(err => {
+                return reject(err);
+            });
     });
 }
 
 function getAllRides() {
-    return Ride.find()
+    let query = Ride.find()
         .where("isRemoved")
         .equals(false)
         .where("dateOfTravel")
         .gt(Date.now())
-        .sort("dateOfTravel")
-        .exec((err, rides) => {
-            if (err) {
-                return err;
-            }
+        .sort("dateOfTravel");
 
-            return rides;
-        });
+
+    return query.exec((err, rides) => {
+        if (err) {
+            return err;
+        }
+
+        return rides;
+    });
 }
 
 function getRidesForUser(username) {
@@ -80,30 +82,34 @@ function getRidesForUser(username) {
 }
 
 function getFilteredRides(filter) {
-    let filteredRides = Ride.find();
-    console.log(filter);
+    let query = Ride.find(),
+        pageSize = parseInt(filter.size) || 5,
+        page = parseInt(filter.page) || 1;
+
     if (filter.fromCity !== undefined && filter.fromCity !== "") {
-        filteredRides.where({ fromCity: new RegExp(filter.fromCity, "i") });
+        query.where({ fromCity: new RegExp(filter.fromCity, "i") });
     }
 
     if (filter.toCity !== undefined && filter.toCity !== "") {
-        filteredRides.where({ toCity: new RegExp(filter.toCity, "i") });
+        query.where({ toCity: new RegExp(filter.toCity, "i") });
     }
 
     if (filter.startDate !== undefined && filter.startDate !== "") {
-        filteredRides.where("dateOfTravel").gte(filter.startDate);
+        query.where("dateOfTravel").gte(filter.startDate);
     }
 
     if (filter.endDate !== undefined && filter.endDate !== "") {
-        filteredRides.where("dateOfTravel").lte(filter.endDate);
+        query.where("dateOfTravel").lte(filter.endDate);
     }
 
-    return filteredRides
+    return query
         .where("isRemoved")
         .equals(false)
         .where("dateOfTravel")
         .gt(Date.now())
         .sort("dateOfTravel")
+        .skip(pageSize * (page - 1))
+        .limit(pageSize * (page - 1) + pageSize)
         .exec((err, rides) => {
             if (err) {
                 return err;
@@ -127,7 +133,7 @@ function updateRideInfo(ride) {
         if (err) {
             return err;
         }
-             
+
         return;
     });
 }

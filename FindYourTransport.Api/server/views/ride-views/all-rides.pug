@@ -6,7 +6,7 @@ block app-title
 block content
     div.all-rides-container
         .row
-            form.form-horizontal(action="/rides", method="post")
+            form.form-horizontal(id="filter-form" action="/rides", method="post")
                 fieldset
                         .col-lg-3.matchheight
                             label.control-label(for="tb-from-city") From city:
@@ -51,7 +51,40 @@ block content
                                         span  #{ride.price}
                                     .col-lg-3.font-md
                                         a(href=`/rides/${ride.id}`) Details
-
+        div.paging-form
+            .row 
+                .col-lg-3.matchheight
+                    label.control-label(for="sel-page-size") Size:
+                    select(id="sel-page-size" form="filter-form" name="size")
+                        option 5
+                        option 10
+                        option 15
+                        option 20
+                .col-lg-3.matchheight
+                    label.control-label(for="sel-selected-page") Page:
+                    select(id="sel-selected-page" form="filter-form" name="page")
+                        -for (let i = 0; i <= pagesCount; i++) {
+                            option #{i+1}
+                        -}
+            script(type="text/javascript").
+                    window.onload = (function () {
+                        let pageSizeOptions = $("#sel-page-size").find("option");
+                        let pagesOptions = $("#sel-selected-page").find("option");
+                        
+                        for(let i = 0; i < pageSizeOptions.length; i++) {
+                            if (parseInt(pageSizeOptions[i].innerText) === #{pageSize}) {
+                                $(pageSizeOptions[i]).attr("selected", "selected");
+                            }
+                        }
+                        
+                        for(let i = 1; i <= pagesOptions.length; i++) {
+                            console.log(parseInt(pagesOptions[i-1].innerText));
+                            if (parseInt(pagesOptions[i-1].innerText) === #{currentPage}) {
+                                $(pagesOptions[i-1]).attr("selected", "selected");
+                            }
+                        }
+                    }());
+            
             script(type="text/javascript").
                     $(function () {
                     $("#startdatepicker").datetimepicker();
@@ -62,3 +95,31 @@ block content
                 jQuery(function($){
                 $(".matchheight").matchHeight({byRow: false});
                 });
+            
+            script(type="text/javascript").
+                jQuery(function($){
+                $("#sel-page-size").on("change", function (ev) {
+                    let tabs = $(ev.target).find("option");
+                    for(let i = 0; i < tabs.length; i++) {
+                        if (tabs[i].selected === true) {
+                            size = tabs[i].innerText;
+                        }
+                    }
+
+                    $("#filter-form").submit();
+                });
+                });
+
+            script(type="text/javascript").
+                            jQuery(function($){
+                            $("#sel-selected-page").on("change", function (ev) {
+                                let tabs = $(ev.target).find("option");
+                                for(let i = 0; i < tabs.length; i++) {
+                                    if (tabs[i].selected === true) {
+                                        size = tabs[i].innerText;
+                                    }
+                                }
+
+                                $("#filter-form").submit();
+                            });
+                            });
