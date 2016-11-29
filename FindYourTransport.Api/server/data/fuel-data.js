@@ -1,9 +1,9 @@
-const Fuel = require("../models/fuel-model");
+const Fuel = require("../models/fuel-model").Fuel;
 
-function createFuel(fuelName, fuelPrice) {
+function createFuel(name, price) {
     return new Fuel({
-        name: fuelName,
-        price: fuelPrice
+        fuelName: name,
+        fuelPrice: price
     });
 }
 
