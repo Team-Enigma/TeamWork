@@ -1,6 +1,9 @@
 const urlLinks = require("./url-links").urls;
 const httpRequester = require("./http-requester");
 const htmlParser = require("./html-parser");
+const dataFuel = require("../../data/fuel-data");
+const config = require("../../configurations");
+require("../../configurations/database")(config);
 
 urlLinks.forEach((url) => {
     httpRequester.get(url)
@@ -10,8 +13,14 @@ urlLinks.forEach((url) => {
             const html = result.body;
             return htmlParser.parseFuelPrice(selectorFuelName, selectorFuelPrice, html);
         })
-        .then((result) => {
-            console.log(result);
+        .then(fuels => {
+            let dBFuels = fuels.map(fuel => {
+                return dataFuel.createFuel(fuel.fuelName, fuel.fuelPrice);
+            });
+            dataFuel.insertFuelsIntoDatabase(dBFuels);
+        })
+        .catch((error) => {
+            console.log(error);
         });
 
 }, this);
