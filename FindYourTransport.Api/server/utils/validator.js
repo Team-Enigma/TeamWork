@@ -279,7 +279,8 @@ function validateCarCreation(req, res, next) {
     if (messages.length > 0) {
         cachedCar.messages = messages;
         res.status(409);
-        res.redirect('back'); // messed up a little bit with the rendering
+        res.redirect("back");
+        // messed up a little bit with the rendering
         res.end();
     } else {
         next();

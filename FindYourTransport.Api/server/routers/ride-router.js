@@ -1,25 +1,25 @@
 const controllers = require("../controllers");
 const queryStringBuilder = require("../utils/query-string-builder");
 
-function takeRideController(req, res) {
-    var reqHasValues = checkRequestForQuery(req.query);
-
-    if (reqHasValues) {
-        return controllers.ride.loadFilteredRides(req, res);
-    } else {
-        return controllers.ride.loadAllRides(req, res);
-    }
-}
-
 function checkRequestForQuery(params) {
     for (param in params) {
-        if (params[param] !== '') {
+        if (params[param] !== "") {
             return true;
         }
     }
 
     return false;
 }
+
+function takeRideController(req, res) {
+    let reqHasValues = checkRequestForQuery(req.query);
+
+    if (reqHasValues) {
+        return controllers.ride.loadFilteredRides(req, res);
+    }
+    return controllers.ride.loadAllRides(req, res);
+}
+
 
 module.exports = function(app, authenticator, validator) {
     app.get("/rides", takeRideController);

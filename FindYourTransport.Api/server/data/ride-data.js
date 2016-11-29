@@ -94,7 +94,7 @@ function getFilteredRides(filter) {
         filteredRides.where("dateOfTravel").gte(filter.startDate);
     }
 
-    if (filter.endDate  !== undefined && filter.endDate !== "") {
+    if (filter.endDate !== undefined && filter.endDate !== "") {
         filteredRides.where("dateOfTravel").lte(filter.endDate);
     }
 
@@ -127,7 +127,7 @@ function updateRideInfo(ride) {
         if (err) {
             return err;
         }
-
+             
         return;
     });
 }
