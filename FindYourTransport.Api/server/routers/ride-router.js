@@ -3,7 +3,7 @@ const queryStringBuilder = require("../utils/query-string-builder");
 
 function checkRequestForQuery(params) {
     for (param in params) {
-        if (params[param] !== "") {
+        if (params[param] !== "" && param !== "page" && param !== "size") {
             return true;
         }
     }

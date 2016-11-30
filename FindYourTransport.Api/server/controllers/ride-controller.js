@@ -1,18 +1,26 @@
 const data = require("../data")();
 
 function loadAllRides(req, res) {
-    loadFilteredRides(req, res);
+    let pageSize = parseInt(req.query.size) || 5,
+        currentPage = parseInt(req.query.page) || 1,
+        pagesCount;
 
-    // let pageSize = parseInt(req.body.pageSize) || 5;
+    data.getAllRides()
+        .then((rides) => {
+            pagesCount = Math.floor(rides.length / pageSize);
 
-    // let pagesCount = data.getAllRides().then((rides) => {
-    //     return Math.ceil(rides.length / pageSize);
-    // });
+            return rides.slice(pageSize * (currentPage - 1), pageSize * (currentPage - 1) + pageSize);
+        })
+        .then((pagedRides) => {
+            if (currentPage > pagesCount) {
+                currentPage = pagesCount;
+            }
 
-    // data.getFilteredRides(req.body)
-    //     .then((rides) => {
-    //         res.render("ride-views/all-rides.pug", { rides, pagesCount });
-    //     });
+            res.render("ride-views/all-rides.pug", { rides: pagedRides, pageSize, currentPage, pagesCount });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 }
 
 function loadSpecificRide(req, res) {
@@ -62,14 +70,22 @@ function calculatePrice(req, res) {
 }
 
 function loadFilteredRides(req, res) {
-    let pageSize = req.query.size !== undefined ? req.query.size : 5;
-    let currentPage = req.query.page !== undefined ? req.query.page : 1;
+    let pageSize = parseInt(req.query.size) || 5,
+        currentPage = parseInt(req.query.page) || 1,
+        pagesCount;
 
     data.getFilteredRides(req.query)
         .then((rides) => {
-            let pagesCount = Math.ceil(rides.length / pageSize);
+            pagesCount = Math.floor(rides.length / pageSize);
 
-            res.render("ride-views/all-rides.pug", { rides, pageSize, currentPage, pagesCount });
+            return rides.slice(pageSize * (currentPage - 1), pageSize * (currentPage - 1) + pageSize);
+        })
+        .then((pagedRides) => {
+            if (currentPage > pagesCount) {
+                currentPage = pagesCount;
+            }
+
+            res.render("ride-views/all-rides.pug", { rides: pagedRides, pageSize, currentPage, pagesCount });
         })
         .catch((err) => {
             console.log(err);
