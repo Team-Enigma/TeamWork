@@ -1,8 +1,9 @@
-const Ride = require("../models/ride-model");
+module.exports = (models) => {
+    let { Ride } = models;
 
-function createNewRide(body, user) {
-    return new Promise((resolve, reject) => {
-        Ride.create({
+    function createNewRide(body, user) {
+        return new Promise((resolve, reject) => {
+            Ride.create({
                 driver: user.username,
                 fromCity: body.fromCity,
                 toCity: body.toCity,
@@ -18,12 +19,11 @@ function createNewRide(body, user) {
             .catch(err => {
                 return reject(err);
             });
-    });
-}
-
-function addNewRide(body, user) {
-    return new Promise((resolve, reject) => {
-        Ride.findOne({
+        });
+    }
+    function addNewRide(body, user) {
+        return new Promise((resolve, reject) => {
+            Ride.findOne({
                 fromCity: body.fromCity,
                 toCity: body.toCity,
                 dateOfTravel: Date.parse(body.dateOfTravel),
@@ -44,118 +44,112 @@ function addNewRide(body, user) {
             .catch(err => {
                 return reject(err);
             });
-    });
-}
+        });
+    }
+    function getAllRides() {
+        let query = Ride.find()
+            .where("isRemoved")
+            .equals(false)
+            .where("dateOfTravel")
+            .gt(Date.now())
+            .sort("dateOfTravel");
 
-function getAllRides() {
-    let query = Ride.find()
-        .where("isRemoved")
-        .equals(false)
-        .where("dateOfTravel")
-        .gt(Date.now())
-        .sort("dateOfTravel");
-
-
-    return query.exec((err, rides) => {
-        if (err) {
-            return err;
-        }
-
-        return rides;
-    });
-}
-
-function getRidesForUser(username) {
-    return Ride.find()
-        .where("isRemoved")
-        .equals(false)
-        .where("driver")
-        .equals(username)
-        .sort("dateOfTravel")
-        .exec((err, rides) => {
+        return query.exec((err, rides) => {
             if (err) {
                 return err;
             }
 
             return rides;
         });
-}
-
-function getFilteredRides(filter) {
-    let query = Ride.find(),
-        pageSize = parseInt(filter.size) || 5,
-        page = parseInt(filter.page) || 1;
-
-    if (filter.fromCity !== undefined && filter.fromCity !== "") {
-        query.where({ fromCity: new RegExp(filter.fromCity, "i") });
     }
+    function getRidesForUser(username) {
+        return Ride.find()
+            .where("isRemoved")
+            .equals(false)
+            .where("driver")
+            .equals(username)
+            .sort("dateOfTravel")
+            .exec((err, rides) => {
+                if (err) {
+                    return err;
+                }
 
-    if (filter.toCity !== undefined && filter.toCity !== "") {
-        query.where({ toCity: new RegExp(filter.toCity, "i") });
+                return rides;
+            });
     }
+    function getFilteredRides(filter) {
+        let query = Ride.find(),
+            pageSize = parseInt(filter.size) || 5,
+            page = parseInt(filter.page) || 1;
 
-    if (filter.startDate !== undefined && filter.startDate !== "") {
-        query.where("dateOfTravel").gte(filter.startDate);
+        if (filter.fromCity !== undefined && filter.fromCity !== "") {
+            query.where({ fromCity: new RegExp(filter.fromCity, "i") });
+        }
+
+        if (filter.toCity !== undefined && filter.toCity !== "") {
+            query.where({ toCity: new RegExp(filter.toCity, "i") });
+        }
+
+        if (filter.startDate !== undefined && filter.startDate !== "") {
+            query.where("dateOfTravel").gte(filter.startDate);
+        }
+
+        if (filter.endDate !== undefined && filter.endDate !== "") {
+            query.where("dateOfTravel").lte(filter.endDate);
+        }
+
+        return query
+            .where("isRemoved")
+            .equals(false)
+            .where("dateOfTravel")
+            .gt(Date.now())
+            .sort("dateOfTravel")
+            .skip(pageSize * (page - 1))
+            .limit(pageSize * (page - 1) + pageSize)
+            .exec((err, rides) => {
+                if (err) {
+                    return err;
+                }
+                return rides;
+            });
     }
-
-    if (filter.endDate !== undefined && filter.endDate !== "") {
-        query.where("dateOfTravel").lte(filter.endDate);
-    }
-
-    return query
-        .where("isRemoved")
-        .equals(false)
-        .where("dateOfTravel")
-        .gt(Date.now())
-        .sort("dateOfTravel")
-        .skip(pageSize * (page - 1))
-        .limit(pageSize * (page - 1) + pageSize)
-        .exec((err, rides) => {
+    function getSpecificRide(id) {
+        return Ride.findOne({ _id: id }, (err, ride) => {
             if (err) {
                 return err;
             }
-            return rides;
+
+            return ride;
         });
-}
-
-function getSpecificRide(id) {
-    return Ride.findOne({ _id: id }, (err, ride) => {
-        if (err) {
-            return err;
-        }
-
-        return ride;
-    });
-}
-
-function updateRideInfo(ride) {
-    Ride.update({ _id: ride._id }, { freePlaces: ride.freePlaces, passengers: ride.passengers }, null, (err) => {
-        if (err) {
-            return err;
-        }
-
-        return;
-    });
-}
-
-function removeRideById(rideId) {
-    return new Promise((resolve, reject) => {
-        Ride.update({ _id: rideId }, { isRemoved: true }, null, (err) => {
+    }
+    function updateRideInfo(ride) {
+        Ride.update({ _id: ride._id }, { freePlaces: ride.freePlaces, passengers: ride.passengers }, null, (err) => {
             if (err) {
-                return reject(err);
+                return err;
             }
 
-            return resolve();
+            return;
         });
-    });
-}
+    }
+    function removeRideById(rideId) {
+        return new Promise((resolve, reject) => {
+            Ride.update({ _id: rideId }, { isRemoved: true }, null, (err) => {
+                if (err) {
+                    return reject(err);
+                }
 
-module.exports = {
-    addNewRide,
-    getAllRides,
-    getSpecificRide,
-    getRidesForUser,
-    getFilteredRides,
-    updateRideInfo,
-    removeRideById
+                return resolve();
+            });
+        });
+    }
+
+    return {
+        addNewRide,
+        getAllRides,
+        getSpecificRide,
+        getRidesForUser,
+        getFilteredRides,
+        updateRideInfo,
+        removeRideById
+    };
 };

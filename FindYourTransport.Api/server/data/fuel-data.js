@@ -1,14 +1,19 @@
-const Fuel = require("../models/fuel-model").Fuel;
+module.exports = (models) => {
 
-function createFuel(name, price) {
-    return new Fuel({
-        fuelName: name,
-        fuelPrice: price
-    });
-}
+    let { Fuel } = models;
 
-function insertFuelsIntoDatabase(fuels) {
-    Fuel.insertMany(fuels);
-}
+    function createFuel(name, price) {
+        return new Fuel({
+            fuelName: name,
+            fuelPrice: price
+        });
+    }
+    function insertFuelsIntoDatabase(fuels) {
+        Fuel.insertMany(fuels);
+    }
 
-module.exports = { createFuel, insertFuelsIntoDatabase };
+    return {
+        createFuel,
+        insertFuelsIntoDatabase
+    };
+};

@@ -1,12 +1,14 @@
-const User = require("../models/user-model");
 const encryption = require("../utils/encryption");
 
-function createNewUser(body) {
-    return new Promise((resolve, reject) => {
-        const salt = encryption.generateSalt();
-        const hashedPassword = encryption.generateHashedPassword(salt, body.password);
+module.exports = (models) => {
+    let { User } = models;
 
-        User.create({
+    function createNewUser(body) {
+        return new Promise((resolve, reject) => {
+            const salt = encryption.generateSalt();
+            const hashedPassword = encryption.generateHashedPassword(salt, body.password);
+
+            User.create({
                 username: body.username,
                 hashedPassword,
                 salt,
@@ -21,12 +23,11 @@ function createNewUser(body) {
             .catch(err => {
                 return reject(err);
             });
-    });
-}
-
-function registerNewUser(body) {
-    return new Promise((resolve, reject) => {
-        User.findOne({
+        });
+    }
+    function registerNewUser(body) {
+        return new Promise((resolve, reject) => {
+            User.findOne({
                 $or: [
                     { username: body.username },
                     { email: body.email }
@@ -46,102 +47,96 @@ function registerNewUser(body) {
             .catch(err => {
                 return reject(err);
             });
-    });
-}
+        });
+    }
+    function getAllUsers() {
+        return User.find((err, users) => {
+            if (err) {
+                return err;
+            }
+            return users;
+        });
+    }
+    function getUserByUsername(username) {
+        return User.findOne({ username }, (err, user) => {
+            if (err) {
+                return err;
+            }
 
-function getAllUsers() {
-    return User.find((err, users) => {
-        if (err) {
-            return err;
+            return user;
+        });
+    }
+    function getFilteredUsers(filter) {
+        let filteredUsers = User.find();
+
+        if (filter.username !== undefined && filter.username !== "") {
+            filteredUsers.where({ username: new RegExp(filter.username, "i") });
         }
-        return users;
-    });
-}
 
-function getUserByUsername(username) {
-    return User.findOne({ username }, (err, user) => {
-        if (err) {
-            return err;
+        return filteredUsers.exec((err, users) => {
+            if (err) {
+                return err;
+            }
+            return users;
+        });
+    }
+    function updateUserAvatar(user, filename) {
+        console.log(filename);
+        User.update({ _id: user._id }, { avatar: filename }, null, (err) => {
+            if (err) {
+                return err;
+            }
+
+            return;
+        });
+    }
+    function updateUserInfo(user, params) {
+        const changes = {};
+
+        for (param in params) {
+            if (params[param] !== user[param]) {
+                changes[param] = params[param];
+            }
         }
 
-        return user;
-    });
-}
+        User.update({ _id: user._id }, changes, null, (err) => {
+            if (err) {
+                return err;
+            }
 
-function getFilteredUsers(filter) {
-    let filteredUsers = User.find();
+            return;
+        });
+    }
+    function changeUserPassword(user, requestPassword) {
+        const hashedNewPassword = encryption.generateHashedPassword(user.salt, requestPassword);
+        let newPassword = { hashedPassword: hashedNewPassword };
 
-    if (filter.username !== undefined && filter.username !== "") {
-        filteredUsers.where({ username: new RegExp(filter.username, "i") });
+        User.update({ _id: user._id }, newPassword, null, (err) => {
+            if (err) {
+                return err;
+            }
+
+            return;
+        });
+    }
+    function updateUserCarInfo(user, carInfo) {
+        User.update({ _id: user._id }, { car: carInfo }, null, (err) => {
+            if (err) {
+                return err;
+            }
+
+            return;
+        });
     }
 
-    return filteredUsers.exec((err, users) => {
-        if (err) {
-            return err;
-        }
-        return users;
-    });
-}
-
-function updateUserAvatar(user, filename) {
-    console.log(filename);
-    User.update({ _id: user._id }, { avatar: filename }, null, (err) => {
-        if (err) {
-            return err;
-        }
-
-        return;
-    });
-}
-
-function updateUserInfo(user, params) {
-    const changes = {};
-
-    for (param in params) {
-        if (params[param] !== user[param]) {
-            changes[param] = params[param];
-        }
-    }
-
-    User.update({ _id: user._id }, changes, null, (err) => {
-        if (err) {
-            return err;
-        }
-
-        return;
-    });
-}
-
-function changeUserPassword(user, requestPassword) {
-    const hashedNewPassword = encryption.generateHashedPassword(user.salt, requestPassword);
-    let newPassword = { hashedPassword: hashedNewPassword };
-
-    User.update({ _id: user._id }, newPassword, null, (err) => {
-        if (err) {
-            return err;
-        }
-
-        return;
-    });
-}
-
-function updateUserCarInfo(user, carInfo) {
-    User.update({ _id: user._id }, { car: carInfo }, null, (err) => {
-        if (err) {
-            return err;
-        }
-
-        return;
-    });
-}
-
-module.exports = {
-    registerNewUser,
-    getAllUsers,
-    getUserByUsername,
-    getFilteredUsers,
-    updateUserAvatar,
-    updateUserInfo,
-    updateUserCarInfo,
-    changeUserPassword
+    return {
+        registerNewUser,
+        getAllUsers,
+        getUserByUsername,
+        getFilteredUsers,
+        updateUserAvatar,
+        updateUserInfo,
+        updateUserCarInfo,
+        changeUserPassword
+    };
 };

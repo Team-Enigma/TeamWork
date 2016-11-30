@@ -7,4 +7,4 @@ const FuelSchema = mongooseSchema({
 });
 
 const Fuel = mongoose.model("fuel", FuelSchema);
-module.exports = { Fuel };
+module.exports = Fuel;
