@@ -84,9 +84,7 @@ module.exports = (models) => {
     }
 
     function getFilteredRides(filter) {
-        let query = Ride.find(),
-            pageSize = parseInt(filter.size) || 5,
-            page = parseInt(filter.page) || 1;
+        let query = Ride.find();
 
         if (filter.fromCity !== undefined && filter.fromCity !== "") {
             query.where({ fromCity: new RegExp(filter.fromCity, "i") });
@@ -110,8 +108,6 @@ module.exports = (models) => {
             .where("dateOfTravel")
             .gt(Date.now())
             .sort("dateOfTravel")
-            .skip(pageSize * (page - 1))
-            .limit(pageSize * (page - 1) + pageSize)
             .exec((err, rides) => {
                 if (err) {
                     return err;
