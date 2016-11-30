@@ -1,29 +1,75 @@
-// let chai = require("chai").assert;
-let expect = require("chai").expect;
-let rideData = require("../../server/data/ride-data");
-// let mockery = require("mockery");
-// let sinon = require("sinon");
-// let User = require("../../server/models/ride-model");
+/* globals describe it beforeEach afterEach*/
 
-describe("Ride-data.js testing", () => {
+let chai = require("chai");
+let expect = chai.expect;
+let sinonModule = require("sinon");
+let Ride = require("./utils/fakeRide");
+let data = require("../../server/data/ride-data")({ Ride });
 
-    it("addNewRide should be a function", () => {
-        expect(rideData.addNewRide).to.be.a("function");
+describe("Test ride data", () => {
+    let sinon;
+    beforeEach(() => {
+        sinon = sinonModule.sandbox.create();
     });
 
-    it("getAllRides should be a function", () => {
-        expect(rideData.getAllRides).to.be.a("function");
+    afterEach(() => {
+        sinon.restore();
     });
 
-    it("getFilteredRides should be a function", () => {
-        expect(rideData.getFilteredRides).to.be.a("function");
+    describe("getAllRides", () => {
+        it("should return 1 ride", (done) => {
+            let rides = ["Sofia"];
+            sinon.stub(Ride, "find", callback => {
+                callback(null, rides);
+            });
+
+            data.getAllRides()
+                .then(actualRides => {
+                    console.log("AAAAAAAAA");
+                    expect(actualRides).to.be.equal(rides);
+                });
+            done();
+        });
     });
 
-    it("getRidesForUser should be a function", () => {
-        expect(rideData.getRidesForUser).to.be.a("function");
-    });
+    describe("getSpecificRide", () => {
+        let existingId = 1;
+        let rideForTest = {
+            id: existingId,
+            driver: "Gopeto",
+            fromCity: "Sofia",
+            toCity: "Burgas"
+        };
 
-    it("getSpecificRide should be a function", () => {
-        expect(rideData.getSpecificRide).to.be.a("function");
+        let rides = [rideForTest];
+        beforeEach(() => {
+            sinon.stub(Ride, "findOne", (query, callback) => {
+                let rideId = query.id;
+                let foundRide = rides.find(ride => ride.id === rideId);
+                callback(null, foundRide);
+            });
+        });
+
+        afterEach(() => {
+            sinon.restore();
+        });
+
+        it("should return specific ride by id", (done) => {
+            data.getSpecificRide(existingId)
+                .then(actualRide => {
+                    expect(actualRide).to.equal(rideForTest);
+
+                });
+            done();
+        });
+
+        it("should not return specific ride if passed parameter is incorrect", (done) => {
+            let notValidId = 3;
+            data.getSpecificRide(notValidId)
+                .then(actualUser => {
+                    expect(actualUser).to.equal(null);
+                });
+            done();
+        });
     });
 });

@@ -49,14 +49,14 @@ module.exports = (models) => {
     }
 
     function getAllRides() {
-        let query = Ride.find()
-            .where("isRemoved")
-            .equals(false)
-            .where("dateOfTravel")
-            .gt(Date.now())
-            .sort("dateOfTravel");
-
         return new Promise((resolve, reject) => {
+            let query = Ride.find()
+                .where("isRemoved")
+                .equals(false)
+                .where("dateOfTravel")
+                .gt(Date.now())
+                .sort("dateOfTravel");
+
             query.exec((err, rides) => {
                 if (err) {
                     return reject(err);
