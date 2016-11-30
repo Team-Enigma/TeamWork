@@ -1,0 +1,27 @@
+extends ../base
+
+block app-title
+        | send message
+
+block content
+    include ../common/error-message
+    .row.home-section
+      .col-xs-10.col-xs-offset-1.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-0.matchheight
+        .col-inner
+            form.form-horizontal.form-container(action="/send-message", method="post")
+                fieldset
+                    .form-group
+                        label.col-lg-4.control-label(for="tb-name") Name
+                        .col-lg-8
+                            input.form-control(type="text", id="tb-name", name="name", placeholder="Name", value=name)                                            
+                    .form-group
+                        label.col-lg-4.control-label(for="tb-address") Address for feedback
+                        .col-lg-8
+                            input.form-control(type="text", id="tb-address", name="address", placeholder="Address", value=address)
+                    .form-group
+                        label.col-lg-4.control-label(for="tb-content") Content
+                        .col-lg-8
+                            textarea.form-control(rows="4", id="tb-content", name="content", placeholder="Content", value="content")
+                    .form-group
+                        .col-lg-8.col-lg-offset-4
+                            input.btn.btn-sm.btn-primary.btn-lg.btn-block(type="submit", value="Send")

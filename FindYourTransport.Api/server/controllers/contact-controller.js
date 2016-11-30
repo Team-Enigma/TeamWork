@@ -9,6 +9,8 @@ function sendMessage(req, res) {
     data.sendMessage(req.body, req.user)
         .then(() => {
             res.render("../views/contact-views/send-message.pug");
+            // res.redirect("/home");
+
         })
         .catch(err => {
             const messages = [];
