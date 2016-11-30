@@ -18,6 +18,17 @@ function buildAndRedirect(req, res) {
     res.redirect(queryString);
 }
 
+function checkRequestForQuery(params) {
+    for (param in params) {
+        if (params[param] !== "" && param !== "page" && param !== "size") {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 module.exports = {
-    buildAndRedirect
+    buildAndRedirect,
+    checkRequestForQuery
 }

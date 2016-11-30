@@ -51,37 +51,54 @@ block content
                                         span  #{ride.price}
                                     .col-lg-3.font-md
                                         a(href=`/rides/${ride.id}`) Details
-        div.paging-form
+        div.paging-form-inputs
             .row 
                 .col-lg-3.matchheight
                     label.control-label(for="sel-page-size") Size:
                     select(id="sel-page-size" form="filter-form" name="size")
-                        option 5
-                        option 10
-                        option 15
-                        option 20
+                        -let length = rides.length * pagesCount;
+                        -if (length < 5*pagesCount) {
+                        -    length = 5*pagesCount;
+                        -}
+                        -for (let i = 5; i <= length ; i += 5) {
+                            option #{i}
+                        -}
                 .col-lg-3.matchheight
                     label.control-label(for="sel-selected-page") Page:
                     select(id="sel-selected-page" form="filter-form" name="page")
-                        -for (let i = 0; i <= pagesCount; i++) {
-                            option #{i+1}
+                        -for (let i = 1; i <= pagesCount; i++) {
+                            option #{i}
                         -}
             script(type="text/javascript").
                     window.onload = (function () {
                         let pageSizeOptions = $("#sel-page-size").find("option");
-                        let pagesOptions = $("#sel-selected-page").find("option");
+                        let pagesOptions = $("#sel-selected-page").find("option"),
+                            foundPageSize = false,
+                            foundCurrentPage = false;
                         
                         for(let i = 0; i < pageSizeOptions.length; i++) {
                             if (parseInt(pageSizeOptions[i].innerText) === #{pageSize}) {
+                                foundPageSize = true;
                                 $(pageSizeOptions[i]).attr("selected", "selected");
                             }
                         }
-                        
-                        for(let i = 1; i <= pagesOptions.length; i++) {
-                            console.log(parseInt(pagesOptions[i-1].innerText));
-                            if (parseInt(pagesOptions[i-1].innerText) === #{currentPage}) {
-                                $(pagesOptions[i-1]).attr("selected", "selected");
+
+                        for(let i = 0; i < pagesOptions.length; i++) {
+                            if (parseInt(pagesOptions[i].innerText) === #{currentPage}) {
+                                foundCurrentPage = true;
+                                $(pagesOptions[i]).attr("selected", "selected");
                             }
+                        }
+
+                        if (!foundPageSize || !foundCurrentPage) {
+                            if (!foundPageSize) {
+                                $(pageSizeOptions[pageSizeOptions.length-1]).attr("selected", "selected");
+                            }
+
+                            if (!foundCurrentPage) {
+                                $(pagesOptions[pagesOptions.length-1]).attr("selected", "selected");
+                            }
+                            $("#filter-form").submit();                            
                         }
                     }());
             

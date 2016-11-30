@@ -6,7 +6,7 @@ block app-title
 block content
     div.all-users-container
         .row
-            form.form-horizontal.form-container(action="/users/filtered?", method="get")
+            form.form-horizontal.form-container(id="users-filter-form", action="/users", method="post")
                 fieldset
                         .form-group
                             .col-xs-12.col-sm-3
@@ -27,3 +27,81 @@ block content
                                             h1.profile-username #{user.username}
                                     .row
                                         h2.profile-names #{user.firstName} #{user.lastName}
+        div.paging-form-inputs
+            .row 
+                .col-lg-3.matchheight
+                    label.control-label(for="sel-page-size") Size:
+                    select(id="sel-page-size" form="users-filter-form" name="size")
+                        -let length = 8 * (pagesCount-1) + users.length;
+                        -if (length < 8*pagesCount) {
+                        -    length = 8*pagesCount;
+                        -}
+                        -for (let i = 1; i <= length ; i += 1) {
+                            option #{i}
+                        -}
+                .col-lg-3.matchheight
+                    label.control-label(for="sel-selected-page") Page:
+                    select(id="sel-selected-page" form="users-filter-form" name="page")
+                        -for (let i = 1; i <= pagesCount; i++) {
+                            option #{i}
+                        -}
+        script(type="text/javascript").
+                    window.onload = (function () {
+                        let pageSizeOptions = $("#sel-page-size").find("option");
+                        let pagesOptions = $("#sel-selected-page").find("option"),
+                            foundPageSize = false,
+                            foundCurrentPage = false;
+                        
+                        for(let i = 0; i < pageSizeOptions.length; i++) {
+                            if (parseInt(pageSizeOptions[i].innerText) === #{pageSize}) {
+                                foundPageSize = true;
+                                $(pageSizeOptions[i]).attr("selected", "selected");
+                            }
+                        }
+
+                        for(let i = 0; i < pagesOptions.length; i++) {
+                            if (parseInt(pagesOptions[i].innerText) === #{currentPage}) {
+                                foundCurrentPage = true;
+                                $(pagesOptions[i]).attr("selected", "selected");
+                            }
+                        }
+
+                        if (!foundPageSize || !foundCurrentPage) {
+                            if (!foundPageSize) {
+                                $(pageSizeOptions[pageSizeOptions.length-1]).attr("selected", "selected");
+                            }
+
+                            if (!foundCurrentPage) {
+                                $(pagesOptions[pagesOptions.length-1]).attr("selected", "selected");
+                            }
+                            $("#filter-form").submit();                            
+                        }
+                    }());
+
+        script(type="text/javascript").
+            jQuery(function($){
+            $("#sel-page-size").on("change", function (ev) {
+                let tabs = $(ev.target).find("option");
+                for(let i = 0; i < tabs.length; i++) {
+                    if (tabs[i].selected === true) {
+                        size = tabs[i].innerText;
+                    }
+                }
+
+                $("#users-filter-form").submit();
+            });
+            });
+
+        script(type="text/javascript").
+                        jQuery(function($){
+                        $("#sel-selected-page").on("change", function (ev) {
+                            let tabs = $(ev.target).find("option");
+                            for(let i = 0; i < tabs.length; i++) {
+                                if (tabs[i].selected === true) {
+                                    size = tabs[i].innerText;
+                                }
+                            }
+
+                            $("#users-filter-form").submit();
+                        });
+                        });

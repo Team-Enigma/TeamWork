@@ -82,7 +82,7 @@ module.exports = (models) => {
             filteredUsers.where({ username: new RegExp(filter.username, "i") });
         }
 
-        return filteredUsers.exec((err, users) => {
+        return filteredUsers.sort("username").exec((err, users) => {
             if (err) {
                 return err;
             }

@@ -20,16 +20,48 @@ function loadProfilePage(req, res) {
 }
 
 function loadUsersPage(req, res) {
+    let pageSize = parseInt(req.query.size) || 10,
+        currentPage = parseInt(req.query.page) || 1,
+        pagesCount;
+
     data.getAllUsers()
         .then((users) => {
-            res.render("../views/user-views/all-users", { users });
+            pagesCount = Math.ceil(users.length / pageSize);
+
+            return users.slice(pageSize * (currentPage - 1), pageSize * (currentPage - 1) + pageSize);
+        })
+        .then((pagedUsers) => {
+            if (currentPage > pagesCount) {
+                currentPage = pagesCount;
+            }
+            res.render("../views/user-views/all-users", { users: pagedUsers, pageSize, currentPage, pagesCount });
+        })
+        .catch((err) => {
+            console.log(err);
         });
 }
 
 function loadFilteredUsersPage(req, res) {
+    let pageSize = parseInt(req.query.size) || 8,
+        currentPage = parseInt(req.query.page) || 1,
+        pagesCount;
+
     data.getFilteredUsers(req.query)
         .then((users) => {
-            res.render("../views/user-views/all-users.pug", { users });
+            pagesCount = Math.ceil(users.length / pageSize);
+
+            return users.slice(pageSize * (currentPage - 1), pageSize * (currentPage - 1) + pageSize);
+        })
+        .then((pagedUsers) => {
+            if (currentPage > pagesCount) {
+                currentPage = pagesCount;
+            }
+
+            if (pageSize < pagedUsers.length) {
+                pageSize = pagedUsers.length;
+            }
+
+            res.render("../views/user-views/all-users.pug", { users: pagedUsers, pageSize, currentPage, pagesCount });
         })
         .catch((error) => {
             return error;

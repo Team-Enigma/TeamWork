@@ -7,7 +7,7 @@ function loadAllRides(req, res) {
 
     data.getAllRides()
         .then((rides) => {
-            pagesCount = Math.floor(rides.length / pageSize);
+            pagesCount = Math.ceil(rides.length / pageSize);
 
             return rides.slice(pageSize * (currentPage - 1), pageSize * (currentPage - 1) + pageSize);
         })
@@ -15,7 +15,6 @@ function loadAllRides(req, res) {
             if (currentPage > pagesCount) {
                 currentPage = pagesCount;
             }
-
             res.render("ride-views/all-rides.pug", { rides: pagedRides, pageSize, currentPage, pagesCount });
         })
         .catch((err) => {
@@ -76,7 +75,7 @@ function loadFilteredRides(req, res) {
 
     data.getFilteredRides(req.query)
         .then((rides) => {
-            pagesCount = Math.floor(rides.length / pageSize);
+            pagesCount = Math.ceil(rides.length / pageSize);
 
             return rides.slice(pageSize * (currentPage - 1), pageSize * (currentPage - 1) + pageSize);
         })
@@ -88,7 +87,7 @@ function loadFilteredRides(req, res) {
             res.render("ride-views/all-rides.pug", { rides: pagedRides, pageSize, currentPage, pagesCount });
         })
         .catch((err) => {
-            console.log(err);
+            return err;
         });
 }
 

@@ -1,18 +1,8 @@
 const controllers = require("../controllers");
 const queryStringBuilder = require("../utils/query-string-builder");
 
-function checkRequestForQuery(params) {
-    for (param in params) {
-        if (params[param] !== "" && param !== "page" && param !== "size") {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 function takeRideController(req, res) {
-    let reqHasValues = checkRequestForQuery(req.query);
+    let reqHasValues = queryStringBuilder.checkRequestForQuery(req.query);
 
     if (reqHasValues) {
         return controllers.ride.loadFilteredRides(req, res);

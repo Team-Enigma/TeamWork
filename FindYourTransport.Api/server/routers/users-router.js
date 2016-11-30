@@ -1,5 +1,16 @@
 const controllers = require("../controllers");
 const upload = require("../configurations/multer");
+const queryStringBuilder = require("../utils/query-string-builder");
+
+function takeUserController(req, res) {
+    let reqHasValues = queryStringBuilder.checkRequestForQuery(req.query);
+
+    if (reqHasValues) {
+        return controllers.user.loadFilteredUsersPage(req, res);
+    } else {
+        controllers.user.loadUsersPage(req, res);
+    }
+}
 
 module.exports = function(app, authenticator, validator) {
     app.get("/register", authenticator.authenticateNotLoggedUser, controllers.user.loadRegisterPage);
@@ -16,7 +27,8 @@ module.exports = function(app, authenticator, validator) {
     app.post("/profile/update-info", authenticator.authenticateLoggedUser, controllers.user.updateInfo);
     app.post("/profile/update-password", validator.validatePasswordChange, controllers.user.updatePassword);
 
-    app.get("/users", controllers.user.loadUsersPage);
+    app.get("/users", takeUserController);
+    app.post("/users", queryStringBuilder.buildAndRedirect);
     app.get("/users/filtered", controllers.user.loadFilteredUsersPage);
     app.get("/users/:username", controllers.user.loadDetailedUserPage);
 };
