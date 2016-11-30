@@ -8,10 +8,11 @@ function parseFuelPrice(firstSelector, secondSelector, html) {
     let fuels = [];
     let textForFuelName = $(firstSelector).html();
     let textForPriceOfFuel = $(secondSelector).html();
+    let onlyPriceOfFuel = textForPriceOfFuel.substr(0, 4);
 
     fuels.push({
         fuelName: textForFuelName,
-        fuelPrice: textForPriceOfFuel
+        fuelPrice: onlyPriceOfFuel
     });
 
     return Promise.resolve()
