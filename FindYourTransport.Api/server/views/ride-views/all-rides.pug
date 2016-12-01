@@ -55,16 +55,12 @@ block content
             .row 
                 .col-lg-3.matchheight
                     label.control-label(for="sel-page-size") Size:
-                    select(id="sel-page-size" form="filter-form" name="size")
-                        -let length = rides.length * pagesCount;
-                        -if (length < 5*pagesCount) {
-                        -    length = 5*pagesCount;
-                        -}
+                    select(id="sel-page-size" form="filter-form" name="size") 
                         -for (let i = 5; i <= length ; i += 5) {
                             option #{i}
                         -}
                 .col-lg-3.matchheight
-                    label.control-label(for="sel-selected-page") Page:
+                    label.control-labe(for="sel-selected-page") Page:
                     select(id="sel-selected-page" form="filter-form" name="page")
                         -for (let i = 1; i <= pagesCount; i++) {
                             option #{i}

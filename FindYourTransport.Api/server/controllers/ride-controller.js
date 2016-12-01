@@ -2,22 +2,44 @@ module.exports = (data, passport, constants) => {
     function loadAllRides(req, res) {
         let pageSize = parseInt(req.query.size) || 5,
             currentPage = parseInt(req.query.page) || 1,
-            pagesCount;
+            pagesCount,
+            allRidesLength;
 
         data.getAllRides()
             .then((rides) => {
                 pagesCount = Math.ceil(rides.length / pageSize);
 
-                return rides.slice(pageSize * (currentPage - 1), pageSize * (currentPage - 1) + pageSize);
+                allRidesLength = rides.length;
+
+                if (allRidesLength % 5 !== 0) {
+                    allRidesLength += 5 - allRidesLength % 5;
+                }
+
+                let end = pageSize * (currentPage - 1) + pageSize;
+
+                if (end > rides.length) {
+                    end = rides.length;
+                }
+
+                return rides.slice(pageSize * (currentPage - 1), end);
             })
             .then((pagedRides) => {
-                if (currentPage > pagesCount) {
-                    currentPage = pagesCount;
-                }
-                res.render("ride-views/all-rides.pug", { rides: pagedRides, pageSize, currentPage, pagesCount });
+                res.render("ride-views/all-rides.pug", { rides: pagedRides, pageSize, currentPage, pagesCount, length: allRidesLength });
             })
             .catch((err) => {
-                console.log(err);
+                const messages = [];
+
+                if (err.errors) {
+                    Object.keys(err.errors).forEach((key) => {
+                        const error = err.errors[key];
+                        messages.push(error.message);
+                    });
+                } else if (err.message) {
+                    messages.push(err.message);
+                }
+
+                console.log(messages);
+                //logger.addMessages(messages);
             });
     }
 
@@ -70,20 +92,29 @@ module.exports = (data, passport, constants) => {
     function loadFilteredRides(req, res) {
         let pageSize = parseInt(req.query.size) || 5,
             currentPage = parseInt(req.query.page) || 1,
-            pagesCount;
+            pagesCount,
+            allRidesLength;
 
         data.getFilteredRides(req.query)
             .then((rides) => {
                 pagesCount = Math.ceil(rides.length / pageSize);
 
-                return rides.slice(pageSize * (currentPage - 1), pageSize * (currentPage - 1) + pageSize);
-            })
-            .then((pagedRides) => {
-                if (currentPage > pagesCount) {
-                    currentPage = pagesCount;
+                allRidesLength = rides.length;
+
+                if (allRidesLength % 5 !== 0) {
+                    allRidesLength += 5 - allRidesLength % 5;
                 }
 
-                res.render("ride-views/all-rides.pug", { rides: pagedRides, pageSize, currentPage, pagesCount });
+                let end = pageSize * (currentPage - 1) + pageSize;
+
+                if (end > rides.length) {
+                    end = rides.length;
+                }
+
+                return rides.slice(pageSize * (currentPage - 1), end);
+            })
+            .then((pagedRides) => {
+                res.render("ride-views/all-rides.pug", { rides: pagedRides, pageSize, currentPage, pagesCount, length: allRidesLength });
             })
             .catch((err) => {
                 return err;

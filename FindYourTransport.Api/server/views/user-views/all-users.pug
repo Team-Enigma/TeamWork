@@ -32,11 +32,7 @@ block content
                 .col-lg-3.matchheight
                     label.control-label(for="sel-page-size") Size:
                     select(id="sel-page-size" form="users-filter-form" name="size")
-                        -let length = 8 * (pagesCount-1) + users.length;
-                        -if (length < 8*pagesCount) {
-                        -    length = 8*pagesCount;
-                        -}
-                        -for (let i = 1; i <= length ; i += 1) {
+                        -for (let i = 8; i <= length ; i += 8) {
                             option #{i}
                         -}
                 .col-lg-3.matchheight
@@ -74,7 +70,7 @@ block content
                             if (!foundCurrentPage) {
                                 $(pagesOptions[pagesOptions.length-1]).attr("selected", "selected");
                             }
-                            $("#filter-form").submit();                            
+                            $("#users-filter-form").submit();                            
                         }
                     }());
 
