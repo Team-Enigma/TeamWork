@@ -1,17 +1,16 @@
-const controllers = require("../controllers");
 const queryStringBuilder = require("../utils/query-string-builder");
 
-function takeRideController(req, res) {
-    let reqHasValues = queryStringBuilder.checkRequestForQuery(req.query);
+module.exports = function(app, authenticator, validator, controllers) {
 
-    if (reqHasValues) {
-        return controllers.ride.loadFilteredRides(req, res);
+    function takeRideController(req, res) {
+        let reqHasValues = queryStringBuilder.checkRequestForQuery(req.query);
+
+        if (reqHasValues) {
+            return controllers.ride.loadFilteredRides(req, res);
+        }
+        return controllers.ride.loadAllRides(req, res);
     }
-    return controllers.ride.loadAllRides(req, res);
-}
 
-
-module.exports = function(app, authenticator, validator) {
     app.get("/rides", takeRideController);
     app.post("/rides", queryStringBuilder.buildAndRedirect);
     app.get("/rides/:id", authenticator.authenticateLoggedUser, controllers.ride.loadSpecificRide);

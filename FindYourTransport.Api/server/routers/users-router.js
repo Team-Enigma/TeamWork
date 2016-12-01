@@ -1,18 +1,18 @@
-const controllers = require("../controllers");
 const upload = require("../configurations/multer");
 const queryStringBuilder = require("../utils/query-string-builder");
 
-function takeUserController(req, res) {
-    let reqHasValues = queryStringBuilder.checkRequestForQuery(req.query);
+module.exports = function(app, authenticator, validator, controllers) {
 
-    if (reqHasValues) {
-        return controllers.user.loadFilteredUsersPage(req, res);
-    } else {
-        controllers.user.loadUsersPage(req, res);
+    function takeUserController(req, res) {
+        let reqHasValues = queryStringBuilder.checkRequestForQuery(req.query);
+
+        if (reqHasValues) {
+            return controllers.user.loadFilteredUsersPage(req, res);
+        } else {
+            controllers.user.loadUsersPage(req, res);
+        }
     }
-}
 
-module.exports = function(app, authenticator, validator) {
     app.get("/register", authenticator.authenticateNotLoggedUser, controllers.user.loadRegisterPage);
     app.post("/register", validator.validateUserRegistration, controllers.user.registerNewUser);
 

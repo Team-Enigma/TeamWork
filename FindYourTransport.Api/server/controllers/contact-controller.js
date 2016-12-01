@@ -1,35 +1,40 @@
-const data = require("../data")();
+module.exports = (data, passport, constants) => {
 
-function loadContactPage(req, res) {
-    res.render("../views/contact-views/send-message.pug");
-}
+    function loadContactPage(req, res) {
+        res.render("../views/contact-views/send-message.pug");
+    }
 
-function sendMessage(req, res) {
-    const cashedMessage = req.body;
-    data.sendMessage(req.body, req.user)
-        .then(() => {
-            res.render("../views/contact-views/send-message.pug");
-            // res.redirect("/home");
+    function sendMessage(req, res) {
+        const cashedMessage = req.body;
+        data.sendMessage(req.body, req.user)
+            .then(() => {
+                res.render("../views/contact-views/send-message.pug");
+                // res.redirect("/home");
 
-        })
-        .catch(err => {
-            const messages = [];
+            })
+            .catch(err => {
+                const messages = [];
 
-            if (err.errors) {
-                Object.keys(err.errors).forEach((key) => {
-                    const error = err.errors[key];
-                    messages.push(error.message);
-                });
-            } else if (err.message) {
-                messages.push(err.message);
-            }
+                if (err.errors) {
+                    Object.keys(err.errors).forEach((key) => {
+                        const error = err.errors[key];
+                        messages.push(error.message);
+                    });
+                } else if (err.message) {
+                    messages.push(err.message);
+                }
 
-            cashedMessage.messages = messages;
+                cashedMessage.messages = messages;
 
-            res.status(409);
-            res.render("../views/contact-views/send-message.pug", cashedMessage);
-            res.end();
-        });
-}
+                res.status(409);
+                res.render("../views/contact-views/send-message.pug", cashedMessage);
+                res.end();
+            });
+    }
 
-module.exports = { loadContactPage, sendMessage };
+    return {
+        name: "contact",
+        loadContactPage,
+        sendMessage
+    };
+};

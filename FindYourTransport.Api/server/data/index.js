@@ -2,14 +2,14 @@ const path = require("path");
 const fs = require("fs");
 
 module.exports = function() {
-    let data = {};
-
     const User = require("../models/user-model");
     const Message = require("../models/message-model");
     const Ride = require("../models/ride-model");
     const Fuel = require("../models/fuel-model").Fuel;
 
     const models = { User, Message, Ride, Fuel };
+
+    let data = {};
 
     fs.readdirSync(__dirname)
         .filter(file => file.includes("-data"))
@@ -20,6 +20,5 @@ module.exports = function() {
                     data[key] = dataModule[key];
                 });
         });
-
     return data;
 };

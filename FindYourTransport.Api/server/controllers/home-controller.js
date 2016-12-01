@@ -1,9 +1,15 @@
-function loadHomePage(req, res) {
-    res.render("home-views/home");
-}
+module.exports = (data, passport, constants) => {
+    function loadHomePage(req, res) {
+        res.render("home-views/home");
+    }
 
-function redirectToHomePage(req, res) {
-    res.redirect("/home");
-}
+    function redirectToHomePage(req, res) {
+        res.redirect("/home");
+    }
 
-module.exports = { loadHomePage, redirectToHomePage };
+    return {
+        name: "home",
+        loadHomePage,
+        redirectToHomePage
+    };
+};
