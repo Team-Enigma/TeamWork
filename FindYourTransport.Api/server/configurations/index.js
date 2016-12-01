@@ -9,7 +9,7 @@ const favicon = fav(path.join(__dirname, "../../public/images/favicon.ico"));
 
 module.exports = {
     db: "mongodb://localhost/FindYourTransportDb",
-    port: 8080,
+    port: process.env.PORT || 8080,
     root,
     favicon
 };
