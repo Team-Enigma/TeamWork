@@ -66,10 +66,15 @@ const car = {
         fuelTypes: ["ULP", "PULP", "CNG", "LPG", "Diesel", "Hybrid", "Electric"],
         transmissionTypes: ["Automatic", "Manual"]
     }
+};
+
+const contact = {
+    enums: { statusTypes: ["Not Processed", "In Process", "Processed"] }
 }
 
 module.exports = {
     user,
     ride,
-    car
+    car,
+    contact
 };

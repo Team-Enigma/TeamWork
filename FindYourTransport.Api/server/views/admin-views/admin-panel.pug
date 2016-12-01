@@ -1,0 +1,79 @@
+extends ../base
+
+block app-title
+        | send message
+
+block content
+
+    div.user-detailed-container
+        .row
+            .col-lg-12
+                h2 #{currentUser.username}'s Admin Panel
+                hr
+        .row
+            .col-lg-3
+                ul.nav.nav-pills.nav-stacked
+                    li.active
+                        a(href="#add-admin" data-toggle="pill", aria-expanded="true") Add admin
+                    li
+                        a(href="#not-processed" data-toggle="pill", aria-expanded="true") Not processed messages
+                    li
+                        a(href="#in-process" data-toggle="pill", aria-expanded="true") In process messages
+                    li
+                        a(href="#processed" data-toggle="pill", aria-expanded="false") Processed messages
+            .col-lg-9
+                #my-tab-content.tab-content
+                    #add-admin.tab-pane.fade.active.in
+                        .matchheight
+                            p Add admin
+                    #not-processed.tab-pane.fade
+                        .matchheight
+                            each cm in contactMessages
+                                if(cm.status == "Not Processed")
+                                    .row.ride-container
+                                            .col-lg-12
+                                                .row.main-row
+                                                    .col-lg-3.font-md
+                                                            span #{cm.title}
+                                                    .col-lg-3.font-md
+                                                            span #{cm.address}
+                                                    .col-lg-4.font-md
+                                                            span #{moment(cm.sendOn).format("lll")}
+                                                    .col-lg-2.font-md
+                                                            a(href=`/admin/messages/${cm.id}`) Details
+                    #in-process.tab-pane.fade
+                        .matchheight
+                            each cm in contactMessages
+                                if(cm.status == "In Process")
+                                    .row.ride-container
+                                            .col-lg-12
+                                                .row.main-row
+                                                    .col-lg-3.font-md
+                                                            span #{cm.title}
+                                                    .col-lg-3.font-md
+                                                            span #{cm.address}
+                                                    .col-lg-4.font-md
+                                                            span #{moment(cm.sendOn).format("lll")}
+                                                    .col-lg-2.font-md
+                                                            a(href=`/admin/messages/${cm.id}`) Details
+                    #processed.tab-pane.fade
+                        .matchheight
+                            each cm in contactMessages
+                                if(cm.status == "Processed")
+                                    .row.ride-container
+                                            .col-lg-12
+                                                .row.main-row
+                                                    .col-lg-3.font-md
+                                                            span #{cm.title}
+                                                    .col-lg-3.font-md
+                                                            span #{cm.address}
+                                                    .col-lg-4.font-md
+                                                            span #{moment(cm.sendOn).format("lll")}
+                                                    .col-lg-2.font-md
+                                                            a(href=`/admin/messages/${cm.id}`) Details
+
+        script(type="text/javascript").
+            jQuery(function($){
+            $(".matchheight-title").matchHeight({byRow: false});
+            $(".matchheight").matchHeight({byRow: false});
+            });
