@@ -48,6 +48,9 @@ footer a:hover {
     text-decoration: none;
 }
 
+.bold {
+    font-weight: bold;
+}
 
 /* Home page */
 
@@ -185,6 +188,7 @@ textarea {
 
 #car-info {
     list-style-type: none;
+    padding: 0px;
 }
 
 
@@ -224,6 +228,10 @@ textarea {
 
 #tb-avatar {
     display: none;
+}
+
+#profile-info ul {
+    padding: 0px;
 }
 
 #rides .font-md p {

@@ -35,36 +35,42 @@ block content
             .col-lg-9
                 #my-tab-content.tab-content
                     #profile.tab-pane.fade.active.in
-                        .matchheight
-                            div(id="profile-info")
-                                p.font-xlg #{currentUser.firstName} #{currentUser.lastName} from #{currentUser.city}
-                                    .row
-                                        p.col-md-2.font-smlg.text-left Contact info:
-                                        span.col-md-2.font-md #{currentUser.contact}
-                                    .row
-                                        p.col-md-2.font-smlg.text-left E-mail:
-                                        span.col-md-2.font-md #{currentUser.email}
-                                    .panel.panel-info
-                                        p.font-lg.panel-heading Car info:
-                                            ul(id="car-info")
-                                                .row
-                                                    li.col-lg-3.font-smlg Manufacturer:
-                                                    span.col-lg-2.font-md #{currentUser.car.manufacturer}
-                                                .row
-                                                    li.col-lg-3.font-smlg Model:
-                                                    span.col-lg-2.font-md #{currentUser.car.model}
-                                                .row
-                                                    li.col-lg-3.font-smlg Reg. number:
-                                                    span.col-lg-2.font-md #{currentUser.car.registrationNumber}
-                                                .row
-                                                    li.col-lg-3.font-smlg Seats:
-                                                    span.col-lg-2.font-md #{currentUser.car.seats}
-                                                .row
-                                                    li.col-lg-3.font-smlg Fuel:
-                                                    span.col-lg-2.font-md #{currentUser.car.fuel}
-                                                .row
-                                                    li.col-lg-3.font-smlg Transmission:
-                                                    span.col-lg-2.font-md #{currentUser.car.transmission}
+                        #profile-info.matcheight
+                            ul(id="car-info")
+                                .row
+                                    li.col-lg-3.font-md.bold First Name
+                                    span.col-lg-2.font-md #{currentUser.firstName}
+                                .row
+                                    li.col-lg-3.font-md.bold Last Name:
+                                    span.col-lg-2.font-md #{currentUser.lastName}
+                                .row
+                                    li.col-lg-3.font-md.bold Email address:
+                                    span.col-lg-2.font-md #{currentUser.email}
+                                .row
+                                    li.col-lg-3.font-md.bold City:
+                                    span.col-lg-2.font-md #{currentUser.city}
+                                .row
+                                    li.col-lg-3.font-md.bold Contact information:
+                                    span.col-lg-2.font-md #{currentUser.contact}
+                                hr
+                                .row
+                                    li.col-lg-3.font-md.bold Manufacturer:
+                                    span.col-lg-2.font-md #{currentUser.car.manufacturer}
+                                .row
+                                    li.col-lg-3.font-md.bold Model:
+                                    span.col-lg-2.font-md #{currentUser.car.model}
+                                .row
+                                    li.col-lg-3.font-md.bold Reg. number:
+                                    span.col-lg-2.font-md #{currentUser.car.registrationNumber}
+                                .row
+                                    li.col-lg-3.font-md.bold Seats:
+                                    span.col-lg-2.font-md #{currentUser.car.seats}
+                                .row
+                                    li.col-lg-3.font-md.bold Fuel:
+                                    span.col-lg-2.font-md #{currentUser.car.fuel}
+                                .row
+                                    li.col-lg-3.font-md.bold Transmission:
+                                    span.col-lg-2.font-md #{currentUser.car.transmission}
                     #rides.tab-pane.fade
                         .matchheight
                             if rides.length > 0
@@ -199,10 +205,10 @@ block content
                                                 input.form-control(type="text", id="tb-registration-number", name="registrationNumber", placeholder="Example: C2332EB")
                                     .form-group
                                         .col-sm-4.col-sm-offset-3
-                                        if currentUser.car.manufacturer
-                                            input.btn.btn-block.btn-primary(type="submit", value="Update")
-                                        else
-                                            input.btn.btn-block.btn-primary(type="submit", value="Add car")
+                                            if currentUser.car.manufacturer
+                                                input.btn.btn-block.btn-primary(type="submit", value="Update")
+                                            else
+                                                input.btn.btn-block.btn-primary(type="submit", value="Add car")
 
     script(type="text/javascript").
         jQuery(function($){
