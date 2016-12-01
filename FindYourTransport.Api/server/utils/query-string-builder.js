@@ -3,12 +3,12 @@ function buildAndRedirect(req, res) {
 
     let params = req.body;
 
-    for (element in params) {
-        if (params[element] !== '') {
+    for (let element in params) {
+        if (params[element] !== "") {
             if (queryString !== req.path) {
-                queryString += '&';
+                queryString += "&";
             } else {
-                queryString += '?';
+                queryString += "?";
             }
 
             queryString += `${element}=${params[element]}`;
@@ -19,7 +19,7 @@ function buildAndRedirect(req, res) {
 }
 
 function checkRequestForQuery(params) {
-    for (param in params) {
+    for (let param in params) {
         if (params[param] !== "" && param !== "page" && param !== "size") {
             return true;
         }
@@ -31,4 +31,4 @@ function checkRequestForQuery(params) {
 module.exports = {
     buildAndRedirect,
     checkRequestForQuery
-}
+};
