@@ -4,4 +4,39 @@ block app-title
         | price calculating
 
 block content
-        h1 Pug in which will be calculated the price for a ride
+    include ../common/error-message
+    .row.home-section
+        .col-xs-10.col-xs-offset-1.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-0.matchheight
+            .col-inner
+                form.form-horizontal.form-container(action="/calculate-price", method="post")
+                    fieldset
+                        .form-group
+                            label.col-lg-4.control-label(for="tb-distance") Distance
+                            .col-lg-8
+                                input.form-control(type="text", id="tb-distance", name="distance", placeholder="Distance in kilometers", value=distance)
+                        .form-group
+                            label.col-lg-4.control-label(for="tb-consumption") Consumption
+                            .col-lg-8
+                                input.form-control(type="text", id="tb-consumption", name="consumption", placeholder="Litres per 100 km (e.g. 6/100)", value=consumption)
+                        .form-group
+                            label.col-lg-4.control-label(for="tb-fuel-type") Fuel type
+                            .col-lg-8
+                                select.form-control(id="tb-fuel-type" name="fuelType")
+                                    option Check
+                                    option Fuel
+                                    option Types
+                                    option In
+                                    option Database and
+                                    option Change the options
+                        .form-group
+                            .col-lg-8.col-lg-offset-4
+                                input.btn.btn-sm.btn-primary.btn-lg.btn-block(type="submit", value="Calculate")
+        .col-xs-10.col-xs-offset-1.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-0.matchheight.right-section
+            .col-inner
+                .col-xs-8.col-xs-offset-2
+                    img.img-responsive.img-add-ride(src="/images/calculate-picture.png")
+
+        script(type="text/javascript").
+            jQuery(function($){
+            $(".matchheight").matchHeight({byRow: false});
+            });

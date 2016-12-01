@@ -3,7 +3,6 @@ module.exports = (data, passport, constants) => {
     function loadAdminPage(req, res) {
         data.getAllMessages()
             .then((contactMessages) => {
-                console.log(contactMessages);
                 res.render("../views/admin-views/admin-panel.pug", { contactMessages } );
             });
     }
@@ -24,10 +23,6 @@ module.exports = (data, passport, constants) => {
         const id = req.body.messageId;
         const status = req.body.option;
         const username = status === "Not Processed" ? "Not Proccessed" : req.user.username;
-
-        console.log(id);
-        console.log(status);
-        console.log(username);
 
         data.getSpecificMessage(id)
             .then((message) => {

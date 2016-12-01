@@ -190,7 +190,7 @@ function validateRideCreation(req, res, next) {
 }
 
 function validatePasswordChange(req, res, next) {
-    let cachedUser = req.user;
+    let cashedUser = req.user;
     let formData = req.body;
     let messages = [];
 
@@ -233,7 +233,7 @@ function validatePasswordChange(req, res, next) {
     if (messages.length > 0) {
         cashedUser.messages = messages;
         res.status(409);
-        res.render("user-views/register", cashedUser);
+        res.render("user-views/profile", cashedUser);
         res.end();
     } else {
         next();
