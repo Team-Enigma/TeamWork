@@ -6,10 +6,12 @@ class Ride {
         this.toCity = properties.toCity;
         this.freePlaces = properties.freePlaces;
         this.price = properties.price;
+        this.dateOfTravel = properties.dateOfTravel;
         this.contact = properties.contact;
+        this.isRemoved = properties.isRemoved;
     }
 
-    save() {}
+    create() {}
     static find() {}
     static findOne() {}
 }

@@ -1,53 +1,94 @@
-// let assert = require("chai").assert;
-// let request = require("request");
+// /* globals require describe it beforeEach afterEach*/
 
-// describe("ride-router.js testing", () => {
+// const chai = require("chai");
+// const sinonModule = require("sinon");
+// const chaiHttp = require("chai-http");
+// const moment = require("moment");
+// const config = require("../../server/configurations");
+// const authenticator = require("../../server/utils/authenticator");
+// const validator = require("../../server/utils/validator");
+// chai.use(chaiHttp);
+// let expect = chai.expect;
 
-//     it("Get /rides should return status code 200", () => {
-//         let url = "http://localhost:8080/rides";
+// describe("Test rides router", () => {
+//     let sinon;
 
-//         request.get(url, (error, response) => {
-//             assert.equal(200, response.statusCode);
+//     let controller = {
+//         loadAllRides: (req, res) => {},
+//         loadSpecificRide: (req, res) => {},
+//         loadNewRidePage: (req, res) => {}
+//     };
+
+//     let controllers = {
+//         rides: controller
+//     };
+
+//     let rides = [{
+//         _id: 1,
+//         driver: "Joro",
+//         fromCity: "Vidin",
+//         toCity: "Varna",
+//         freePlaces: 4
+//     }, {
+//         _id: 2,
+//         fromCity: "Vraca",
+//         toCity: "Ruse",
+//         cities: ["New York"],
+//         freePlaces: 4
+//     }];
+
+//     beforeEach(() => {
+//         sinon = sinonModule.sandbox.create();
+
+//         sinon.stub(controller, "loadAllRides", (req, res) => {
+//             res.render("rides", {
+//                 model: rides
+//             });
+//         });
+//         // sinon.stub(controller, "getFractionDetails", (req, res) => {
+//         //     let fraction = fractions.find(fr => fr._id === +req.params.id);
+
+//         //     res.render("fractions/details", {
+//         //         model: fraction || null
+//         //     });
+//         // });
+//         // sinon.stub(controller, "createFraction", (req, res) => {
+//         //     res.render("fractions/list", {
+//         //         model: fractions
+//         //     });
+//         // });
+//     });
+
+//     afterEach(() => {
+//         sinon.restore();
+//     });
+
+//     describe("GET /rides", () => {
+//         it("expect to return 2 rides", done => {
+//             let data = {};
+//             let app = require("../../server/configurations/express")(data, config);
+//             require("../../server/routers/ride-router")(app, authenticator, validator, controllers);
+
+//             chai.request(app)
+//                 .get("/rides")
+//                 .end((req, res) => {
+//                     expect(res.status).equals(200);
+//                     done();
+//                 });
 //         });
 //     });
 
-//     it("Get /rides/filtered should return status code 200", () => {
-//         let url = "http://localhost:8080/rides/filtered";
+//     // describe("GET /fractions/:id", () => {
+//     //     it("Valid ID", done => {
+//     //         let app = require("../../config/application")({ data: {} });
+//     //         require("../../routers/fractions-router")({ app, controllers });
 
-//         request.get(url, (error, response) => {
-//             assert.equal(200, response.statusCode);
-//         });
-//     });
-
-//     it("Get /rides/:id should return status code 200", () => {
-//         let url = "http://localhost:8080/rides/:id";
-
-//         request.get(url, (error, response) => {
-//             assert.equal(200, response.statusCode);
-//         });
-//     });
-
-//     it("Get /calculate-price should return status code 200", () => {
-//         let url = "http://localhost:8080/calculate-price";
-
-//         request.get(url, (error, response) => {
-//             assert.equal(200, response.statusCode);
-//         });
-//     });
-
-//     it("Get /add-ride should return status code 200", () => {
-//         let url = "http://localhost:8080/add-ride";
-
-//         request.get(url, (error, response) => {
-//             assert.equal(200, response.statusCode);
-//         });
-//     });
-
-//     it("Post /add-ride should return status code 409 of conflict", () => {
-//         let url = "http://localhost:8080/add-ride";
-
-//         request.post(url, (error, response) => {
-//             assert.equal(409, response.statusCode);
-//         });
-//     });
+//     //         chai.request(app)
+//     //             .get("/fractions/1")
+//     //             .end((req, res) => {
+//     //                 expect(res.status).equals(200);
+//     //                 done();
+//     //             });
+//     //     });
+//     // });
 // });
