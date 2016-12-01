@@ -153,6 +153,10 @@ textarea {
     font-size: 1.1em;
 }
 
+.font-s {
+    font-size: 1em;
+}
+
 .font-xs {
     font-size: 0.9em;
 }
@@ -246,6 +250,16 @@ textarea {
     width: 100%;
 }
 
+/* Admin page */
+.message-container {
+    border: 2px solid #DCE4EC;
+    margin: 10px 15px;
+    padding: 10px 0px;
+}
+
+.message-container .row {
+    margin: 5px 0px;
+}
 
 /* All users page */
 

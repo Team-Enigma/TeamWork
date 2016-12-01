@@ -20,13 +20,25 @@ block content
                         span #{message.content}
                 hr
                 form.form-horizontal.form-container(id="update-message" action=`/admin/messages`, method="post")
-                    label.col-lg-4.control-label(for="tb-message-status") Status
-                    .col-lg-8
-                        input(type="text", id="hidden-message-id" name="messageId" value=`${message.id}`)
+                    .col-md-3.col-sm-4.font-md
+                        if(message.processedBy != "Not processed")
+                            span Processed by: #{message.processedBy}
+                    label.col-md-6.col-sm-4.control-label(for="tb-message-status") Status
+                    .col-md-3.col-sm-4
+                        input.hidden(type="text", id="hidden-message-id" name="messageId" value=`${message.id}`)
                         select.form-control(id="tb-message-status", name="option")
-                            option Not Processed
-                            option In Process
-                            option Processed
+                            if(message.status == "Not Processed")
+                                option(selected) Not Processed
+                            else
+                                option(selected) Not Processed
+                            if(message.status == "In Process")
+                                option(selected) In Process
+                            else
+                                option In Process
+                            if(message.status == "Processed")
+                                option(selected) Processed
+                            else
+                                option Processed
 
     script(type="text/javascript").
         jQuery(function($){

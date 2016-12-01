@@ -30,46 +30,46 @@ block content
                         .matchheight
                             each cm in contactMessages
                                 if(cm.status == "Not Processed")
-                                    .row.ride-container
+                                    .row.message-container
                                             .col-lg-12
                                                 .row.main-row
-                                                    .col-lg-3.font-md
+                                                    .col-lg-3.font-s
                                                             span #{cm.title}
-                                                    .col-lg-3.font-md
+                                                    .col-lg-3.font-s
                                                             span #{cm.address}
-                                                    .col-lg-4.font-md
+                                                    .col-lg-4.font-s
                                                             span #{moment(cm.sendOn).format("lll")}
-                                                    .col-lg-2.font-md
+                                                    .col-lg-2.font-s
                                                             a(href=`/admin/messages/${cm.id}`) Details
                     #in-process.tab-pane.fade
                         .matchheight
                             each cm in contactMessages
                                 if(cm.status == "In Process")
-                                    .row.ride-container
+                                    .row.message-container
                                             .col-lg-12
                                                 .row.main-row
-                                                    .col-lg-3.font-md
+                                                    .col-lg-3.font-s
                                                             span #{cm.title}
-                                                    .col-lg-3.font-md
+                                                    .col-lg-3.font-s
                                                             span #{cm.address}
-                                                    .col-lg-4.font-md
+                                                    .col-lg-4.font-s
                                                             span #{moment(cm.sendOn).format("lll")}
-                                                    .col-lg-2.font-md
+                                                    .col-lg-2.font-s
                                                             a(href=`/admin/messages/${cm.id}`) Details
                     #processed.tab-pane.fade
                         .matchheight
                             each cm in contactMessages
                                 if(cm.status == "Processed")
-                                    .row.ride-container
+                                    .row.message-container
                                             .col-lg-12
                                                 .row.main-row
-                                                    .col-lg-3.font-md
+                                                    .col-lg-3.font-s
                                                             span #{cm.title}
-                                                    .col-lg-3.font-md
+                                                    .col-lg-3.font-s
                                                             span #{cm.address}
-                                                    .col-lg-4.font-md
+                                                    .col-lg-4.font-s
                                                             span #{moment(cm.sendOn).format("lll")}
-                                                    .col-lg-2.font-md
+                                                    .col-lg-2.font-s
                                                             a(href=`/admin/messages/${cm.id}`) Details
 
         script(type="text/javascript").
