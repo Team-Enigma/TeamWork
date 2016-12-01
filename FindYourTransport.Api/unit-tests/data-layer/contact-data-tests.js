@@ -58,8 +58,8 @@ describe("Test contact data", () => {
 
         it("should return specific message by id", (done) => {
             data.getSpecificMessage(existingId)
-                .then(actualUser => {
-                    expect(actualUser).to.equal(messageForTest);
+                .then(actualMessage => {
+                    expect(actualMessage).to.equal(messageForTest);
                     done();
                 });
         });
@@ -73,4 +73,29 @@ describe("Test contact data", () => {
                 });
         });
     });
+
+    // describe("sendMessage", () => {
+    //     afterEach(() => {
+    //         sinon.restore();
+    //     });
+
+    //     it("expect to create message", (done) => {
+    //         sinon.stub(Message.prototype, "create", callback => {
+    //             callback(null);
+    //         });
+
+    //         let message = {
+    //             name: "Pavel",
+    //             address: "No address",
+    //             title: "Burgas?",
+    //             content: "From Sofia to Burgas"
+    //         };
+    //         let user = {};
+    //         data.sendMessage(message, user)
+    //             .then(actualMessage => {
+    //                 expect(actualMessage.name).to.equal(message.name);
+    //                 done();
+    //             });
+    //     });
+    // });
 });
