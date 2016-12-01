@@ -23,7 +23,7 @@ module.exports = (data, passport, constants) => {
     function updateMessageStatus(req, res) {
         const id = req.body.messageId;
         const status = req.body.option;
-        const username = req.user.username;
+        const username = status === "Not Processed" ? "Not Proccessed" : req.user.username;
 
         console.log(id);
         console.log(status);
@@ -36,7 +36,7 @@ module.exports = (data, passport, constants) => {
                 data.updateMessageStatus(message);
             })
             .then(() => {
-                res.redirect(`/admin/messages/${id}`);
+                res.redirect("/admin");
             })
             .catch((err) => {
                 console.log(err);

@@ -48,6 +48,9 @@ footer a:hover {
     text-decoration: none;
 }
 
+.bold {
+    font-weight: bold;
+}
 
 /* Home page */
 
@@ -150,6 +153,10 @@ textarea {
     font-size: 1.1em;
 }
 
+.font-s {
+    font-size: 1em;
+}
+
 .font-xs {
     font-size: 0.9em;
 }
@@ -185,6 +192,7 @@ textarea {
 
 #car-info {
     list-style-type: none;
+    padding: 0px;
 }
 
 
@@ -226,6 +234,10 @@ textarea {
     display: none;
 }
 
+#profile-info ul {
+    padding: 0px;
+}
+
 #rides .font-md p {
     font-weight: bold;
 }
@@ -238,6 +250,16 @@ textarea {
     width: 100%;
 }
 
+/* Admin page */
+.message-container {
+    border: 2px solid #DCE4EC;
+    margin: 10px 15px;
+    padding: 10px 0px;
+}
+
+.message-container .row {
+    margin: 5px 0px;
+}
 
 /* All users page */
 
