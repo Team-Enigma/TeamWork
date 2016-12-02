@@ -6,7 +6,7 @@ block app-title
 block content
     include ../common/error-message
     .row.home-section
-        .col-xs-10.col-xs-offset-1.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-0.matchheight
+        .col-xs-12.col-md-6.matchheight
             .col-inner
                 form.form-horizontal.form-container(action="/calculate-price", method="post")
                     fieldset
@@ -22,16 +22,41 @@ block content
                             label.col-lg-4.control-label(for="tb-fuel-type") Fuel type
                             .col-lg-8
                                 select.form-control(id="tb-fuel-type" name="fuelType")
-                                    option Check
-                                    option Fuel
-                                    option Types
-                                    option In
-                                    option Database and
-                                    option Change the options
+                                    if(fuelType == "CNG")
+                                        option(selected)     CNG
+                                    else
+                                        option CNG
+                                    if(fuelType == "Diesel")
+                                        option(selected) Diesel
+                                    else
+                                        option Diesel
+                                    if(fuelType == "Diesel Premium")
+                                        option(selected) Diesel Premium
+                                    else
+                                        option Diesel Premium
+                                    if(fuelType == "Unleaded 95")
+                                        option(selected) Unleaded 95
+                                    else
+                                        option Unleaded 95
+                                    if(fuelType == "Unleaded 98")
+                                        option(selected) Unleaded 98
+                                    else
+                                        option Unleaded 98
+                                    if(fuelType == "LPG")
+                                        option(selected) LPG
+                                    else
+                                        option LPG
                         .form-group
                             .col-lg-8.col-lg-offset-4
                                 input.btn.btn-sm.btn-primary.btn-lg.btn-block(type="submit", value="Calculate")
-        .col-xs-10.col-xs-offset-1.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-0.matchheight.right-section
+                if(sum)
+                    hr
+                    row
+                        .col-md-4.font-smlg.bold.text-center Total Amount
+                        .col-md-8.font-smlg.text-center #{sum} BGN
+                    row
+                        .col-md-8.col-md-offset-4.text-center.font-xs ( Current price for #{fuelType} is #{fuelPrice} BGN/l )
+        .col-xs-12.col-md-6.matchheight.right-section
             .col-inner
                 .col-xs-8.col-xs-offset-2
                     img.img-responsive.img-add-ride(src="/images/calculate-picture.png")

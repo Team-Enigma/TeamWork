@@ -13,8 +13,10 @@ body {
 }
 
 .centered {
+    flex-direction: column;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .nav-logo {
@@ -160,7 +162,6 @@ textarea {
 .font-xs {
     font-size: 0.9em;
 }
-
 
 /* Ride detailed page */
 

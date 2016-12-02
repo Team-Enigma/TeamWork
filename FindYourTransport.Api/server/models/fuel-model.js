@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const mongooseSchema = mongoose.Schema;
 
 const FuelSchema = mongooseSchema({
-    fuelName: { type: Number, required: true },
+    fuelName: { type: String, required: true },
     fuelPrice: { type: String, required: true }
 });
 

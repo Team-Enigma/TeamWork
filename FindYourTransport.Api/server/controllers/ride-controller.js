@@ -85,10 +85,6 @@ module.exports = (data, passport, constants) => {
             });
     }
 
-    function calculatePrice(req, res) {
-        res.render("../views/ride-views/calculate-price.pug");
-    }
-
     function loadFilteredRides(req, res) {
         let pageSize = parseInt(req.query.size) || 5,
             currentPage = parseInt(req.query.page) || 1,
@@ -163,7 +159,6 @@ module.exports = (data, passport, constants) => {
         loadNewRidePage,
         addNewRide,
         addPassenger,
-        calculatePrice,
         removeRideById
     };
 };

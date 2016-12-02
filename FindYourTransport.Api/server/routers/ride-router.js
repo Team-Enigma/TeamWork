@@ -18,8 +18,6 @@ module.exports = function(app, authenticator, validator, controllers) {
 
     app.post("/sign-for-ride", authenticator.authenticateLoggedUser, controllers.ride.addPassenger);
 
-    app.get("/calculate-price", authenticator.authenticateLoggedUser, controllers.ride.calculatePrice);
-
     app.get("/add-ride", authenticator.authenticateLoggedUser, controllers.ride.loadNewRidePage);
     app.post("/add-ride", validator.validateRideCreation, controllers.ride.addNewRide);
 };
