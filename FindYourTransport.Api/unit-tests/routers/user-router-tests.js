@@ -17,21 +17,32 @@ describe("Test user routers", () => {
             });
     });
 
-    it("POST /register to return error because was passed invalid data", (done) => {
+    it("POST /register to return expected message and status code 400", (done) => {
         chai.request("http://localhost:8080")
             .post("/register")
-            .end((err) => {
-                expect(err).to.not.equal(null);
+            .end((err, res) => {
+                expect(err.response.text).to.contains("Invalid data");
+                expect(res).to.have.status(400);
                 done();
             });
     });
 
     it("GET /login to return status code 200", (done) => {
         chai.request("http://localhost:8080")
-            .get("/register")
+            .get("/login")
             .end((err, res) => {
                 expect(err).to.equal(null);
                 expect(res).to.have.status(200);
+                done();
+            });
+    });
+
+    it("POST /login to return expected message and status code 400", (done) => {
+        chai.request("http://localhost:8080")
+            .post("/login")
+            .end((err, res) => {
+                expect(err.response.text).to.contains("Invalid data");
+                expect(res).to.have.status(400);
                 done();
             });
     });
