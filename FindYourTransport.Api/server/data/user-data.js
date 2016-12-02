@@ -51,17 +51,17 @@ module.exports = (models) => {
         });
     }
 
-    function getAllUsers() {
-        return new Promise((resolve, reject) => {
-            User.find((err, users) => {
-                if (err) {
-                    return reject(err);
-                }
+    // function getAllUsers() {
+    //     return new Promise((resolve, reject) => {
+    //         User.find((err, users) => {
+    //             if (err) {
+    //                 return reject(err);
+    //             }
 
-                return resolve(users || null);
-            });
-        });
-    }
+    //             return resolve(users || null);
+    //         });
+    //     });
+    // }
 
     function getUserByUsername(username) {
         return new Promise((resolve, reject) => {
@@ -145,7 +145,7 @@ module.exports = (models) => {
 
     return {
         registerNewUser,
-        getAllUsers,
+        //getAllUsers,
         getUserByUsername,
         getFilteredUsers,
         updateUserAvatar,

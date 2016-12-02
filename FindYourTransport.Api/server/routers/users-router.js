@@ -17,6 +17,6 @@ module.exports = function(app, authenticator, validator, controllers) {
     app.post("/profile/update-info", authenticator.authenticateLoggedUserPostRequests, controllers.user.updateInfo);
     app.post("/profile/update-password", authenticator.authenticateLoggedUserPostRequests, validator.validatePasswordChange, controllers.user.updatePassword);
 
-     app.get("/users", controllers.user.loadUsersPage);
+    app.get("/users", controllers.user.loadUsersPage);
     app.get("/users/:username", authenticator.authenticateLoggedUser, controllers.user.loadDetailedUserPage);
 };

@@ -48,25 +48,6 @@ module.exports = (models) => {
         });
     }
 
-    function getAllRides() {
-        return new Promise((resolve, reject) => {
-            let query = Ride.find()
-                .where("isRemoved")
-                .equals(false)
-                .where("dateOfTravel")
-                .gt(Date.now())
-                .sort("dateOfTravel");
-
-            query.exec((err, rides) => {
-                if (err) {
-                    return reject(err);
-                }
-
-                return resolve(rides);
-            });
-        });
-    }
-
     function getRidesForUser(username) {
         return Ride.find()
             .where("isRemoved")
@@ -152,7 +133,6 @@ module.exports = (models) => {
 
     return {
         addNewRide,
-        getAllRides,
         getSpecificRide,
         getRidesForUser,
         getFilteredRides,

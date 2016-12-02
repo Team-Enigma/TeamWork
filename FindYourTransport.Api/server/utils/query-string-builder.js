@@ -1,38 +1,38 @@
-function buildAndRedirect(req, res) {
-    let queryString = req.path;
+// function buildAndRedirect(req, res) {
+//     let queryString = req.path;
 
-    console.log(req.path);
+//     console.log(req.path);
 
-    let params = req.body;
+//     let params = req.body;
 
-    console.log(params);
+//     console.log(params);
 
-    for (let element in params) {
-        if (params[element] !== "") {
-            if (queryString !== req.path) {
-                queryString += "&";
-            } else {
-                queryString += "?";
-            }
+//     for (let element in params) {
+//         if (params[element] !== "") {
+//             if (queryString !== req.path) {
+//                 queryString += "&";
+//             } else {
+//                 queryString += "?";
+//             }
 
-            queryString += `${element}=${params[element]}`;
-        }
-    }
+//             queryString += `${element}=${params[element]}`;
+//         }
+//     }
 
-    res.redirect(queryString);
-}
+//     res.redirect(queryString);
+// }
 
-function checkRequestForQuery(params) {
-    for (let param in params) {
-        if (params[param] !== "" && param !== "page" && param !== "size") {
-            return true;
-        }
-    }
+// function checkRequestForQuery(params) {
+//     for (let param in params) {
+//         if (params[param] !== "" && param !== "page" && param !== "size") {
+//             return true;
+//         }
+//     }
 
-    return false;
-}
+//     return false;
+// }
 
-module.exports = {
-    buildAndRedirect,
-    checkRequestForQuery
-};
+// module.exports = {
+//     buildAndRedirect,
+//     checkRequestForQuery
+// };

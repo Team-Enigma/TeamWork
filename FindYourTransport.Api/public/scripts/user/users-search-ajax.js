@@ -5,13 +5,11 @@ $("#tb-search-user").on("click", (ev) => {
     let page = $("#sel-selected-page option:selected").text();
     let size = $("#sel-page-size option:selected").text();
 
-    if(username != "") {
+    if (username != "") {
         page = "1";
     }
-    
-    let params = { username, page, size };
 
-    console.log(params);
+    let params = { username, page, size };
 
     let queryString = "/users";
 
@@ -26,8 +24,6 @@ $("#tb-search-user").on("click", (ev) => {
             queryString += `${element}=${params[element]}`;
         }
     }
-
-    console.log(queryString);
 
     window.location.href = queryString;
 

@@ -12,15 +12,15 @@ $("#tb-login").on("click", (ev) => {
     if (app.validator.validateLogin(data)) {
         app.requester.post("/login", data)
             .then(response => {
-                let parsedResponce = JSON.parse(response);
+                let parsedResponse = JSON.parse(response);
 
-                if (parsedResponce.success) {
-                    app.notificator.showNotification(parsedResponce.success, "success");
+                if (parsedResponse.success) {
+                    app.notificator.showNotification(parsedResponse.success, "success");
                     setTimeout(() => {
                         window.location.href = "/";
                     }, 1000);
-                } else if (parsedResponce.error) {
-                    app.notificator.showNotification(parsedResponce.error, "error");
+                } else if (parsedResponse.error) {
+                    app.notificator.showNotification(parsedResponse.error, "error");
                 }
             })
             .catch(err => {

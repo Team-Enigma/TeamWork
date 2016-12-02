@@ -6,14 +6,14 @@ block app-title
 block content
     div.all-rides-container
         .row
-            form.form-horizontal(id="filter-form" action="/rides", method="post")
+            #rides-filter-form.form.form-horizontal
                 fieldset
                         .col-lg-3.matchheight
                             label.control-label(for="tb-from-city") From city:
                             input.form-control(id="tb-from-city", type="text", name="fromCity")
                         .col-lg-3.matchheight
                             label.control-label(for="tb-to-city") To city:
-                            input.form-control(id="tb-from-city", type="text", name="toCity")
+                            input.form-control(id="tb-to-city", type="text", name="toCity")
                         .col-lg-2.matchheight
                             label.control-label(for="tb-start-date") From date
                             #startdatepicker.input-group.date
@@ -27,7 +27,7 @@ block content
                                     span.input-group-addon
                                         span.glyphicon.glyphicon-calendar
                         .col-lg-2.matchheight.bot-vert-align
-                            input.btn.btn-success.btn-special(type="submit", value="Search")
+                            input.btn.btn-success.btn-special(id="tb-search-ride", type="submit", value="Search")
             div(id="all-rides")
                     each ride in rides
                         .row.ride-container
@@ -55,16 +55,19 @@ block content
             .row 
                 .col-lg-3.matchheight
                     label.control-label(for="sel-page-size") Size:
-                    select(id="sel-page-size" form="filter-form" name="size") 
+                    select(id="sel-page-size" name="size") 
                         -for (let i = 5; i <= length ; i += 5) {
                             option #{i}
                         -}
                 .col-lg-3.matchheight
                     label.control-labe(for="sel-selected-page") Page:
-                    select(id="sel-selected-page" form="filter-form" name="page")
+                    select(id="sel-selected-page" name="page")
                         -for (let i = 1; i <= pagesCount; i++) {
                             option #{i}
                         -}
+   
+            script(src="/scripts/rides/rides-search-ajax.js")
+
             script(type="text/javascript").
                     window.onload = (function () {
                         let pageSizeOptions = $("#sel-page-size").find("option");
@@ -94,7 +97,7 @@ block content
                             if (!foundCurrentPage) {
                                 $(pagesOptions[pagesOptions.length-1]).attr("selected", "selected");
                             }
-                            $("#filter-form").submit();                            
+                            $("#tb-search-rid").trigger("click");                            
                         }
                     }());
             
@@ -119,7 +122,7 @@ block content
                         }
                     }
 
-                    $("#filter-form").submit();
+                    $("#tb-search-ride").trigger("click");
                 });
                 });
 
@@ -133,6 +136,6 @@ block content
                                     }
                                 }
 
-                                $("#filter-form").submit();
+                                $("#tb-search-rid").trigger("click");
                             });
                             });
