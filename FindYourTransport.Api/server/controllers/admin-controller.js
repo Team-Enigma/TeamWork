@@ -31,10 +31,12 @@ module.exports = (data, passport, constants) => {
                 data.updateMessageStatus(message);
             })
             .then(() => {
-                res.redirect("/admin");
+                res.status(201);
+                return res.json("{\"success\": \"Successfully updated the status of this message.\"}");
             })
             .catch((err) => {
-                console.log(err);
+                res.status(400);
+                return res.json(`{"error": "Problem occured while changing the status of this message. ${err.message}"}`);
             });
     }
 

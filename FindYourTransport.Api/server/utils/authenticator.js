@@ -21,17 +21,21 @@ function authenticateNotLoggedUser(req, res, next) {
 function authenticateLoggedUserPostRequests(req, res, next) {
     if (!req.user) {
         res.status(401);
-        return res.json("{\"error\": \"You are not authorized to make changes. Please login.\"}");
+        return res.json("{\"error\": \"You are not authorized for this request. Please login.\"}");
     }
 
     next();
 }
 
-function authenticateRolePostRequests(req, res, next) {
-    if (!req.user) {
-        res.status(403);
-        return res.json("{\"error\": \"You are not authorized to make changes. Only certain users are authorized.\"}");
-    }
+function authenticateRolePostRequests(role) {
+    return (req, res, next) => {
+        if (req.user && req.user.role.indexOf(role) !== -1) {
+            next();
+        } else {
+            res.status(403);
+            return res.json("{\"error\": \"You are not authorized for this request. Only certain users are authorized.\"}");
+        }
+    };
 
     next();
 }

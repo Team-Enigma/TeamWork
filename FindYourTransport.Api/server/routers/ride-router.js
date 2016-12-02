@@ -14,10 +14,10 @@ module.exports = function(app, authenticator, validator, controllers) {
     app.get("/rides", takeRideController);
     app.post("/rides", queryStringBuilder.buildAndRedirect);
     app.get("/rides/:id", authenticator.authenticateLoggedUser, controllers.ride.loadSpecificRide);
-    app.post("/rides/:id", controllers.ride.removeRideById);
+    app.post("/rides/:id", authenticator.authenticateLoggedUserPostRequests, controllers.ride.removeRideById);
 
-    app.post("/sign-for-ride", authenticator.authenticateLoggedUser, controllers.ride.addPassenger);
+    app.post("/sign-for-ride", authenticator.authenticateLoggedUserPostRequests, controllers.ride.addPassenger);
 
     app.get("/add-ride", authenticator.authenticateLoggedUser, controllers.ride.loadNewRidePage);
-    app.post("/add-ride", validator.validateRideCreation, controllers.ride.addNewRide);
+    app.post("/add-ride", authenticator.authenticateLoggedUserPostRequests, validator.validateRideCreation, controllers.ride.addNewRide);
 };

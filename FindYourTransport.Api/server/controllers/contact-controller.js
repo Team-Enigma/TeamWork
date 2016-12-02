@@ -8,27 +8,12 @@ module.exports = (data, passport, constants) => {
         const cashedMessage = req.body;
         data.sendMessage(req.body, req.user)
             .then(() => {
-                res.render("../views/contact-views/send-message.pug");
-                // res.redirect("/home");
-
+                res.status(201);
+                return res.json("{\"success\": \"Successful message sent. We will respond to your request as soon as possible.\"}");
             })
             .catch(err => {
-                const messages = [];
-
-                if (err.errors) {
-                    Object.keys(err.errors).forEach((key) => {
-                        const error = err.errors[key];
-                        messages.push(error.message);
-                    });
-                } else if (err.message) {
-                    messages.push(err.message);
-                }
-
-                cashedMessage.messages = messages;
-
-                res.status(409);
-                res.render("../views/contact-views/send-message.pug", cashedMessage);
-                res.end();
+                res.status(400);
+                return res.json(`{"error": "Problem occured while sending this message. ${err.message}"}`);
             });
     }
 

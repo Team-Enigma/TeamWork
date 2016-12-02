@@ -59,32 +59,6 @@ module.exports = (data, passport, constants) => {
         res.render("../views/ride-views/add-new-ride.pug");
     }
 
-    function addNewRide(req, res) {
-        const cashedRide = req.body;
-        data.addNewRide(req.body, req.user)
-            .then(() => {
-                res.render("../views/ride-views/add-new-ride.pug");
-            })
-            .catch(err => {
-                const messages = [];
-
-                if (err.errors) {
-                    Object.keys(err.errors).forEach((key) => {
-                        const error = err.errors[key];
-                        messages.push(error.message);
-                    });
-                } else if (err.message) {
-                    messages.push(err.message);
-                }
-
-                cashedRide.messages = messages;
-
-                res.status(409);
-                res.render("../views/ride-views/add-new-ride.pug", cashedRide);
-                res.end();
-            });
-    }
-
     function loadFilteredRides(req, res) {
         let pageSize = parseInt(req.query.size) || 5,
             currentPage = parseInt(req.query.page) || 1,
@@ -117,6 +91,18 @@ module.exports = (data, passport, constants) => {
             });
     }
 
+    function addNewRide(req, res) {
+        data.addNewRide(req.body, req.user)
+            .then(() => {
+                res.status(201);
+                return res.json("{\"success\": \"Successful ride creation.\"}");
+            })
+            .catch(err => {
+                res.status(400);
+                return res.json(`{"error": "Problem occured while adding a new ride. ${err.message}"}`);
+            });
+    }
+
     function addPassenger(req, res) {
         const id = req.body.rideId,
             user = req.body.passengerUsername;
@@ -135,10 +121,12 @@ module.exports = (data, passport, constants) => {
                 data.updateRideInfo(ride);
             })
             .then(() => {
-                res.redirect(`/rides/${id}`);
+                res.status(201);
+                return res.json("{\"success\": \"Successful sign for ride. Enjoy your trip. \"}");
             })
             .catch((err) => {
-                console.log(err);
+                res.status(400);
+                return res.json(`{"error": "Problem occured while signing for a ride. ${err.message}"}`);
             });
 
     }
@@ -147,7 +135,12 @@ module.exports = (data, passport, constants) => {
         const id = req.body.rideId;
         data.removeRideById(id)
             .then(() => {
-                res.redirect("/profile");
+                res.status(201);
+                return res.json("{\"success\": \"Successfully removed ride. \"}");
+            })
+            .catch((err) => {
+                res.status(400);
+                return res.json(`{"error": "Problem occured while removing ride. ${err.message}"}`);
             });
     }
 

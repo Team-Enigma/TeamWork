@@ -52,7 +52,7 @@ block content
                                     each passenger in ride.passengers
                                         li
                                             a(href=`/users/${passenger}`) #{passenger}
-                                        if(user.username === passenger)
+                                        if(currentUser.username === passenger)
                                             -isPassenger = true
                             else
                                 ul
@@ -64,7 +64,7 @@ block content
             .row.centered
                 form(action="/sign-for-ride" method="post")
                     input.hidden(type="text" value=`${ride.id}` name="rideId")
-                    input.hidden(type="text" value=`${user.username}` name="passengerUsername")
+                    input.hidden(type="text" value=`${currentUser.username}` name="passengerUsername")
                     input.btn.btn-success.btn-special(type="submit" value="Sign for it")
 
         script(type="text/javascript").
