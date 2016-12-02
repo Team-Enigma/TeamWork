@@ -91,7 +91,6 @@ module.exports = (models) => {
     }
 
     function updateUserAvatar(user, filename) {
-        console.log(filename);
         User.update({ _id: user._id }, { avatar: filename }, null, (err) => {
             if (err) {
                 return err;

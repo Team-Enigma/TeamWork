@@ -40,64 +40,67 @@ function validateNumberRange(field, lowerBoundary, higherBoundary, matchMessage,
 }
 
 function validateUserLogin(req, res, next) {
-    const cashedUser = req.body;
+    const user = req.body;
     const messages = [];
 
-    validateRequired(cashedUser.username,
+    validateRequired(user.username,
         constants.user.messages.requiredUsername,
         messages);
 
-    validateRequired(cashedUser.password,
+    validateRequired(user.password,
         constants.user.messages.requiredPassword,
         messages);
 
     if (messages.length > 0) {
-        cashedUser.messages = messages;
-        res.status(409);
-        res.render("user-views/login", cashedUser);
-        res.end();
+        const messagesObject = messages.reduce((object, message, index) => {
+            object[index] = message;
+            return object;
+        }, {});
+
+        res.status(400);
+        return res.json(`{"error": "Invalid data. ${JSON.stringify(messagesObject)}"}`);
     } else {
         next();
     }
 }
 
 function validateUserRegistration(req, res, next) {
-    const cashedUser = req.body;
+    const user = req.body;
     const messages = [];
 
     const registrationFormFields = {
         username: {
-            field: cashedUser.username,
+            field: user.username,
             matcher: constants.user.matchers.username,
             matchMessage: constants.user.messages.username,
             requiredMessage: constants.user.messages.requiredUsername
         },
         firstName: {
-            field: cashedUser.firstName,
+            field: user.firstName,
             matcher: constants.user.matchers.personName,
             matchMessage: constants.user.messages.personFirstName,
             requiredMessage: constants.user.messages.requiredFirstName
         },
         lastName: {
-            field: cashedUser.lastName,
+            field: user.lastName,
             matcher: constants.user.matchers.personName,
             matchMessage: constants.user.messages.personLastName,
             requiredMessage: constants.user.messages.requiredLastName
         },
         email: {
-            field: cashedUser.email,
+            field: user.email,
             matcher: constants.user.matchers.email,
             matchMessage: constants.user.messages.email,
             requiredMessage: constants.user.messages.requiredEmail
         },
         password: {
-            field: cashedUser.password,
+            field: user.password,
             matcher: constants.user.matchers.password,
             matchMessage: constants.user.messages.password,
             requiredMessage: constants.user.messages.requiredPassword
         },
         confirmPassword: {
-            field: cashedUser.confirmPassword,
+            field: user.confirmPassword,
             matcher: constants.user.matchers.password,
             matchMessage: constants.user.messages.password,
             requiredMessage: constants.user.messages.requiredConfirmPassword
@@ -108,56 +111,61 @@ function validateUserRegistration(req, res, next) {
         return registrationFormFields[key];
     });
 
+    console.log(fields);
+
     fields.forEach(f => {
         validateRequired(f.field, f.requiredMessage, messages);
-        validateMatcher(f.field, f.matcher, f.matchingMessage, messages);
+        validateMatcher(f.field, f.matcher, f.matchMessage, messages);
     });
 
     validateEquality(
-        cashedUser.password,
-        cashedUser.confirmPassword,
+        user.password,
+        user.confirmPassword,
         constants.user.messages.confirmPassword,
         messages);
 
     if (messages.length > 0) {
-        cashedUser.messages = messages;
-        res.status(409);
-        res.render("user-views/register", cashedUser);
-        res.end();
-    } else {
-        next();
+        const messagesObject = messages.reduce((object, message, index) => {
+            object[index] = message;
+            return object;
+        }, {});
+
+        res.status(400);
+        return res.json(`{"error": "Invalid data. ${JSON.stringify(messagesObject)}"}`);
     }
+
+    next();
 }
 
 function validateRideCreation(req, res, next) {
-    const cashedRide = req.body;
+    const ride = req.body;
     const messages = [];
 
     const rideFormFields = {
         fromCity: {
-            field: cashedRide.fromCity,
+            field: ride.fromCity,
             matcher: constants.ride.matchers.city,
             matchMessage: constants.ride.messages.city,
             requiredMessage: constants.ride.messages.requiredStartCity
         },
         toCity: {
-            field: cashedRide.toCity,
+            field: ride.toCity,
             matcher: constants.ride.matchers.city,
             matchMessage: constants.ride.messages.city,
             requiredMessage: constants.ride.messages.requiredStartCity
         },
         dateOfTravel: {
-            field: cashedRide.dateOfTravel,
+            field: ride.dateOfTravel,
             requiredMessage: constants.ride.messages.requiredDate
         },
         price: {
-            field: cashedRide.price,
+            field: ride.price,
             matcher: constants.ride.matchers.price,
             matchMessage: constants.ride.messages.priceNumber,
             requiredMessage: constants.ride.messages.requiredPrice
         },
         contact: {
-            field: cashedRide.contact,
+            field: ride.contact,
             requiredMessage: constants.ride.messages.requiredContact
         }
     };
@@ -173,24 +181,28 @@ function validateRideCreation(req, res, next) {
         }
     });
 
-    validateDate(cashedRide.dateOfTravel,
+    validateDate(ride.dateOfTravel,
         constants.ride.messages.date,
         messages);
 
-    validateNumberRange(cashedRide.price, 0, 1000, constants.ride.messages.price, messages);
+    validateNumberRange(ride.price, 0, 1000, constants.ride.messages.price, messages);
 
     if (messages.length > 0) {
-        cashedRide.messages = messages;
-        res.status(409);
-        res.render("ride-views/add-new-ride", cashedRide);
-        res.end();
-    } else {
-        next();
+        const messagesObject = messages.reduce((object, message, index) => {
+            object[index] = message;
+            return object;
+        }, {});
+
+        res.status(400);
+        return res.json(`{"error": "Invalid data. ${JSON.stringify(messagesObject)}"}`);
     }
+
+    next();
+
 }
 
 function validatePasswordChange(req, res, next) {
-    let cashedUser = req.user;
+    let user = req.user;
     let formData = req.body;
     let messages = [];
 
@@ -231,13 +243,16 @@ function validatePasswordChange(req, res, next) {
         messages);
 
     if (messages.length > 0) {
-        cashedUser.messages = messages;
-        res.status(409);
-        res.render("user-views/profile", cashedUser);
-        res.end();
-    } else {
-        next();
+        const messagesObject = messages.reduce((object, message, index) => {
+            object[index] = message;
+            return object;
+        }, {});
+
+        res.status(400);
+        return res.json(`{"error": "Invalid data. ${JSON.stringify(messagesObject)}"}`);
     }
+
+    next();
 }
 
 function validateCarCreation(req, res, next) {
@@ -277,14 +292,16 @@ function validateCarCreation(req, res, next) {
     });
 
     if (messages.length > 0) {
-        cachedCar.messages = messages;
-        res.status(409);
-        res.redirect("back");
-        // messed up a little bit with the rendering
-        res.end();
-    } else {
-        next();
+        const messagesObject = messages.reduce((object, message, index) => {
+            object[index] = message;
+            return object;
+        }, {});
+
+        res.status(400);
+        return res.json(`{"error": "Invalid data. ${JSON.stringify(messagesObject)}"}`);
     }
+
+    next();
 }
 
 module.exports = {

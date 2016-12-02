@@ -1,15 +1,15 @@
 var app = app || {};
 
 $("#tb-login").on("click", (ev) => {
-    var username = $("#tb-username").val();
-    var password = $("#tb-password").val();
+    const username = $("#tb-username").val();
+    const password = $("#tb-password").val();
 
     let data = {
         username,
         password
     };
 
-    if(app.validator.validateLogin(data)) {
+    if (app.validator.validateLogin(data)) {
         app.requester.post("/login", data)
             .then(response => {
                 let parsedResponce = JSON.parse(response);

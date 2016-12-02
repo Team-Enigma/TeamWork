@@ -108,49 +108,35 @@ module.exports = (data, passport, constants) => {
     }
 
     function registerNewUser(req, res) {
-        const cashedUser = req.body;
-
-        data.registerNewUser(cashedUser)
+        const user = req.body;
+        data.registerNewUser(user)
             .then(() => {
-                res.redirect("/login");
-                res.end();
+                res.status(201);
+                return res.json("{\"success\": \"Successful registration. Please login.\"}");
             })
             .catch(err => {
-
-                const messages = [];
-
-                if (err.errors) {
-                    Object.keys(err.errors).forEach((key) => {
-                        const error = err.errors[key];
-                        messages.push(error.message);
-                    });
-                } else if (err.message) {
-                    messages.push(err.message);
-                }
-
-                cashedUser.messages = messages;
-
-                res.status(409);
-                res.render("user-views/register", cashedUser);
-                res.end();
+                res.status(400);
+                return res.json(`{"error": "${err.message}"}`);
             });
     }
 
     function loginUser(req, res, next) {
         passport.authenticate("local", (err, user) => {
             if (err) {
-                // server error from passport.authenticate
                 return next(err);
             }
             if (user) {
                 req.login(user, (err2) => {
                     if (err2) {
-                        // server error from passport.login
+                        res.status(200);
                         return res.json("{\"error\": \"Invalid username or password.\"}");
                     }
-                    return res.json(`{\"success\": \"Successful login. Welcome ${user.username}\"}`);
+
+                    res.status(200);
+                    return res.json(`{"success": "Successful login. Welcome ${user.username}"}`);
                 });
             } else {
+                res.status(200);
                 return res.json("{\"error\": \"Invalid username or password.\"}");
             }
 
@@ -173,10 +159,12 @@ module.exports = (data, passport, constants) => {
                 data.updateUserAvatar(user, filename);
             })
             .then(() => {
-                res.redirect("/profile");
+                res.status(201);
+                return res.json("{\"success\": \"Successfully uploaded new profile picture.\"}");
             })
             .catch((err) => {
-                console.log(err);
+                res.status(400);
+                return res.json(`{"error": "Problem occured while uploading the picture. ${err.message}"}`);
             });
     }
 
@@ -188,10 +176,12 @@ module.exports = (data, passport, constants) => {
                 data.updateUserInfo(user, req.body);
             })
             .then(() => {
-                res.redirect("/profile");
+                res.status(201);
+                return res.json("{\"success\": \"Successfully changed your profile information.\"}");
             })
             .catch((err) => {
-                console.log(err);
+                res.status(400);
+                return res.json(`{"error": "Problem occured while changing your profile information. ${err.message}"}`);
             });
     }
 
@@ -204,10 +194,12 @@ module.exports = (data, passport, constants) => {
                 data.changeUserPassword(user, newPassword);
             })
             .then(() => {
-                res.redirect("/profile");
+                res.status(201);
+                return res.json("{\"success\": \"Successfully changed your password.\"}");
             })
             .catch((err) => {
-                console.log(err);
+                res.status(400);
+                return res.json(`{"error": "Problem occured while changing your password. ${err.message}"}`);
             });
     }
 
@@ -227,10 +219,12 @@ module.exports = (data, passport, constants) => {
                 data.updateUserCarInfo(user, car);
             })
             .then(() => {
-                res.redirect("/profile");
+                res.status(201);
+                return res.json("{\"success\": \"Successfully changed your car information.\"}");
             })
             .catch((err) => {
-                console.log(err);
+                res.status(400);
+                return res.json(`{"error": "Problem occured while updating your car information. ${err.message}"}`);
             });
     }
 

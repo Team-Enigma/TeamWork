@@ -21,7 +21,7 @@ require("./server/routers")(app, authenticator, validator, controllers);
 
 const fuelTask = require("./server/utils/scraper/fuel-scraper")(data);
 
-fuelTask.start();
+// fuelTask.start();
 
 app.listen(config.port);
 console.log(`Server listens on ${config.port}`);

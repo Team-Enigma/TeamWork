@@ -18,6 +18,24 @@ function authenticateNotLoggedUser(req, res, next) {
     next();
 }
 
+function authenticateLoggedUserPostRequests(req, res, next) {
+    if (!req.user) {
+        res.status(401);
+        return res.json("{\"error\": \"You are not authorized to make changes. Please login.\"}");
+    }
+
+    next();
+}
+
+function authenticateRolePostRequests(req, res, next) {
+    if (!req.user) {
+        res.status(403);
+        return res.json("{\"error\": \"You are not authorized to make changes. Only certain users are authorized.\"}");
+    }
+
+    next();
+}
+
 function authenticateRole(role) {
     return (req, res, next) => {
         if (req.user && req.user.role.indexOf(role) !== -1) {
@@ -33,5 +51,7 @@ function authenticateRole(role) {
 module.exports = {
     authenticateLoggedUser,
     authenticateNotLoggedUser,
-    authenticateRole
+    authenticateRole,
+    authenticateLoggedUserPostRequests,
+    authenticateRolePostRequests
 };
