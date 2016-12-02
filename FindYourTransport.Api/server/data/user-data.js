@@ -78,6 +78,8 @@ module.exports = (models) => {
     function getFilteredUsers(filter) {
         let filteredUsers = User.find();
 
+        console.log(filter);
+        console.log(filter.username);
         if (filter.username !== undefined && filter.username !== "") {
             filteredUsers.where({ username: new RegExp(filter.username, "i") });
         }

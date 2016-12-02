@@ -6,13 +6,13 @@ block app-title
 block content
     div.all-users-container
         .row
-            form.form-horizontal.form-container(id="users-filter-form", action="/users", method="post")
+            #users-filter-form.form.form-horizontal.form-container
                 fieldset
                         .form-group
                             .col-xs-12.col-sm-3
                                 input.form-control(type="text", id="tb-username", name="username", placeholder="Username", value=username)
                             .col-xs-12.col-sm-3
-                                input.btn.btn-success.btn-special(type="submit", value="Search")
+                                input.btn.btn-success.btn-special(type="submit", id="tb-search-user" value="Search")
         .row.users-result
             each user in users
                 .col.sm-12.col-md-6
@@ -28,26 +28,40 @@ block content
                                     .row
                                         h2.profile-names #{user.firstName} #{user.lastName}
         div.paging-form-inputs
-            .row 
+            .row
                 .col-lg-3.matchheight
                     label.control-label(for="sel-page-size") Size:
-                    select(id="sel-page-size" form="users-filter-form" name="size")
-                        -for (let i = 8; i <= length ; i += 8) {
-                            option #{i}
-                        -}
+                    select(id="sel-page-size" name="size")
+                        if(length == 0)
+                            option 8
+                        else
+                            -for (let i = 8; i <= length ; i += 8) {
+                                option #{i}
+                            -}
                 .col-lg-3.matchheight
                     label.control-label(for="sel-selected-page") Page:
-                    select(id="sel-selected-page" form="users-filter-form" name="page")
+                    select(id="sel-selected-page" name="page")
+                        if(pagesCount == 0)
+                            option 1
+                        else
                         -for (let i = 1; i <= pagesCount; i++) {
                             option #{i}
                         -}
+
+
+        script(src="/scripts/utils/requester.js")
+        script(src="/scripts/utils/notificator.js")
+        script(src="/scripts/utils/constants.js")
+        script(src="/scripts/utils/validator.js")
+        script(src="/scripts/user/users-search-ajax.js")
+
         script(type="text/javascript").
                     window.onload = (function () {
                         let pageSizeOptions = $("#sel-page-size").find("option");
                         let pagesOptions = $("#sel-selected-page").find("option"),
                             foundPageSize = false,
                             foundCurrentPage = false;
-                        
+
                         for(let i = 0; i < pageSizeOptions.length; i++) {
                             if (parseInt(pageSizeOptions[i].innerText) === #{pageSize}) {
                                 foundPageSize = true;
@@ -64,13 +78,15 @@ block content
 
                         if (!foundPageSize || !foundCurrentPage) {
                             if (!foundPageSize) {
-                                $(pageSizeOptions[pageSizeOptions.length-1]).attr("selected", "selected");
+                                $(pageSizeOptions[0]).attr("selected", "selected");
                             }
 
                             if (!foundCurrentPage) {
                                 $(pagesOptions[pagesOptions.length-1]).attr("selected", "selected");
                             }
-                            $("#users-filter-form").submit();                            
+
+                            $("#tb-search-user").trigger("click");
+
                         }
                     }());
 
@@ -84,7 +100,7 @@ block content
                     }
                 }
 
-                $("#users-filter-form").submit();
+                $("#tb-search-user").trigger("click");
             });
             });
 
@@ -98,6 +114,6 @@ block content
                                 }
                             }
 
-                            $("#users-filter-form").submit();
+                            $("#tb-search-user").trigger("click");
                         });
                         });
