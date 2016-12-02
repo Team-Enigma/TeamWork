@@ -5,19 +5,19 @@ const jsdom = require("jsdom").jsdom,
 
 function parseFuelPrice(firstSelector, secondSelector, html) {
     $("body").html(html);
-    let fuels = [];
+    let fuel = {};
     let textForFuelName = $(firstSelector).html();
     let textForPriceOfFuel = $(secondSelector).html();
     let onlyPriceOfFuel = textForPriceOfFuel.substr(0, 4);
 
-    fuels.push({
+    fuel = {
         fuelName: textForFuelName,
         fuelPrice: onlyPriceOfFuel
-    });
+    };
 
     return Promise.resolve()
         .then(() => {
-            return fuels;
+            return fuel;
         });
 }
 

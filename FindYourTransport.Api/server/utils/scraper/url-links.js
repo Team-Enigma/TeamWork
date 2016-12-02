@@ -1,4 +1,4 @@
-let urls = [
+const urls = [
     "https://bg.fuelo.net/fuel/type/diesel?lang=en",
     "https://bg.fuelo.net/fuel/type/dieselplus?lang=en",
     "https://bg.fuelo.net/fuel/type/gasoline?lang=en",
@@ -7,4 +7,4 @@ let urls = [
     "https://bg.fuelo.net/fuel/type/methane?lang=en"
 ];
 
-module.exports = { urls };
+module.exports = urls;

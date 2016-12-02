@@ -19,7 +19,7 @@ require("./server/configurations/passport")();
 
 require("./server/routers")(app, authenticator, validator, controllers);
 
-const fuelTask = require("./server/utils/scrapper/test")();
+const fuelTask = require("./server/utils/scraper/fuel-scraper")(data);
 
 fuelTask.start();
 

@@ -2,18 +2,23 @@ module.exports = (models) => {
 
     let { Fuel } = models;
 
-    function createFuel(name, price) {
-        return new Fuel({
-            fuelName: name,
-            fuelPrice: price
+    function updateFuels(fuel) {
+        const options = {
+            new: true,
+            upsert: true,
+            setDefaultsOnInsert: true
+        };
+
+        console.log(fuel);
+
+        Fuel.findOneAndUpdate({ fuelName: fuel.fuelName }, { fuelPrice: fuel.fuelPrice }, options, (err) => {
+            if (err) {
+                return err;
+            }
+
+            return;
         });
     }
-    function insertFuelsIntoDatabase(fuels) {
-        Fuel.insertMany(fuels);
-    }
 
-    return {
-        createFuel,
-        insertFuelsIntoDatabase
-    };
+    return { updateFuels };
 };

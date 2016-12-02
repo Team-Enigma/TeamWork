@@ -5,7 +5,7 @@ module.exports = function() {
     const User = require("../models/user-model");
     const Message = require("../models/message-model");
     const Ride = require("../models/ride-model");
-    const Fuel = require("../models/fuel-model").Fuel;
+    const Fuel = require("../models/fuel-model");
 
     const models = { User, Message, Ride, Fuel };
 
