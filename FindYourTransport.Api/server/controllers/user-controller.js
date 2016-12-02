@@ -137,7 +137,7 @@ module.exports = (data, passport, constants) => {
     }
 
     function loginUser(req, res, next) {
-        passport.authenticate("local", (err, user, info) => {
+        passport.authenticate("local", (err, user) => {
             if (err) {
                 // server error from passport.authenticate
                 return next(err);
@@ -146,12 +146,12 @@ module.exports = (data, passport, constants) => {
                 req.login(user, (err2) => {
                     if (err2) {
                         // server error from passport.login
-                        return next(err2);
+                        return res.json("{\"error\": \"Invalid username or password.\"}");
                     }
-                    return res.redirect("/");
+                    return res.json(`{\"success\": \"Successful login. Welcome ${user.username}\"}`);
                 });
             } else {
-                return res.render("user-views/login", { messages: info });
+                return res.json("{\"error\": \"Invalid username or password.\"}");
             }
 
         })(req, res, next);
