@@ -17,11 +17,12 @@ describe("Test rides routers", () => {
             });
     });
 
-    it("POST /rides to return error", (done) => {
+    it("POST /rides to return status code 200", (done) => {
         chai.request("http://localhost:8080")
             .post("/rides")
-            .end((err) => {
+            .end((err, res) => {
                 expect(err).to.equal(null);
+                expect(res).to.have.status(200);
                 done();
             });
     });
@@ -46,11 +47,12 @@ describe("Test rides routers", () => {
             });
     });
 
-    it("Post /add-ride to return error", (done) => {
+    it("Post /add-ride to return expected message and status code 401", (done) => {
         chai.request("http://localhost:8080")
             .post("/add-ride")
-            .end((err) => {
-                expect(err).not.to.equal(null);
+            .end((err, res) => {
+                expect(err.response.text).to.contains("You are not authorized for this request.");
+                expect(res).to.have.status(401);
                 done();
             });
     });

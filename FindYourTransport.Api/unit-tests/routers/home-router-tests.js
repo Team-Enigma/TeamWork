@@ -1,21 +1,26 @@
-// let assert = require("chai").assert;
-// let request = require("request");
+/* globals describe it*/
 
-// describe("home-router.js testing", () => {
+const chai = require("chai");
+const request = require("request");
+let expect = chai.expect;
 
-//     it("Get / should return status code 200", () => {
-//         let url = "http://localhost:8080/";
+describe("Test home routers", () => {
 
-//         request.get(url, (error, response) => {
-//             assert.equal(200, response.statusCode);
-//         });
-//     });
+    it("Get / should return status code 200", (done) => {
+        let url = "http://localhost:8080/";
 
-//     it("Get /home should return status code 200", () => {
-//         let url = "http://localhost:8080/home";
+        request.get(url, (error, response) => {
+            expect(response.statusCode).to.equal(200);
+            done();
+        });
+    });
 
-//         request.get(url, (error, response) => {
-//             assert.equal(200, response.statusCode);
-//         });
-//     });
-// });
+    it("Get /home should return status code 200", (done) => {
+        let url = "http://localhost:8080/home";
+
+        request.get(url, (error, response) => {
+            expect(response.statusCode).to.equal(200);
+            done();
+        });
+    });
+});
