@@ -58,7 +58,7 @@ module.exports = (models) => {
                     return reject(err);
                 }
 
-                return resolve(users);
+                return resolve(users || null);
             });
         });
     }

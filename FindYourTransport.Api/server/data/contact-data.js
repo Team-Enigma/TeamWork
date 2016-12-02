@@ -9,7 +9,7 @@ module.exports = (models) => {
                     return reject(err);
                 }
 
-                return resolve(messages);
+                return resolve(messages || null);
             });
         });
     }
@@ -39,11 +39,11 @@ module.exports = (models) => {
     function sendMessage(body) {
         return new Promise((resolve, reject) => {
             Message.create({
-                name: body.name,
-                address: body.address,
-                title: body.title,
-                content: body.content
-            })
+                    name: body.name,
+                    address: body.address,
+                    title: body.title,
+                    content: body.content
+                })
                 .then(() => {
                     return resolve();
                 })

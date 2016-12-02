@@ -58,11 +58,8 @@ describe("Test ride data", () => {
                 };
             });
 
-
-
             data.getAllRides()
                 .then(actualRides => {
-                    console.log("AAAAAAAAA");
                     expect(actualRides).to.equals(rides);
                 });
             done();

@@ -29,6 +29,18 @@ describe("Test contact data", () => {
                     done();
                 });
         });
+
+        it("should return null if there is no messages", (done) => {
+            sinon.stub(Message, "find", callback => {
+                callback(null);
+            });
+
+            data.getAllMessages()
+                .then(actualMessage => {
+                    expect(actualMessage).to.be.equal(null);
+                    done();
+                });
+        });
     });
 
     describe("getSpecificMessage", () => {
