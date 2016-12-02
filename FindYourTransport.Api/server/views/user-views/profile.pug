@@ -153,12 +153,13 @@ block content
                     #update-profile-picture.tab-pane.fade
                         .matchheight
                             .row
-                                form(id="upload", action="/profile/upload-avatar", method="post", enctype="multipart/form-data")
+                                #upload-picture
                                     .form-group
                                         p.font-md Please select image
                                         label.btn.btn-primary.btn-md.btn-file(for="tb-avatar")
                                             | Browse
                                         input(type="file", id="tb-avatar" name="avatar" accept="image/*")
+                                        input.hidden(type="submit" id="tb-upload-image")
                     #update-car.tab-pane.fade
                         .matchheight
                             form.form-horizontal(id="update-car" action="/profile/update-car", method="post")
@@ -214,10 +215,16 @@ block content
                                             else
                                                 input.btn.btn-block.btn-primary(type="submit", value="Add car")
 
+    script(src="/scripts/utils/requester.js")
+    script(src="/scripts/utils/notificator.js")
+    script(src="/scripts/utils/constants.js")
+    script(src="/scripts/utils/validator.js")
+    script(src="/scripts/user/upload-picture-ajax.js")
+
     script(type="text/javascript").
         jQuery(function($){
         $("#tb-avatar").change(function() {
-                $("#upload").submit();
+                $("#tb-upload-image").trigger("click");
             });
         });
 

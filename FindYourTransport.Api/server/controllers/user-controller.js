@@ -117,6 +117,7 @@ module.exports = (data, passport, constants) => {
     function uploadAvatar(req, res) {
         const currentUser = req.user;
         const filename = req.file.filename;
+
         data.getUserByUsername(currentUser.username)
             .then((user) => {
                 return user;
