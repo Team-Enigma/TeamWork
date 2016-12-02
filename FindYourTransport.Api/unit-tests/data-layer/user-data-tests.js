@@ -43,6 +43,18 @@ describe("Test user data", () => {
                     done();
                 });
         });
+
+        it("should return null if there is no users", (done) => {
+            sinon.stub(User, "find", callback => {
+                callback(null);
+            });
+
+            data.getAllUsers()
+                .then(actualUsers => {
+                    expect(actualUsers).to.be.equal(null);
+                    done();
+                });
+        });
     });
 
     describe("getUserByUsername", () => {
