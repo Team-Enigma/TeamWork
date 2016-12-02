@@ -31,7 +31,7 @@ describe("Test user data", () => {
                 });
         });
 
-        it("getAllUsers should return 5 users", (done) => {
+        it("should return 5 users", (done) => {
             let users = ["Pesho", "Gosho", "Petyr", "Stamat", "Maria"];
             sinon.stub(User, "find", callback => {
                 callback(null, users);
