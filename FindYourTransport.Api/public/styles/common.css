@@ -106,6 +106,12 @@ textarea {
     resize: none;
 }
 
+.paging-select {
+    width: 80px;
+    display: inline-block;
+    margin-left: 15px;
+}
+
 
 /* All rides page */
 
@@ -296,8 +302,12 @@ textarea {
     background-color: #FFFFFF;
 }
 
-.error-section .right-section,
-.left-section {
+.error-section .right-section {
+    padding: 0px;
+    margin: 30px 0px;
+}
+
+.error-section .left-section {
     padding: 0px;
     margin: 30px 0px;
 }

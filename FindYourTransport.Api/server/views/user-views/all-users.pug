@@ -31,7 +31,7 @@ block content
             .row
                 .col-lg-3.matchheight
                     label.control-label(for="sel-page-size") Size:
-                    select(id="sel-page-size" name="size")
+                    select.form-control.paging-select(id="sel-page-size" name="size")
                         if(length == 0)
                             option 8
                         else
@@ -40,7 +40,7 @@ block content
                             -}
                 .col-lg-3.matchheight
                     label.control-label(for="sel-selected-page") Page:
-                    select(id="sel-selected-page" name="page")
+                    select.form-control.paging-select(id="sel-selected-page" name="page")
                         if(pagesCount == 0)
                             option 1
                         else
