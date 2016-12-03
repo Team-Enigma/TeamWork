@@ -3,12 +3,8 @@
 
 ## Additional rework
 - List with client-side rework
-    - register.pug
-        - register
     - profile.pug
-        - remove rides
         - update profile information
         - update password
         - update car
-    - send-message.pug
-        - sending message
+- TODO: Add client-side validations for places with user input

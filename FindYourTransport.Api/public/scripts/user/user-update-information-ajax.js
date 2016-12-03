@@ -1,24 +1,24 @@
 var app = app || {};
 
-$("#tb-register").on("click", (ev) => {
+$("#tb-update-profile").on("click", (ev) => {
+    console.log("here");
     const firstName = $("#tb-first-name").val();
     const lastName = $("#tb-last-name").val();
-    const username = $("#tb-username").val();
+    const city = $("#tb-city").val();
     const email = $("#tb-email").val();
-    const password = $("#tb-password").val();
-    const confirmPassword = $("#tb-confirm-password").val();
+    const contact = $("#tb-contact").val();
 
     let data = {
         firstName,
         lastName,
-        username,
+        city,
         email,
-        password,
-        confirmPassword
+        contact
     };
 
-    if (app.validator.validateRegister(data)) {
-        app.requester.post("/register", data)
+    console.log(data);
+    if (app.validator.validateUpdateProfile(data)) {
+        app.requester.post("/profile/update-info", data)
             .then(response => {
                 let parsedResponce = JSON.parse(response);
 

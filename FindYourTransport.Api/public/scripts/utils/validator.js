@@ -168,6 +168,57 @@ var app = app || {};
 
             return isDataValid;
         }
+
+        validateUpdateProfile(data) {
+            let isDataValid = true;
+
+            if (validateRequired(data.firstName)) {
+                app.notificator.showNotification(app.constants.user.messages.requiredFirstName, "error");
+                isDataValid = false;
+            }
+
+            if (validateRequired(data.lastName)) {
+                app.notificator.showNotification(app.constants.user.messages.requiredLastName, "error");
+                isDataValid = false;
+            }
+
+            if (validateRequired(data.email)) {
+                app.notificator.showNotification(app.constants.user.messages.requiredEmail, "error");
+                isDataValid = false;
+            }
+
+            if (validateRequired(data.password)) {
+                app.notificator.showNotification(app.constants.user.messages.requiredPassword, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.firstName, app.constants.user.matchers.personName)) {
+                app.notificator.showNotification(app.constants.user.messages.personFirstName, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.lastName, app.constants.user.matchers.personName)) {
+                app.notificator.showNotification(app.constants.user.messages.personLastName, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.email, app.constants.user.matchers.email)) {
+                app.notificator.showNotification(app.constants.user.messages.email, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.city, app.constants.user.matchers.city)) {
+                app.notificator.showNotification(app.constants.user.messages.city, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.contact, app.constants.user.matchers.contact)) {
+                app.notificator.showNotification(app.constants.user.messages.contact, "error");
+                isDataValid = false;
+            }
+
+            return isDataValid;
+        }
     }
 
     app.validator = new Validator();

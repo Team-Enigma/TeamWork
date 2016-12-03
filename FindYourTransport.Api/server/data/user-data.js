@@ -14,7 +14,6 @@ module.exports = (models) => {
                     salt,
                     firstName: body.firstName,
                     lastName: body.lastName,
-                    city: body.city,
                     email: body.email
                 })
                 .then(() => {
