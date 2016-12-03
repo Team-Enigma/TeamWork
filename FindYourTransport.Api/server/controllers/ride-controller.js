@@ -17,6 +17,10 @@ module.exports = (data, passport, constants) => {
     }
 
     function loadFilteredRides(req, res) {
+        let toCity = req.query.toCity;
+        let fromCity = req.query.fromCity;
+        let startDate = req.query.startDate;
+        let endDate = req.query.endDate;
         let pageSize = parseInt(req.query.size) || 5,
             currentPage = parseInt(req.query.page) || 1,
             pagesCount,
@@ -27,6 +31,7 @@ module.exports = (data, passport, constants) => {
                 pagesCount = Math.ceil(rides.length / pageSize);
 
                 allRidesLength = rides.length;
+                console.log(rides.length);
 
                 if (allRidesLength % 5 !== 0) {
                     allRidesLength += 5 - allRidesLength % 5;
@@ -41,7 +46,7 @@ module.exports = (data, passport, constants) => {
                 return rides.slice(pageSize * (currentPage - 1), end);
             })
             .then((pagedRides) => {
-                res.render("ride-views/all-rides.pug", { rides: pagedRides, pageSize, currentPage, pagesCount, length: allRidesLength });
+                res.render("ride-views/all-rides.pug", { toCity, fromCity, startDate, endDate, rides: pagedRides, pageSize, currentPage, pagesCount, length: allRidesLength });
             })
             .catch((err) => {
                 return err;

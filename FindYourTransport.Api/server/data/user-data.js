@@ -70,6 +70,10 @@ module.exports = (models) => {
                     return reject(err);
                 }
 
+                if(!user) {
+                    return reject("A user with this username was not found");
+                }
+
                 return resolve(user || null);
             });
         });
@@ -89,6 +93,16 @@ module.exports = (models) => {
                 return err;
             }
             return users;
+        });
+    }
+
+    function updateUserRole(user) {
+        User.update({ _id: user._id }, { role: user.role }, null, (err) => {
+            if (err) {
+                return err;
+            }
+
+            return;
         });
     }
 
@@ -151,6 +165,7 @@ module.exports = (models) => {
         updateUserAvatar,
         updateUserInfo,
         updateUserCarInfo,
+        updateUserRole,
         changeUserPassword
     };
 };

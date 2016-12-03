@@ -19,6 +19,29 @@ module.exports = (data, passport, constants) => {
             });
     }
 
+    function updateUserRole(req, res) {
+        const username = req.body.username;
+
+        data.getUserByUsername(username)
+            .then((user) => {
+
+                user.role = "Admin";
+
+                return user;
+            })
+            .then((user) => {
+                data.updateUserRole(user);
+            })
+            .then(() => {
+                res.status(201);
+                return res.json("{\"success\": \"Successful change of role. The user is now admin. \"}");
+            })
+            .catch((err) => {
+                res.status(400);
+                return res.json(`{"error": "${err}"}`);
+            });
+    }
+
     function updateMessageStatus(req, res) {
         const id = req.body.messageId;
         const status = req.body.option;
@@ -44,6 +67,7 @@ module.exports = (data, passport, constants) => {
         name: "admin",
         loadAdminPage,
         loadAdminDetailedMessage,
-        updateMessageStatus
+        updateMessageStatus,
+        updateUserRole
     };
 };
