@@ -8,7 +8,7 @@ const carSchema = mongooseSchema({
     seats: { type: Number, min: 2, max: 7 },
     fuel: { type: String, enum: constants.car.enums.fuelTypes },
     transmission: { type: String, enum: constants.car.enums.transmissionTypes },
-    registrationNumber: { type: String, unique: true }
+    registrationNumber: { type: String } // unique: true }
 });
 
 module.exports = carSchema;

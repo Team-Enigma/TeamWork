@@ -94,10 +94,21 @@ var app = app || {};
         }
     };
 
+    const fuel = {
+        messages: {
+            requiredDistance: "Distance is required",
+            requiredConsumption: "Consumption is required",
+            distance: "Distance should be a valid number (e.g. 14.4 or 14,2)",
+            consumption: "Consumption should be a valid number (e.g. 4.2 or 6,4)"
+        },
+        matcher: { number: /^((?:\d*\.)?\d+)$/ }
+    };
+
     app.constants = {
         user,
         ride,
         car,
-        contact
+        contact,
+        fuel
     };
 }());
