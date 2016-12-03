@@ -69,7 +69,7 @@ module.exports = (data, passport, constants) => {
                 res.render("../views/user-views/user", { user: result.user, rides: result.userRides });
             })
             .catch((err) => {
-                console.log(err);
+                //todo: add error page when ride with invalid id is requested;
             });
     }
 

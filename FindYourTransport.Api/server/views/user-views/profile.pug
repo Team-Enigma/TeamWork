@@ -162,7 +162,7 @@ block content
                                         input.hidden(type="submit" id="tb-upload-image")
                     #update-car.tab-pane.fade
                         .matchheight
-                            form.form-horizontal(id="update-car" action="/profile/update-car", method="post")
+                            #update-car-form.form-horizontal
                                 fieldset
                                     .form-group
                                         label.col-sm-3.control-label(for="tb-manufacturer") Manufacturer
@@ -211,9 +211,9 @@ block content
                                     .form-group
                                         .col-sm-4.col-sm-offset-3
                                             if currentUser.car.manufacturer
-                                                input.btn.btn-block.btn-primary(type="submit", value="Update")
+                                                input.btn.btn-block.btn-primary(type="submit", id="tb-update-car" value="Update")
                                             else
-                                                input.btn.btn-block.btn-primary(type="submit", value="Add car")
+                                                input.btn.btn-block.btn-primary(type="submit", id="tb-update-car", value="Add car")
 
     script(src="/scripts/utils/requester.js")
     script(src="/scripts/utils/notificator.js")
@@ -223,7 +223,7 @@ block content
     script(src="/scripts/rides/delete-ride-ajax.js")
     script(src="/scripts/user/user-update-information-ajax.js")
     script(src="/scripts/user/user-update-password-ajax.js")
-
+    script(src="/scripts/user/user-update-car-ajax.js")
 
     script(type="text/javascript").
         jQuery(function($){

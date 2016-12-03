@@ -2,25 +2,26 @@
 
 var app = app || {};
 
-$("#tb-update-profile").on("click", (ev) => {
+$("#tb-update-car").on("click", (ev) => {
     console.log("here");
-    const firstName = $("#tb-first-name").val();
-    const lastName = $("#tb-last-name").val();
-    const city = $("#tb-city").val();
-    const email = $("#tb-email").val();
-    const contact = $("#tb-contact").val();
+    const manufacturer = $("#tb-manufacturer").val();
+    const model = $("#tb-model").val();
+    const seats = $("#tb-seats option:selected").text();
+    const fuelType = $("#tb-fuel-type option:selected").text();
+    const transmissionType = $("#tb-transmission-type option:selected").text();
+    const registrationNumber = $("#tb-registration-number").val();
 
     let data = {
-        firstName,
-        lastName,
-        city,
-        email,
-        contact
+        manufacturer,
+        model,
+        seats,
+        fuelType,
+        transmissionType,
+        registrationNumber
     };
 
-    console.log(data);
-    if (app.validator.validateUpdateProfile(data)) {
-        app.requester.put("/profile/update-info", data)
+    if (app.validator.validateUpdateCar(data)) {
+        app.requester.put("/profile/update-car", data)
             .then(response => {
                 let parsedResponce = JSON.parse(response);
 
@@ -34,7 +35,7 @@ $("#tb-update-profile").on("click", (ev) => {
                 }
             })
             .catch(err => {
-                let parsedError = JSON.parse(err.responseJSON);
+                let parsedError = JSON.parse(err);
                 app.notificator.showNotification(parsedError.error, "error");
             });
     }

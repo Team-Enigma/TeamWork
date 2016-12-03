@@ -12,7 +12,7 @@ $("#tb-update-password").on("click", (ev) => {
     };
 
     if (app.validator.validateUpdatePassword(data)) {
-        app.requester.post("/profile/update-password", data)
+        app.requester.put("/profile/update-password", data)
             .then(response => {
                 let parsedResponce = JSON.parse(response);
 
