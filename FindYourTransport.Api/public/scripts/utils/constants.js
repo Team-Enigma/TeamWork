@@ -33,6 +33,8 @@ var app = app || {};
     };
 
     const ride = {
+        minPrice: 0,
+        maxPrice: 1000,
         messages: {
             requiredStartCity: "Start city is required",
             requiredEndCity: "End city is required",

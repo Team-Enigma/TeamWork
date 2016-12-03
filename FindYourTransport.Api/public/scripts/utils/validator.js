@@ -30,6 +30,26 @@ var app = app || {};
         }
     }
 
+    function validateDateIsInTheFuture(date) {
+        if (Date.parse(date) <= Date.now()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function validateRange(number, min, max) {
+        if (typeof(number) !== "number") {
+            number = parseInt(number);
+        }
+
+        if (number < min || number > max) {
+            return true;
+        }
+
+        return false;
+    }
+
     class Validator {
         validateLogin(data) {
             let isDataValid = true;
@@ -214,6 +234,62 @@ var app = app || {};
 
             if (validateMatcher(data.contact, app.constants.user.matchers.contact)) {
                 app.notificator.showNotification(app.constants.user.messages.contact, "error");
+                isDataValid = false;
+            }
+
+            return isDataValid;
+        }
+
+        validateRideCreation(data) {
+            let isDataValid = true;
+
+            if (validateRequired(data.fromCity)) {
+                app.notificator.showNotification(app.constants.ride.messages.requiredStartCity, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.fromCity, app.constants.ride.matchers.city)) {
+                app.notificator.showNotification(app.constants.ride.messages.city, "error");
+                isDataValid = false;
+            }
+
+            if (validateRequired(data.toCity)) {
+                app.notificator.showNotification(app.constants.ride.messages.requiredEndCity, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.toCity, app.constants.ride.matchers.city)) {
+                app.notificator.showNotification(app.constants.ride.messages.city, "error");
+                isDataValid = false;
+            }
+
+            if (validateRequired(data.dateOfTravel)) {
+                app.notificator.showNotification(app.constants.ride.messages.requiredDate, "error");
+                isDataValid = false;
+            }
+
+            if (validateDateIsInTheFuture(data.dateOfTravel)) {
+                app.notificator.showNotification(app.constants.ride.messages.date, "error");
+                isDataValid = false;
+            }
+
+            if (validateRequired(data.price)) {
+                app.notificator.showNotification(app.constants.ride.messages.requiredPrice, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.price, app.constants.ride.matchers.price)) {
+                app.notificator.showNotification(app.constants.ride.messages.priceNumber, "error");
+                isDataValid = false;
+            }
+
+            if (validateRange(data.price, app.constants.ride.minPrice, app.constants.ride.maxPrice)) {
+                app.notificator.showNotification(app.constants.ride.messages.price, "error");
+                isDataValid = false;
+            }
+
+            if (validateRequired(data.contact)) {
+                app.notificator.showNotification(app.constants.ride.messages.requiredContact, "error");
                 isDataValid = false;
             }
 
