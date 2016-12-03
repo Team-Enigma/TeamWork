@@ -62,6 +62,21 @@ module.exports = (models) => {
     //     });
     // }
 
+    function getUserByEmail(email) {
+        console.log(email);
+        return new Promise((resolve, reject) => {
+            User.findOne({ email }, (err, user) => {
+                if (err) {
+                    return reject(err);
+                }
+
+                console.log(user);
+                
+                return resolve(user);
+            });
+        });
+    }
+
     function getUserByUsername(username) {
         return new Promise((resolve, reject) => {
             User.findOne({ username }, (err, user) => {
@@ -160,6 +175,7 @@ module.exports = (models) => {
         registerNewUser,
         //getAllUsers,
         getUserByUsername,
+        getUserByEmail,
         getFilteredUsers,
         updateUserAvatar,
         updateUserInfo,

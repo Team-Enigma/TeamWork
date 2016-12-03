@@ -25,14 +25,15 @@ $("#tb-update-profile").on("click", (ev) => {
                 if (parsedResponce.success) {
                     app.notificator.showNotification(parsedResponce.success, "success");
                     setTimeout(() => {
-                        window.location.href = "/";
+                        window.location.href = "/profile";
                     }, 1500);
                 } else if (parsedResponce.error) {
                     app.notificator.showNotification(parsedResponce.error, "error");
                 }
             })
             .catch(err => {
-                console.log(err);
+                let parsedError = JSON.parse(err.responseJSON);
+                app.notificator.showNotification(parsedError.error, "error");
             });
     }
 
