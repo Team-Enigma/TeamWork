@@ -122,6 +122,52 @@ var app = app || {};
 
             return isDataValid;
         }
+
+        validateMessage(data) {
+            let isDataValid = true;
+
+            if (validateRequired(data.name)) {
+                app.notificator.showNotification(app.constants.contact.messages.requiredUsername, "error");
+                isDataValid = false;
+            }
+
+            if (validateRequired(data.address)) {
+                app.notificator.showNotification(app.constants.contact.messages.requiredAddress, "error");
+                isDataValid = false;
+            }
+
+            if (validateRequired(data.title)) {
+                app.notificator.showNotification(app.constants.contact.messages.requiredTitle, "error");
+                isDataValid = false;
+            }
+
+            if (validateRequired(data.content)) {
+                app.notificator.showNotification(app.constants.contact.messages.requiredContent, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.name, app.constants.contact.matchers.username)) {
+                app.notificator.showNotification(app.constants.contact.messages.username, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.address, app.constants.contact.matchers.address)) {
+                app.notificator.showNotification(app.constants.contact.messages.address, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.title, app.constants.contact.matchers.title)) {
+                app.notificator.showNotification(app.constants.contact.messages.title, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.content, app.constants.contact.matchers.content)) {
+                app.notificator.showNotification(app.constants.contact.messages.content, "error");
+                isDataValid = false;
+            }
+
+            return isDataValid;
+        }
     }
 
     app.validator = new Validator();
