@@ -7,4 +7,10 @@ module.exports = function(app, authenticator, validator, controllers) {
         .forEach(file => {
             require(path.join(__dirname, file))(app, authenticator, validator, controllers);
         });
+
+    app.all("*", (req, res) => {
+        res.status(404);
+        res.render("common/error-page");
+        res.end();
+    });
 };

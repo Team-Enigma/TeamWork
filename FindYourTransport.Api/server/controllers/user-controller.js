@@ -69,7 +69,9 @@ module.exports = (data, passport, constants) => {
                 res.render("../views/user-views/user", { user: result.user, rides: result.userRides });
             })
             .catch((err) => {
-                //todo: add error page when ride with invalid id is requested;
+                res.status(404);
+                res.render("common/error-page");
+                res.end();
             });
     }
 

@@ -8,7 +8,9 @@ module.exports = (data, passport, constants) => {
                 res.render("ride-views/ride.pug", { ride: resultRide });
             })
             .catch((err) => {
-                //todo: add error page when ride with invalid id is requested;
+                res.status(404);
+                res.render("common/error-page");
+                res.end();
             });
     }
 

@@ -15,7 +15,9 @@ module.exports = (data, passport, constants) => {
                 res.render("../views/admin-views/detailed-message.pug", { message: resultMessage });
             })
             .catch((err) => {
-                console.log(err);
+                res.status(404);
+                res.render("common/error-page");
+                res.end();
             });
     }
 
