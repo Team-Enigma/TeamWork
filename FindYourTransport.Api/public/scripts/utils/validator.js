@@ -372,6 +372,32 @@ var app = app || {};
 
             return isDataValid;
         }
+
+        validateCalculator(data) {
+            let isDataValid = true;
+
+            if (validateRequired(data.distance)) {
+                app.notificator.showNotification(app.constants.fuel.messages.requiredDistance, "error");
+                isDataValid = false;
+            }
+
+            if (validateRequired(data.consumption)) {
+                app.notificator.showNotification(app.constants.fuel.messages.requiredConsumption, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.distance, app.constants.fuel.matcher.number)) {
+                app.notificator.showNotification(app.constants.fuel.messages.distance, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.consumption, app.constants.fuel.matcher.number)) {
+                app.notificator.showNotification(app.constants.fuel.messages.consumption, "error");
+                isDataValid = false;
+            }
+
+            return isDataValid;
+        }
     }
 
     app.validator = new Validator();

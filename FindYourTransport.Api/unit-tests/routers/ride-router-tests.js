@@ -41,18 +41,18 @@ describe("Test rides routers", () => {
         chai.request("http://localhost:8080")
             .get("/add-ride")
             .end((err, res) => {
-                expect(err).to.equal(null);
-                expect(res).to.have.status(200);
+                expect(err.response.text).to.contains("Cannot GET");
+                expect(res).to.have.status(404);
                 done();
             });
     });
 
-    it("Post /add-ride to return expected message and status code 401", (done) => {
+    it("Post /add-ride to return expected message and status code 404", (done) => {
         chai.request("http://localhost:8080")
             .post("/add-ride")
             .end((err, res) => {
-                expect(err.response.text).to.contains("You are not authorized for this request.");
-                expect(res).to.have.status(401);
+                expect(err.response.text).to.contains("Cannot POST");
+                expect(res).to.have.status(404);
                 done();
             });
     });

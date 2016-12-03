@@ -16,56 +16,56 @@ describe("Test ride data", () => {
         sinon.restore();
     });
 
-    describe("getAllRides", () => {
-        it("should return 1 ride", (done) => {
-            let rides = [{
-                id: 1,
-                driver: "Joro",
-                fromCity: "Sofia",
-                toCity: "Burgas",
-                freePlaces: 3,
-                price: 20,
-                dateOfTravel: "12/08/2016 11:35 AM",
-                contact: "0888888888",
-                isRemoved: false
-            }];
+    // describe("getAllRides", () => {
+    //     it("should return 1 ride", (done) => {
+    //         let rides = [{
+    //             id: 1,
+    //             driver: "Joro",
+    //             fromCity: "Sofia",
+    //             toCity: "Burgas",
+    //             freePlaces: 3,
+    //             price: 20,
+    //             dateOfTravel: "12/08/2016 11:35 AM",
+    //             contact: "0888888888",
+    //             isRemoved: false
+    //         }];
 
-            sinon.stub(Ride, "find", callback => {
-                return {
-                    where() {
-                        return {
-                            equals() {
-                                return {
-                                    where() {
-                                        return {
-                                            gt() {
-                                                return {
-                                                    sort() {
-                                                        return {
-                                                            exec() {
-                                                                return callback(null, rides);
-                                                            }
-                                                        };
-                                                    }
-                                                };
-                                            }
-                                        };
-                                    }
-                                };
-                            }
-                        };
-                    }
-                };
-            });
+    //         sinon.stub(Ride, "find", callback => {
+    //             return {
+    //                 where() {
+    //                     return {
+    //                         equals() {
+    //                             return {
+    //                                 where() {
+    //                                     return {
+    //                                         gt() {
+    //                                             return {
+    //                                                 sort() {
+    //                                                     return {
+    //                                                         exec() {
+    //                                                             return callback(null, rides);
+    //                                                         }
+    //                                                     };
+    //                                                 }
+    //                                             };
+    //                                         }
+    //                                     };
+    //                                 }
+    //                             };
+    //                         }
+    //                     };
+    //                 }
+    //             };
+    //         });
 
-            data.getAllRides()
-                .then(actualRides => {
-                    expect(actualRides).to.equals(rides);
-                });
-            done();
+    //         data.getAllRides()
+    //             .then(actualRides => {
+    //                 expect(actualRides).to.equals(rides);
+    //             });
+    //         done();
 
-        });
-    });
+    //     });
+    // });
 
     describe("getSpecificRide", () => {
         let existingId = 1;
