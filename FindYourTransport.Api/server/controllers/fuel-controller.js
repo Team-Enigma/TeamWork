@@ -28,11 +28,14 @@ module.exports = (data, passport, constants) => {
 
                 cashedPrice.sum = sum.toFixed(2);
 
-                return res.status(200);
+                console.log(cashedPrice);
+
+                res.status(200);
+                return res.render("../views/ride-views/calculate-price.pug", cashedPrice);
             })
             .catch((err) => {
                 res.status(400);
-                return res.json(`{"error": "Problem occured while calculating the price. ${err.message}"}`);
+                return res.json(`{"error": "Problem occured while calculating the price. ${err}"}`);
             })
     }
 

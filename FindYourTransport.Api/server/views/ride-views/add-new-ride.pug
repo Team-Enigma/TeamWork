@@ -4,11 +4,10 @@ block app-title
         | add ride
 
 block content
-    include ../common/error-message
     .row.home-section
       .col-xs-12.col-md-6.matchheight
         .col-inner
-            form.form-horizontal.form-container(action="/add-ride", method="post")
+            #add-ride-form.form.form-horizontal.form-container
                 fieldset
                     .form-group
                         label.col-lg-4.control-label(for="tb-from-city") From City
@@ -48,18 +47,22 @@ block content
                             textarea.form-control(rows="4", id="tb-more-info", name="remarks", placeholder="Additional information", value="remarks")
                     .form-group
                         .col-lg-8.col-lg-offset-4
-                            input.btn.btn-sm.btn-primary.btn-lg.btn-block(type="submit", value="Add ride")
+                            input.btn.btn-sm.btn-primary.btn-lg.btn-block(type="submit", id="tb-add-ride" value="Add ride")
       .col-xs-12.col-md-6.matchheight.right-section
         .col-inner
             .col-xs-8.col-xs-offset-2
                 img.img-responsive.img-add-ride(src="/images/add-ride-picture.png")
 
-        script(type="text/javascript").
-            $(function () {
-            $("#datetimepicker1").datetimepicker();
-            });
+    script(src="/scripts/utils/requester.js")
+    script(src="/scripts/utils/notificator.js")
+    script(src="/scripts/rides/add-ride-ajax.js")
 
-        script(type="text/javascript").
-            jQuery(function($){
-            $(".matchheight").matchHeight({byRow: false});
-            });
+    script(type="text/javascript").
+        $(function () {
+        $("#datetimepicker1").datetimepicker();
+        });
+
+    script(type="text/javascript").
+        jQuery(function($){
+        $(".matchheight").matchHeight({byRow: false});
+        });
