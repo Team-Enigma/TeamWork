@@ -19,7 +19,6 @@ $("#tb-register").on("click", (ev) => {
         confirmPassword
     };
 
-    // if (app.validator.validateRegister(data)) {
     if (app.validator.validateRegister(data)) {
         app.requester.post("/register", data)
             .then(response => {
@@ -29,7 +28,7 @@ $("#tb-register").on("click", (ev) => {
                     app.notificator.showNotification(parsedResponce.success, "success");
                     setTimeout(() => {
                         window.location.href = "/";
-                    }, 1000);
+                    }, 5000);
                 } else if (parsedResponce.error) {
                     app.notificator.showNotification(parsedResponce.error, "error");
                 }
