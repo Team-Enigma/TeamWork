@@ -137,8 +137,19 @@ module.exports = (data, passport, constants) => {
 
     function updateInfo(req, res) {
         let currentUser = req.user;
+        let email = req.body.email;
 
-        data.getUserByUsername(currentUser.username)
+        console.log(req.body);
+        data.getUserByEmail(email)
+            .then((user) => {
+                console.log(user);
+                if (user) {
+                    res.status(400);
+                    return res.json("{\"error\": \"A user with this email already exists\"}");
+                }
+
+                return data.getUserByUsername(currentUser.username)
+            })
             .then((user) => {
                 data.updateUserInfo(user, req.body);
             })
