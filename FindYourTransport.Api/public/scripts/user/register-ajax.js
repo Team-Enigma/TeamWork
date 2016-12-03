@@ -2,7 +2,7 @@
 
 var app = app || {};
 
-$("#tb-register").on("click", (ev) => {
+function getData() {
     const firstName = $("#tb-first-name").val();
     const lastName = $("#tb-last-name").val();
     const username = $("#tb-username").val();
@@ -10,7 +10,7 @@ $("#tb-register").on("click", (ev) => {
     const password = $("#tb-password").val();
     const confirmPassword = $("#tb-confirm-password").val();
 
-    let data = {
+    return data = {
         firstName,
         lastName,
         username,
@@ -18,6 +18,10 @@ $("#tb-register").on("click", (ev) => {
         password,
         confirmPassword
     };
+}
+
+function handleSubmit() {
+    let data = getData();
 
     if (app.validator.validateRegister(data)) {
         app.requester.post("/register", data)
@@ -38,5 +42,14 @@ $("#tb-register").on("click", (ev) => {
                 app.notificator.showNotification(parsedError.error, "error");
             });
     }
+}
 
+$("#tb-register").on("click", (ev) => {
+    handleSubmit();
+});
+
+$(window).keypress((ev) => {
+    if (ev.which == 13) {
+        handleSubmit();
+    }
 });

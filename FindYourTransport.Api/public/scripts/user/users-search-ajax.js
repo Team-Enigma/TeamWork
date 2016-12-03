@@ -2,17 +2,19 @@
 
 var app = app || {};
 
-$("#tb-search-user").on("click", (ev) => {
+function getData() {
     let username = $("#tb-username").val();
     let page = $("#sel-selected-page option:selected").text();
     let size = $("#sel-page-size option:selected").text();
 
-    let params = {
+    return params = {
         username,
         page,
         size
     };
+}
 
+function buildQueryString(params) {
     let queryString = "/users";
 
     for (let element in params) {
@@ -27,6 +29,25 @@ $("#tb-search-user").on("click", (ev) => {
         }
     }
 
-    window.location.href = queryString;
+    return queryString;
+}
 
+function redirectToQueryRoute(queryString) {
+    window.location.href = queryString;
+}
+
+function handleSubmit() {
+    let data = getData();
+    let queryString = buildQueryString(data);
+    redirectToQueryRoute(queryString);
+}
+
+$("#tb-search-user").on("click", (ev) => {
+    handleSubmit();
+});
+
+$(window).keypress((ev) => {
+    if (ev.which == 13) {
+        handleSubmit();
+    }
 });

@@ -2,14 +2,18 @@
 
 var app = app || {};
 
-$("#tb-login").on("click", (ev) => {
+function getData() {
     const username = $("#tb-username").val();
     const password = $("#tb-password").val();
 
-    let data = {
+    return data = {
         username,
         password
     };
+}
+
+function handleSubmit() {
+    let data = getData();
 
     if (app.validator.validateLogin(data)) {
         app.requester.post("/login", data)
@@ -30,5 +34,14 @@ $("#tb-login").on("click", (ev) => {
                 app.notificator.showNotification(parsedError.error, "error");
             });
     }
+}
 
+$("#tb-login").on("click", (ev) => {
+    handleSubmit();
+});
+
+$(window).keypress((ev) => {
+    if (ev.which == 13) {
+        handleSubmit();
+    }
 });
