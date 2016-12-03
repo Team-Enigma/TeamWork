@@ -80,7 +80,7 @@ module.exports = (data, passport, constants) => {
                 return ride;
             })
             .then((ride) => {
-                data.updateRideInfo(ride);
+                return data.updateRideInfo(ride);
             })
             .then(() => {
                 res.status(201);

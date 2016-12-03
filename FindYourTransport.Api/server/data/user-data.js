@@ -50,28 +50,13 @@ module.exports = (models) => {
         });
     }
 
-    // function getAllUsers() {
-    //     return new Promise((resolve, reject) => {
-    //         User.find((err, users) => {
-    //             if (err) {
-    //                 return reject(err);
-    //             }
-
-    //             return resolve(users || null);
-    //         });
-    //     });
-    // }
-
     function getUserByEmail(email) {
-        console.log(email);
         return new Promise((resolve, reject) => {
             User.findOne({ email }, (err, user) => {
                 if (err) {
                     return reject(err);
                 }
 
-                console.log(user);
-                
                 return resolve(user);
             });
         });
@@ -96,8 +81,6 @@ module.exports = (models) => {
     function getFilteredUsers(filter) {
         let filteredUsers = User.find();
 
-        console.log(filter);
-        console.log(filter.username);
         if (filter.username !== undefined && filter.username !== "") {
             filteredUsers.where({ username: new RegExp(filter.username, "i") });
         }
@@ -111,22 +94,26 @@ module.exports = (models) => {
     }
 
     function updateUserRole(user) {
-        User.update({ _id: user._id }, { role: user.role }, null, (err) => {
-            if (err) {
-                return err;
-            }
+        return new Promise((resolve, reject) => {
+            User.update({ _id: user._id }, { role: user.role }, null, (err) => {
+                if (err) {
+                    return reject(err);
+                }
 
-            return;
+                return resolve();
+            });
         });
     }
 
     function updateUserAvatar(user, filename) {
-        User.update({ _id: user._id }, { avatar: filename }, null, (err) => {
-            if (err) {
-                return err;
-            }
+        return new Promise((resolve, reject) => {
+            User.update({ _id: user._id }, { avatar: filename }, null, (err) => {
+                if (err) {
+                    return reject(err);
+                }
 
-            return;
+                return resolve();
+            });
         });
     }
 
@@ -139,35 +126,47 @@ module.exports = (models) => {
             }
         }
 
-        User.update({ _id: user._id }, changes, null, (err) => {
-            if (err) {
-                return err;
-            }
+        return new Promise((resolve, reject) => {
+            User.update({ _id: user._id }, changes, null, (err) => {
+                if (err) {
+                    return reject(err);
+                }
 
-            return;
+                return resolve();
+            });
         });
     }
 
-    function changeUserPassword(user, requestPassword) {
-        const hashedNewPassword = encryption.generateHashedPassword(user.salt, requestPassword);
-        let newPassword = { hashedPassword: hashedNewPassword };
+    function changeUserPassword(user, oldPassword, requestPassword) {
+        return new Promise((resolve, reject) => {
+            const requestedOldPassword = encryption.generateHashedPassword(user.salt, oldPassword);
 
-        User.update({ _id: user._id }, newPassword, null, (err) => {
-            if (err) {
-                return err;
+            if (user.hashedPassword !== requestedOldPassword) {
+                return reject("Old password does not match. Please try again");
             }
 
-            return;
+            const hashedNewPassword = encryption.generateHashedPassword(user.salt, requestPassword);
+            let newPassword = { hashedPassword: hashedNewPassword };
+
+            User.update({ _id: user._id }, { hashedPassword: hashedNewPassword }, null, (err) => {
+                if (err) {
+                    return reject(err);
+                }
+
+                return resolve();
+            });
         });
     }
 
     function updateUserCarInfo(user, carInfo) {
-        User.update({ _id: user._id }, { car: carInfo }, null, (err) => {
-            if (err) {
-                return err;
-            }
+        return new Promise((resolve, reject) => {
+            User.update({ _id: user._id }, { car: carInfo }, null, (err) => {
+                if (err) {
+                    return reject(err);
+                }
 
-            return;
+                return resolve();
+            });
         });
     }
 

@@ -49,19 +49,21 @@ module.exports = (models) => {
     }
 
     function getRidesForUser(username) {
-        return Ride.find()
-            .where("isRemoved")
-            .equals(false)
-            .where("driver")
-            .equals(username)
-            .sort("dateOfTravel")
-            .exec((err, rides) => {
-                if (err) {
-                    return err;
-                }
+        return new Promise((resolve, reject) => {
+            Ride.find()
+                .where("isRemoved")
+                .equals(false)
+                .where("driver")
+                .equals(username)
+                .sort("dateOfTravel")
+                .exec((err, rides) => {
+                    if (err) {
+                        return reject(err);
+                    }
 
-                return rides;
-            });
+                    return resolve(rides);
+                });
+        });
     }
 
     function getFilteredRides(filter) {
@@ -110,17 +112,19 @@ module.exports = (models) => {
     }
 
     function updateRideInfo(ride) {
-        Ride.update({ _id: ride._id }, { freePlaces: ride.freePlaces, passengers: ride.passengers }, null, (err) => {
-            if (err) {
-                return err;
-            }
+        return new Promise((resolve, reject) => {
+            Ride.update({ _id: ride._id }, { freePlaces: ride.freePlaces, passengers: ride.passengers }, null, (err) => {
+                if (err) {
+                    return reject(err);
+                }
 
-            return;
+                return resolve();
+            });
         });
+
     }
 
     function removeRideById(rideId) {
-        console.log(rideId);
         return new Promise((resolve, reject) => {
             Ride.update({ _id: rideId }, { isRemoved: true }, null, (err) => {
                 if (err) {

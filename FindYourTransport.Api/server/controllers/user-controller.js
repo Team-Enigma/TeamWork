@@ -123,7 +123,7 @@ module.exports = (data, passport, constants) => {
                 return user;
             })
             .then((user) => {
-                data.updateUserAvatar(user, filename);
+                return data.updateUserAvatar(user, filename);
             })
             .then(() => {
                 res.status(201);
@@ -139,11 +139,9 @@ module.exports = (data, passport, constants) => {
         let currentUser = req.user;
         let email = req.body.email;
 
-        console.log(req.body);
         data.getUserByEmail(email)
             .then((user) => {
-                console.log(user);
-                if (user) {
+                if (user && user.username !== req.user.username) {
                     res.status(400);
                     return res.json("{\"error\": \"A user with this email already exists\"}");
                 }
@@ -151,7 +149,7 @@ module.exports = (data, passport, constants) => {
                 return data.getUserByUsername(currentUser.username)
             })
             .then((user) => {
-                data.updateUserInfo(user, req.body);
+                return data.updateUserInfo(user, req.body);
             })
             .then(() => {
                 res.status(201);
@@ -165,11 +163,12 @@ module.exports = (data, passport, constants) => {
 
     function updatePassword(req, res) {
         let currentUser = req.user;
+        let oldPassword = req.body.oldPassword;
         let newPassword = req.body.newPassword;
 
         data.getUserByUsername(currentUser.username)
             .then((user) => {
-                data.changeUserPassword(user, newPassword);
+                return data.changeUserPassword(user, oldPassword, newPassword);
             })
             .then(() => {
                 res.status(201);
@@ -177,7 +176,7 @@ module.exports = (data, passport, constants) => {
             })
             .catch((err) => {
                 res.status(400);
-                return res.json(`{"error": "Problem occured while changing your password. ${err.message}"}`);
+                return res.json(`{"error": "${err}"}`);
             });
     }
 
@@ -194,7 +193,7 @@ module.exports = (data, passport, constants) => {
 
         data.getUserByUsername(currentUser.username)
             .then((user) => {
-                data.updateUserCarInfo(user, car);
+                return data.updateUserCarInfo(user, car);
             })
             .then(() => {
                 res.status(201);
