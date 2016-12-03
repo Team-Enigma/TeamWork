@@ -3,7 +3,7 @@ module.exports = (data, passport, constants) => {
     function loadAdminPage(req, res) {
         data.getAllMessages()
             .then((contactMessages) => {
-                res.render("../views/admin-views/admin-panel.pug", { contactMessages } );
+                res.render("../views/admin-views/admin-panel.pug", { contactMessages });
             });
     }
 

@@ -1,4 +1,6 @@
-var app = app || {};
+/* globals window $*/
+
+let app = app || {};
 
 $("#tb-search-user").on("click", (ev) => {
     let username = $("#tb-username").val();
@@ -21,7 +23,7 @@ $("#tb-search-user").on("click", (ev) => {
                 queryString += "?";
             }
 
-            queryString += `${element}=${params[element]}`; 
+            queryString += `${element}=${params[element]}`;
         }
     }
 
