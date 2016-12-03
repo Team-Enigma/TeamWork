@@ -17,12 +17,12 @@ describe("Test rides routers", () => {
             });
     });
 
-    it("POST /rides to return status code 200", (done) => {
+    it("POST /rides to return status code 404 because does not exist", (done) => {
         chai.request("http://localhost:8080")
             .post("/rides")
             .end((err, res) => {
-                expect(err).to.equal(null);
-                expect(res).to.have.status(200);
+                expect(err).to.not.equal(null);
+                expect(res).to.have.status(404);
                 done();
             });
     });
