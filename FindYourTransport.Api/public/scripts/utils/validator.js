@@ -46,6 +46,10 @@ var app = app || {};
 
             return isDataValid;
         }
+        validateRegister(data) {
+            let isDataValid = true;
+            return isDataValid;
+        }
     }
 
     app.validator = new Validator();
