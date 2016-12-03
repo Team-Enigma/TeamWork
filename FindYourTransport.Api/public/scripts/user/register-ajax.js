@@ -1,4 +1,6 @@
-var app = app || {};
+/* globals window $*/
+
+let app = app || {};
 
 $("#tb-register").on("click", (ev) => {
     const firstName = $("#tb-first-name").val();

@@ -1,4 +1,6 @@
-var app = app || {};
+/* globals window $*/
+
+let app = app || {};
 
 $("#tb-send").on("click", (ev) => {
     const name = $("#tb-name").val();
@@ -31,5 +33,4 @@ $("#tb-send").on("click", (ev) => {
                 console.log(err);
             });
     }
-
 });

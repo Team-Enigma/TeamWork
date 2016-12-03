@@ -1,4 +1,6 @@
-var app = app || {};
+/* globals window $*/
+
+let app = app || {};
 
 $("#tb-update-profile").on("click", (ev) => {
     console.log("here");

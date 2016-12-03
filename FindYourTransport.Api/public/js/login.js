@@ -1,6 +1,6 @@
 /* globals $ requester window */
 
-$("#login-form").on("submit", function (e) {
+$("#login-form").on("submit", (e) => {
     e.preventDefault();
 
     let username = $("#tb-username").val();

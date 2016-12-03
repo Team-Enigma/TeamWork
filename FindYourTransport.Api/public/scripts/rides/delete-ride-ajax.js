@@ -1,4 +1,6 @@
-var app = app || {};
+/* globals window $*/
+
+let app = app || {};
 
 $(".delete-ride").on("click", (ev) => {
     const rideId = $(ev.target)
