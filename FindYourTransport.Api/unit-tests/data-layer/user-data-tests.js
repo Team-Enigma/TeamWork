@@ -90,9 +90,11 @@ describe("Test user data", () => {
 
         it("should not return specific user if passed parameter is incorrect", (done) => {
             let notValidUsername = "Dragana";
+            let expectedResult = "A user with this username was not found";
+
             data.getUserByUsername(notValidUsername)
-                .then(actualUser => {
-                    expect(actualUser).to.equal(null);
+                .catch(result => {
+                    expect(result).to.contains(expectedResult);
                     done();
                 });
         });

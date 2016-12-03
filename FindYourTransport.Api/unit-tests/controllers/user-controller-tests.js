@@ -10,7 +10,7 @@ let expect = chai.expect;
 describe("User controller", () => {
     let sinon;
     let data = {
-        getAllUsers: () => {},
+        getFilteredUsers: () => {},
         getUserByUsername: (username) => {}
     };
 
@@ -23,7 +23,7 @@ describe("User controller", () => {
     beforeEach(() => {
         sinon = sinonModule.sandbox.create();
 
-        sinon.stub(data, "getAllUsers", () => {
+        sinon.stub(data, "getFilteredUsers", () => {
             return Promise.resolve(Users);
         });
 

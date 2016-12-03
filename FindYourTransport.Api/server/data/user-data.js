@@ -70,7 +70,7 @@ module.exports = (models) => {
                     return reject(err);
                 }
 
-                if(!user) {
+                if (!user) {
                     return reject("A user with this username was not found");
                 }
 

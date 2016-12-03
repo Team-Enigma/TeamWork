@@ -10,7 +10,7 @@ let expect = chai.expect;
 describe("Ride controller", () => {
     let sinon;
     let data = {
-        getAllRides: () => {},
+        getFilteredRides: () => {},
         getSpecificRide: id => {}
     };
 
@@ -24,7 +24,7 @@ describe("Ride controller", () => {
     beforeEach(() => {
         sinon = sinonModule.sandbox.create();
 
-        sinon.stub(data, "getAllRides", () => {
+        sinon.stub(data, "getFilteredRides", () => {
             return Promise.resolve(Rides);
         });
 
@@ -47,7 +47,7 @@ describe("Ride controller", () => {
             expect(res.params.model.rides).eqls(Rides);
             done();
         });
-        controller.loadAllRides(req, res);
+        controller.loadFilteredRides(req, res);
     });
 
     it("loadSpecificRide expect to work properly", (done) => {
