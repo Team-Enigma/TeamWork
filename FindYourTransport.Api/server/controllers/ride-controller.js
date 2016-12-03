@@ -107,6 +107,33 @@ module.exports = (data, passport, constants) => {
             });
     }
 
+    function removePassenger(req, res) {
+        const rideId = req.body.rideId;
+        const passenger = req.body.passengerUsername;
+
+        data.getSpecificRide(rideId)
+            .then((ride) => {
+                if (ride.passengers.indexOf(passenger) !== -1) {
+                    let index = ride.passengers.indexOf(passenger);
+                    ride.passengers.splice(index, 1);
+                    ride.freePlaces += 1;
+                }
+
+                return ride;
+            })
+            .then((ride) => {
+                data.updateRideInfo(ride);
+            })
+            .then(() => {
+                res.status(200);
+                return res.json("{\"success\": \"Successfully unsigned from ride. \"}")
+            })
+            .catch((err) => {
+                res.status(400);
+                return res.json(`{"error": "Problem occured while unsigning from ride. ${err.message}"}`);
+            });
+    }
+
     return {
         name: "ride",
         loadFilteredRides,
@@ -114,6 +141,7 @@ module.exports = (data, passport, constants) => {
         loadNewRidePage,
         addNewRide,
         addPassenger,
-        removeRideById
+        removeRideById,
+        removePassenger
     };
 };

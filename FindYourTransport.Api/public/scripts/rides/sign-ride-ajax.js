@@ -9,7 +9,7 @@ $("#tb-sign-for-ride").on("click", (ev) => {
         passengerUsername
     };
 
-    app.requester.put("/rides/sign", data)
+    app.requester.post(`/rides/${rideId}`, data)
         .then(response => {
             let parsedResponse = JSON.parse(response);
             if (parsedResponse.success) {
