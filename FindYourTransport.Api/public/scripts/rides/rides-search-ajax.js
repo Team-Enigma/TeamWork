@@ -1,3 +1,5 @@
+/* globals window $*/
+
 var app = app || {};
 
 $("#tb-search-ride").on("click", (ev) => {

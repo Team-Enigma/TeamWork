@@ -11,6 +11,8 @@ var app = app || {};
             requiredLastName: "Last name is required",
             requiredEmail: "Email is required",
             requiredPassword: "Password is required",
+            requiredOldPassword: "Old password is required",
+            requiredNewPassword: "New password is required",
             requiredConfirmPassword: "Confirm password is required",
             personFirstName: "First name should contain latin letters and begin with capital letter and be between 2 and 30 characters (e.g. John)",
             personLastName: "Last name should contain latin letters and begin with capital letter and be between 2 and 30 characters (e.g. Doe)",

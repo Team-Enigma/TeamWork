@@ -1,3 +1,5 @@
+/* globals window $*/
+
 var app = app || {};
 
 $(".delete-ride").on("click", (ev) => {

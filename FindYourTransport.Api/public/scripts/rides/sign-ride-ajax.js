@@ -1,3 +1,5 @@
+/* globals window $*/
+
 var app = app || {};
 
 $("#tb-sign-for-ride").on("click", (ev) => {

@@ -1,9 +1,10 @@
+/* globals document $*/
 var app = app || {};
 
 $("#tb-calculate-price").on("click", (ev) => {
     const distance = $("#tb-distance").val();
     const consumption = $("#tb-consumption").val();
-    const fuelType = $("#tb-fuel-type option:selected").text();
+    const fuelType = $("#tb-fuel-type option:selected").text().trim();
 
 
     let data = {

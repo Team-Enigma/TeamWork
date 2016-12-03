@@ -1,3 +1,5 @@
+/* globals window $ FormData*/
+
 var app = app || {};
 
 $("#tb-upload-image").on("click", (ev) => {

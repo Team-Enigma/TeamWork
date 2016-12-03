@@ -29,7 +29,7 @@ describe("User controller", () => {
 
         sinon.stub(data, "getUserByUsername", (username) => {
             let user = Users.find(us => us.username === username);
-            return Promise.resolve(user || null);
+            return Promise.resolve(user);
         });
     });
 

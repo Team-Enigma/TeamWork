@@ -2,22 +2,22 @@
 
 var app = app || {};
 
-$("#tb-update-message").on("click", (ev) => {
-    const messageId = $("#tb-hidden-message-id").val();
-    const option = $("#tb-message-status option:selected").text();
+$("#tb-unsign-from-ride").on("click", (ev) => {
+    const rideId = $("#tb-ride-id").val();
+    const passengerUsername = $("#tb-ride-passenger").val();
 
     let data = {
-        messageId,
-        option
+        rideId,
+        passengerUsername
     };
 
-    app.requester.put("/admin/messages", data)
+    app.requester.put("/rides/:id", data)
         .then(response => {
             let parsedResponse = JSON.parse(response);
             if (parsedResponse.success) {
                 app.notificator.showNotification(parsedResponse.success, "success");
                 setTimeout(() => {
-                    window.location.href = `/admin/messages/${messageId}`;
+                    window.location.href = `/rides/${rideId}`;
                 }, 1500);
             } else if (parsedResponse.error) {
                 app.notificator.showNotification(parsedResponse.error, "error");

@@ -16,7 +16,7 @@ module.exports = (data) => {
                     return htmlParser.parseFuelPrice(selectorFuelName, selectorFuelPrice, html);
                 })
                 .then(fuel => {
-                    data.updateFuels(fuel);
+                    return data.updateFuels(fuel);
                 })
                 .catch((error) => {
                     console.log(error);

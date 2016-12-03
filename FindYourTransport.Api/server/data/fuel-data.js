@@ -21,19 +21,20 @@ module.exports = (models) => {
             setDefaultsOnInsert: true
         };
 
-        console.log(fuel);
 
-        Fuel.findOneAndUpdate({ fuelName: fuel.fuelName }, { fuelPrice: fuel.fuelPrice }, options, (err) => {
-            if (err) {
-                return err;
-            }
+        return new Promise((resolve, reject) => {
+            Fuel.findOneAndUpdate({ fuelName: fuel.fuelName }, { fuelPrice: fuel.fuelPrice }, options, (err) => {
+                if (err) {
+                    return reject(err);
+                }
 
-            return;
+                return resolve();
+            });
         });
     }
 
     return {
         updateFuels,
         getSpecificFuelByName
-     };
+    };
 };

@@ -1,3 +1,5 @@
+/* globals window $*/
+
 var app = app || {};
 
 $("#tb-send").on("click", (ev) => {
@@ -31,5 +33,4 @@ $("#tb-send").on("click", (ev) => {
                 console.log(err);
             });
     }
-
 });

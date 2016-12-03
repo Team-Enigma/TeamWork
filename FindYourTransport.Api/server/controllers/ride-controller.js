@@ -8,7 +8,7 @@ module.exports = (data, passport, constants) => {
                 res.render("ride-views/ride.pug", { ride: resultRide });
             })
             .catch((err) => {
-                console.log(err);
+                //todo: add error page when ride with invalid id is requested;
             });
     }
 
@@ -80,7 +80,7 @@ module.exports = (data, passport, constants) => {
                 return ride;
             })
             .then((ride) => {
-                data.updateRideInfo(ride);
+                return data.updateRideInfo(ride);
             })
             .then(() => {
                 res.status(201);

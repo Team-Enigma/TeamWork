@@ -1,3 +1,5 @@
+/* globals window $*/
+
 var app = app || {};
 
 $("#tb-search-user").on("click", (ev) => {
@@ -21,7 +23,7 @@ $("#tb-search-user").on("click", (ev) => {
                 queryString += "?";
             }
 
-            queryString += `${element}=${params[element]}`; 
+            queryString += `${element}=${params[element]}`;
         }
     }
 

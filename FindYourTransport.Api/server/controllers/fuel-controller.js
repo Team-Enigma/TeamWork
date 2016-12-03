@@ -9,8 +9,12 @@ module.exports = (data, passport, constants) => {
         const consumption = req.body.consumption;
         const fuelType = req.body.fuelType;
 
+        console.log(req.body);
+
         data.getSpecificFuelByName(fuelType)
             .then((fuel) => {
+
+                console.log(fuel);
 
                 const fuelPrice = fuel.fuelPrice.replace(",", ".");
                 const parsedFuelPrice = parseFloat(fuelPrice);
@@ -27,8 +31,6 @@ module.exports = (data, passport, constants) => {
                 const sum = parsedDistance * (parsedConsumption / 100.0) * parsedFuelPrice;
 
                 cashedPrice.sum = sum.toFixed(2);
-
-                console.log(cashedPrice);
 
                 res.status(200);
                 return res.render("../views/ride-views/calculate-price.pug", cashedPrice);

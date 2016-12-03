@@ -133,23 +133,23 @@ block content
                                             input.btn.btn-block.btn-primary(type="submit", id="tb-update-profile" value="Update")
                     #update-password.tab-pane.fade
                         .matchheight
-                            form.form-horizontal(id="update-password" action="/profile/update-password", method="post")
+                            #update-password-form.form-horizontal
                                 fieldset
                                     .form-group
                                         label.col-sm-3.control-label(for="tb-password") Password
                                         .col-sm-4
-                                            input.form-control(type="password", id="tb-password", name="oldPassword", placeholder=)
+                                            input.form-control(type="password", id="tb-password", name="oldPassword")
                                     .form-group
                                         label.col-sm-3.control-label(for="tb-new-password") New password
                                         .col-sm-4
-                                            input.form-control(type="text", id="tb-new-password", name="newPassword")
+                                            input.form-control(type="password", id="tb-new-password", name="newPassword")
                                     .form-group
                                         label.col-sm-3.control-label(for="tb-new-password-confirm") Confirm password
                                         .col-sm-4
-                                            input.form-control(type="text", id="tb-new-password-confirm", name="newPasswordConfirm")
+                                            input.form-control(type="password", id="tb-new-password-confirm", name="newPasswordConfirm")
                                     .form-group
                                         .col-sm-4.col-sm-offset-3
-                                            input.btn.btn-block.btn-primary(type="submit", value="Update")
+                                            input.btn.btn-block.btn-primary(type="submit", id="tb-update-password" value="Update")
                     #update-profile-picture.tab-pane.fade
                         .matchheight
                             .row
@@ -162,7 +162,7 @@ block content
                                         input.hidden(type="submit" id="tb-upload-image")
                     #update-car.tab-pane.fade
                         .matchheight
-                            form.form-horizontal(id="update-car" action="/profile/update-car", method="post")
+                            #update-car-form.form-horizontal
                                 fieldset
                                     .form-group
                                         label.col-sm-3.control-label(for="tb-manufacturer") Manufacturer
@@ -211,9 +211,9 @@ block content
                                     .form-group
                                         .col-sm-4.col-sm-offset-3
                                             if currentUser.car.manufacturer
-                                                input.btn.btn-block.btn-primary(type="submit", value="Update")
+                                                input.btn.btn-block.btn-primary(type="submit", id="tb-update-car" value="Update")
                                             else
-                                                input.btn.btn-block.btn-primary(type="submit", value="Add car")
+                                                input.btn.btn-block.btn-primary(type="submit", id="tb-update-car", value="Add car")
 
     script(src="/scripts/utils/requester.js")
     script(src="/scripts/utils/notificator.js")
@@ -222,6 +222,8 @@ block content
     script(src="/scripts/user/upload-picture-ajax.js")
     script(src="/scripts/rides/delete-ride-ajax.js")
     script(src="/scripts/user/user-update-information-ajax.js")
+    script(src="/scripts/user/user-update-password-ajax.js")
+    script(src="/scripts/user/user-update-car-ajax.js")
 
     script(type="text/javascript").
         jQuery(function($){

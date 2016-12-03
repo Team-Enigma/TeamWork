@@ -1,26 +1,18 @@
-/* globals window $*/
-
 var app = app || {};
 
-$("#tb-update-profile").on("click", (ev) => {
-    console.log("here");
-    const firstName = $("#tb-first-name").val();
-    const lastName = $("#tb-last-name").val();
-    const city = $("#tb-city").val();
-    const email = $("#tb-email").val();
-    const contact = $("#tb-contact").val();
+$("#tb-update-password").on("click", (ev) => {
+    const oldPassword = $("#tb-password").val();
+    const newPassword = $("#tb-new-password").val();
+    const newPasswordConfirm = $("#tb-new-password-confirm").val();
 
     let data = {
-        firstName,
-        lastName,
-        city,
-        email,
-        contact
+        oldPassword,
+        newPassword,
+        newPasswordConfirm
     };
 
-    console.log(data);
-    if (app.validator.validateUpdateProfile(data)) {
-        app.requester.put("/profile/update-info", data)
+    if (app.validator.validateUpdatePassword(data)) {
+        app.requester.put("/profile/update-password", data)
             .then(response => {
                 let parsedResponce = JSON.parse(response);
 

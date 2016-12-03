@@ -3,7 +3,7 @@ module.exports = (data, passport, constants) => {
     function loadAdminPage(req, res) {
         data.getAllMessages()
             .then((contactMessages) => {
-                res.render("../views/admin-views/admin-panel.pug", { contactMessages } );
+                res.render("../views/admin-views/admin-panel.pug", { contactMessages });
             });
     }
 
@@ -24,13 +24,11 @@ module.exports = (data, passport, constants) => {
 
         data.getUserByUsername(username)
             .then((user) => {
-
                 user.role = "Admin";
-
                 return user;
             })
             .then((user) => {
-                data.updateUserRole(user);
+                return data.updateUserRole(user);
             })
             .then(() => {
                 res.status(201);
@@ -51,7 +49,7 @@ module.exports = (data, passport, constants) => {
             .then((message) => {
                 message.status = status;
                 message.processedBy = username;
-                data.updateMessageStatus(message);
+                return data.updateMessageStatus(message);
             })
             .then(() => {
                 res.status(201);

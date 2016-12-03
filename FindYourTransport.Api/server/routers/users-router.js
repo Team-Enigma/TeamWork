@@ -13,9 +13,9 @@ module.exports = function(app, authenticator, validator, controllers) {
 
     app.get("/profile", authenticator.authenticateLoggedUser, controllers.user.loadProfilePage);
     app.post("/profile/upload-avatar", authenticator.authenticateLoggedUserPostRequests, upload.single("picture"), controllers.user.uploadAvatar);
-    app.post("/profile/update-car", authenticator.authenticateLoggedUserPostRequests, validator.validateCarCreation, controllers.user.updateCarInfo);
-    app.post("/profile/update-info", authenticator.authenticateLoggedUserPostRequests, controllers.user.updateInfo);
-    app.post("/profile/update-password", authenticator.authenticateLoggedUserPostRequests, validator.validatePasswordChange, controllers.user.updatePassword);
+    app.put("/profile/update-car", authenticator.authenticateLoggedUserPostRequests, validator.validateCarCreation, controllers.user.updateCarInfo);
+    app.put("/profile/update-info", authenticator.authenticateLoggedUserPostRequests, controllers.user.updateInfo);
+    app.put("/profile/update-password", authenticator.authenticateLoggedUserPostRequests, validator.validatePasswordChange, controllers.user.updatePassword);
 
     app.get("/users", controllers.user.loadUsersPage);
     app.get("/users/:username", authenticator.authenticateLoggedUser, controllers.user.loadDetailedUserPage);

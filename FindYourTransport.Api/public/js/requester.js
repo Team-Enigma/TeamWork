@@ -3,7 +3,7 @@
 
 let requester = (function() {
     function get(url) {
-        return new Promise(function(resolve, reject) {
+        return new Promise((resolve, reject) => {
             $.ajax({
                 url,
                 method: "GET",
@@ -15,14 +15,14 @@ let requester = (function() {
     }
 
     function getJSON(url, options) {
-        return new Promise(function(resolve, reject) {
+        return new Promise((resolve, reject) => {
             let headers = options.headers || {};
             $.ajax({
                 url,
                 method: "GET",
                 headers: headers,
                 contentType: "application/json",
-                success: function(response) {
+                success: (response) => {
                     resolve(response);
                 }
             });
@@ -30,7 +30,7 @@ let requester = (function() {
     }
 
     function putJSON(url, body, options = {}) {
-        return new Promise(function(resolve, reject) {
+        return new Promise((resolve, reject) => {
             let headers = options.headers || {};
             $.ajax({
                 url,
@@ -38,10 +38,10 @@ let requester = (function() {
                 method: "PUT",
                 contentType: "application/json",
                 data: JSON.stringify(body),
-                success: function(response) {
+                success: (response) => {
                     resolve(response);
                 },
-                error: function(err) {
+                error: (err) => {
                     reject(err);
                 }
             });
@@ -49,7 +49,7 @@ let requester = (function() {
     }
 
     function postJSON(url, body, options = {}) {
-        return new Promise(function(resolve, reject) {
+        return new Promise((resolve, reject) => {
             let headers = options.headers || {};
 
             $.ajax({
@@ -58,10 +58,10 @@ let requester = (function() {
                 method: "POST",
                 contentType: "application/json",
                 data: JSON.stringify(body),
-                success(response) {
+                success: (response) => {
                     resolve(response);
                 },
-                error(err) {
+                error: (err) => {
                     reject(err);
                 }
             });
@@ -74,5 +74,4 @@ let requester = (function() {
         putJSON,
         postJSON
     };
-
 }());

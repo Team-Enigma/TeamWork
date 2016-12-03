@@ -1,3 +1,5 @@
+/* globals window $*/
+
 var app = app || {};
 
 $("#tb-login").on("click", (ev) => {

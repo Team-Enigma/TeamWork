@@ -295,6 +295,83 @@ var app = app || {};
 
             return isDataValid;
         }
+
+        validateUpdatePassword(data) {
+            let isDataValid = true;
+
+            if (validateRequired(data.oldPassword)) {
+                app.notificator.showNotification(app.constants.user.messages.requiredOldPassword, "error");
+                isDataValid = false;
+            }
+
+            if (validateRequired(data.newPassword)) {
+                app.notificator.showNotification(app.constants.user.messages.requiredNewPassword, "error");
+                isDataValid = false;
+            }
+
+            if (validateRequired(data.newPasswordConfirm)) {
+                app.notificator.showNotification(app.constants.user.messages.requiredConfirmPassword, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.oldPassword, app.constants.user.matchers.password)) {
+                app.notificator.showNotification(app.constants.user.messages.password, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.newPassword, app.constants.user.matchers.password)) {
+                app.notificator.showNotification(app.constants.user.messages.password, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.newPasswordConfirm, app.constants.user.matchers.password)) {
+                app.notificator.showNotification(app.constants.user.messages.password, "error");
+                isDataValid = false;
+            }
+
+            if (validateEquality(data.newPassword, data.newPasswordConfirm)) {
+                app.notificator.showNotification(app.constants.user.messages.confirmPassword, "error");
+                isDataValid = false;
+            }
+
+            return isDataValid;
+        }
+
+        validateUpdateCar(data) {
+            let isDataValid = true;
+
+            if (validateRequired(data.manufacturer)) {
+                app.notificator.showNotification(app.constants.car.messages.requiredManufacturer, "error");
+                isDataValid = false;
+            }
+
+            if (validateRequired(data.model)) {
+                app.notificator.showNotification(app.constants.car.messages.requiredModel, "error");
+                isDataValid = false;
+            }
+
+            if (validateRequired(data.registrationNumber)) {
+                app.notificator.showNotification(app.constants.car.messages.requiredRegistrationNumber, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.manufacturer, app.constants.car.matchers.manufacturer)) {
+                app.notificator.showNotification(app.constants.car.messages.manufacturer, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.model, app.constants.car.matchers.model)) {
+                app.notificator.showNotification(app.constants.car.messages.model, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.registrationNumber, app.constants.car.matchers.registrationNumber)) {
+                app.notificator.showNotification(app.constants.car.messages.registrationNumber, "error");
+                isDataValid = false;
+            }
+
+            return isDataValid;
+        }
     }
 
     app.validator = new Validator();
