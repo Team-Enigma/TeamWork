@@ -5,10 +5,6 @@ $("#tb-search-user").on("click", (ev) => {
     let page = $("#sel-selected-page option:selected").text();
     let size = $("#sel-page-size option:selected").text();
 
-    if (username != "") {
-        page = "1";
-    }
-
     let params = { username, page, size };
 
     let queryString = "/users";

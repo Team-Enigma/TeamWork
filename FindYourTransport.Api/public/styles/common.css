@@ -262,6 +262,9 @@ textarea {
     margin: 5px 0px;
 }
 
+#add-admin #tb-username {
+    margin-bottom: 20px;
+}
 /* All users page */
 
 .all-users-container {

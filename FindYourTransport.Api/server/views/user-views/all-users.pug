@@ -44,9 +44,9 @@ block content
                         if(pagesCount == 0)
                             option 1
                         else
-                        -for (let i = 1; i <= pagesCount; i++) {
-                            option #{i}
-                        -}
+                            -for (let i = 1; i <= pagesCount; i++) {
+                                option #{i}
+                            -}
 
         script(src="/scripts/user/users-search-ajax.js")
 
@@ -100,15 +100,15 @@ block content
             });
 
         script(type="text/javascript").
-                        jQuery(function($){
-                        $("#sel-selected-page").on("change", function (ev) {
-                            let tabs = $(ev.target).find("option");
-                            for(let i = 0; i < tabs.length; i++) {
-                                if (tabs[i].selected === true) {
-                                    size = tabs[i].innerText;
-                                }
-                            }
+            jQuery(function($){
+            $("#sel-selected-page").on("change", function (ev) {
+                let tabs = $(ev.target).find("option");
+                for(let i = 0; i < tabs.length; i++) {
+                    if (tabs[i].selected === true) {
+                        size = tabs[i].innerText;
+                    }
+                }
 
-                            $("#tb-search-user").trigger("click");
-                        });
-                        });
+                $("#tb-search-user").trigger("click");
+            });
+            });

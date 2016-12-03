@@ -25,7 +25,11 @@ block content
                 #my-tab-content.tab-content
                     #add-admin.tab-pane.fade.active.in
                         .matchheight
-                            p Add admin
+                            .form-group
+                                .col-xs-12.col-sm-4
+                                    input.form-control(type="text", id="tb-username", name="username", placeholder="Username", value=username)
+                                .col-xs-12.col-sm-3
+                                    input.btn.btn-primary.btn-special(type="submit", id="tb-add-admin" value="Add as admin")
                     #not-processed.tab-pane.fade
                         .matchheight
                             each cm in contactMessages
@@ -71,6 +75,12 @@ block content
                                                             span #{moment(cm.sendOn).format("lll")}
                                                     .col-lg-2.font-s
                                                             a(href=`/admin/messages/${cm.id}`) Details
+
+        script(src="/scripts/utils/requester.js")
+        script(src="/scripts/utils/notificator.js")
+        script(src="/scripts/utils/constants.js")
+        script(src="/scripts/utils/validator.js")
+        script(src="/scripts/admin/add-admin-ajax.js")
 
         script(type="text/javascript").
             jQuery(function($){

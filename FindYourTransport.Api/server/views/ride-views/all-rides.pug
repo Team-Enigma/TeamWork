@@ -10,20 +10,20 @@ block content
                 fieldset
                         .col-lg-3.matchheight
                             label.control-label(for="tb-from-city") From city:
-                            input.form-control(id="tb-from-city", type="text", name="fromCity")
+                            input.form-control(id="tb-from-city", type="text", name="fromCity" value=fromCity)
                         .col-lg-3.matchheight
                             label.control-label(for="tb-to-city") To city:
-                            input.form-control(id="tb-to-city", type="text", name="toCity")
+                            input.form-control(id="tb-to-city", type="text", name="toCity" value=toCity)
                         .col-lg-2.matchheight
                             label.control-label(for="tb-start-date") From date
                             #startdatepicker.input-group.date
-                                    input.form-control(id="tb-start-date", type="text", name="startDate")
+                                    input.form-control(id="tb-start-date", type="text", name="startDate" value=startDate)
                                     span.input-group-addon
                                         span.glyphicon.glyphicon-calendar
                         .col-lg-2.matchheight
                             label.control-label(for="tb-end-date") To date:
                             #enddatepicker.input-group.date
-                                    input.form-control(id="tb-end-date", type="text", name="endDate")
+                                    input.form-control(id="tb-end-date", type="text", name="endDate" value=endDate)
                                     span.input-group-addon
                                         span.glyphicon.glyphicon-calendar
                         .col-lg-2.matchheight.bot-vert-align
@@ -51,21 +51,29 @@ block content
                                         span  #{ride.price}
                                     .col-lg-3.font-md
                                         a(href=`/rides/${ride.id}`) Details
+        #{length}
+        #{pagesCount}
         div.paging-form-inputs
-            .row 
+            .row
                 .col-lg-3.matchheight
                     label.control-label(for="sel-page-size") Size:
-                    select(id="sel-page-size" name="size") 
-                        -for (let i = 5; i <= length ; i += 5) {
-                            option #{i}
-                        -}
+                    select(id="sel-page-size" name="size")
+                        if(length == 0)
+                            option 8
+                        else
+                            -for (let i = 5; i <= length ; i += 5) {
+                                option #{i}
+                            -}
                 .col-lg-3.matchheight
                     label.control-labe(for="sel-selected-page") Page:
                     select(id="sel-selected-page" name="page")
-                        -for (let i = 1; i <= pagesCount; i++) {
-                            option #{i}
-                        -}
-   
+                        if(pagesCount == 0)
+                            option 1
+                        else
+                            -for (let i = 1; i <= pagesCount; i++) {
+                                option #{i}
+                            -}
+
             script(src="/scripts/rides/rides-search-ajax.js")
 
             script(type="text/javascript").
@@ -74,7 +82,7 @@ block content
                         let pagesOptions = $("#sel-selected-page").find("option"),
                             foundPageSize = false,
                             foundCurrentPage = false;
-                        
+
                         for(let i = 0; i < pageSizeOptions.length; i++) {
                             if (parseInt(pageSizeOptions[i].innerText) === #{pageSize}) {
                                 foundPageSize = true;
@@ -91,16 +99,16 @@ block content
 
                         if (!foundPageSize || !foundCurrentPage) {
                             if (!foundPageSize) {
-                                $(pageSizeOptions[pageSizeOptions.length-1]).attr("selected", "selected");
+                                $(pageSizeOptions[0]).attr("selected", "selected");
                             }
 
                             if (!foundCurrentPage) {
                                 $(pagesOptions[pagesOptions.length-1]).attr("selected", "selected");
                             }
-                            $("#tb-search-rid").trigger("click");                            
+                            $("#tb-search-ride").trigger("click");
                         }
                     }());
-            
+
             script(type="text/javascript").
                     $(function () {
                     $("#startdatepicker").datetimepicker();
@@ -111,7 +119,7 @@ block content
                 jQuery(function($){
                 $(".matchheight").matchHeight({byRow: false});
                 });
-            
+
             script(type="text/javascript").
                 jQuery(function($){
                 $("#sel-page-size").on("change", function (ev) {
@@ -127,15 +135,15 @@ block content
                 });
 
             script(type="text/javascript").
-                            jQuery(function($){
-                            $("#sel-selected-page").on("change", function (ev) {
-                                let tabs = $(ev.target).find("option");
-                                for(let i = 0; i < tabs.length; i++) {
-                                    if (tabs[i].selected === true) {
-                                        size = tabs[i].innerText;
-                                    }
-                                }
+                jQuery(function($){
+                $("#sel-selected-page").on("change", function (ev) {
+                    let tabs = $(ev.target).find("option");
+                    for(let i = 0; i < tabs.length; i++) {
+                        if (tabs[i].selected === true) {
+                            size = tabs[i].innerText;
+                        }
+                    }
 
-                                $("#tb-search-rid").trigger("click");
-                            });
-                            });
+                    $("#tb-search-ride").trigger("click");
+                });
+                });
