@@ -17,44 +17,46 @@ describe("Test user data", () => {
         sinon.restore();
     });
 
-    describe("getAllUsers", () => {
-        it("should return 1 user", (done) => {
-            let users = ["Pesho"];
-            sinon.stub(User, "find", callback => {
-                callback(null, users);
-            });
+    describe("getUserByEmail", () => {
+        let existingEmail = "Vankata";
+        let userForTest = {
+            username: "Vankata",
+            firstName: "Ivan",
+            lastname: "Petrov",
+            email: existingEmail,
+            city: "Sofia"
+        };
 
-            data.getAllUsers()
-                .then(actualUsers => {
-                    expect(actualUsers).to.be.equal(users);
+        let users = [userForTest];
+        beforeEach(() => {
+            sinon.stub(User, "findOne", (query, callback) => {
+                let email = query.email;
+                let foundUser = users.find(user => user.email === email);
+                callback(null, foundUser);
+            });
+        });
+
+        afterEach(() => {
+            sinon.restore();
+        });
+
+        it("should return specific user by email", (done) => {
+            data.getUserByEmail(existingEmail)
+                .then(actualUser => {
+                    expect(actualUser).to.be.equal(userForTest);
                     done();
                 });
         });
 
-        it("should return 5 users", (done) => {
-            let users = ["Pesho", "Gosho", "Petyr", "Stamat", "Maria"];
-            sinon.stub(User, "find", callback => {
-                callback(null, users);
-            });
-
-            data.getAllUsers()
-                .then(actualUsers => {
-                    expect(actualUsers).to.be.equal(users);
+        it("should not return specific user by email if there is no such user", (done) => {
+            let invalidMail = "notvalid";
+            data.getUserByEmail(invalidMail)
+                .then(actualUser => {
+                    expect(actualUser).to.be.equal(null);
                     done();
                 });
         });
 
-        it("should return null if there is no users", (done) => {
-            sinon.stub(User, "find", callback => {
-                callback(null);
-            });
-
-            data.getAllUsers()
-                .then(actualUsers => {
-                    expect(actualUsers).to.be.equal(null);
-                    done();
-                });
-        });
     });
 
     describe("getUserByUsername", () => {
@@ -80,7 +82,7 @@ describe("Test user data", () => {
             sinon.restore();
         });
 
-        it("should return specific user", (done) => {
+        it("should return specific user by username", (done) => {
             data.getUserByUsername(existingUsername)
                 .then(actualUser => {
                     expect(actualUser).to.equal(userForTest);
@@ -88,7 +90,7 @@ describe("Test user data", () => {
                 });
         });
 
-        it("should not return specific user if passed parameter is incorrect", (done) => {
+        it("should not return specific user by username if there is no such user", (done) => {
             let notValidUsername = "Dragana";
             let expectedResult = "A user with this username was not found";
 

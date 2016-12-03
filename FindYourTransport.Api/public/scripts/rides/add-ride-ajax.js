@@ -1,6 +1,6 @@
 var app = app || {};
 
-$("#tb-add-ride").on("click", (ev) => {
+function getData() {
     const fromCity = $("#tb-from-city").val();
     const toCity = $("#tb-to-city").val();
     const dateOfTravel = $("#tb-date-of-travel").val();
@@ -9,7 +9,7 @@ $("#tb-add-ride").on("click", (ev) => {
     const contact = $("#tb-contact-info").val();
     const remarks = $("#tb-more-info").val();
 
-    let data = {
+    return data = {
         fromCity,
         toCity,
         dateOfTravel,
@@ -18,8 +18,10 @@ $("#tb-add-ride").on("click", (ev) => {
         contact,
         remarks
     };
+}
 
-    console.log(app);
+function handleSubmit() {
+    let data = getData();
 
     if (app.validator.validateRideCreation(data)) {
         app.requester.post("/rides/add", data)
@@ -38,5 +40,15 @@ $("#tb-add-ride").on("click", (ev) => {
                 let parsedError = JSON.parse(err.responseJSON);
                 app.notificator.showNotification(parsedError.error, "error");
             });
+    }
+}
+
+$("#tb-add-ride").on("click", (ev) => {
+    handleSubmit();
+});
+
+$(window).keypress((ev) => {
+    if (ev.which == 13) {
+        handleSubmit();
     }
 });
