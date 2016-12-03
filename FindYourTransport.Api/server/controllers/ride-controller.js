@@ -95,6 +95,7 @@ module.exports = (data, passport, constants) => {
 
     function removeRideById(req, res) {
         const id = req.body.rideId;
+        console.log(req.body);
         data.removeRideById(id)
             .then(() => {
                 res.status(201);

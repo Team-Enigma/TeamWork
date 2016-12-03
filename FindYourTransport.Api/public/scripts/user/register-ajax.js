@@ -28,7 +28,7 @@ $("#tb-register").on("click", (ev) => {
                     app.notificator.showNotification(parsedResponce.success, "success");
                     setTimeout(() => {
                         window.location.href = "/";
-                    }, 5000);
+                    }, 1500);
                 } else if (parsedResponce.error) {
                     app.notificator.showNotification(parsedResponce.error, "error");
                 }

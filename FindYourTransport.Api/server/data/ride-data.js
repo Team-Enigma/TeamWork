@@ -120,6 +120,7 @@ module.exports = (models) => {
     }
 
     function removeRideById(rideId) {
+        console.log(rideId);
         return new Promise((resolve, reject) => {
             Ride.update({ _id: rideId }, { isRemoved: true }, null, (err) => {
                 if (err) {

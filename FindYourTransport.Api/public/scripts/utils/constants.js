@@ -78,15 +78,15 @@ var app = app || {};
             requiredTitle: "Title is required",
             requiredContent: "The message should not be empty",
             username: "Username should contain latin letters both capital and small as well as digits and -._ symbols and be between 3 and 20 characters (e.g. john.42)",
-            address: "Address should contain latin letters and begin with capital letter and be between 3 and 50 characters (e.g. Sofia)",
+            address: "Email should contain latin letters both capital and small as well as digits and -._ symbols (e.g. john.42@mail.com)",
             title: "Title should contain latin letters and begin with capital letter and be between 2 and 30 characters (e.g. Title)",
             content: "Content should contain latin letters and begin with capital letter and be between 10 and 5000 characters"
         },
         matchers: {
-            username: /^([A-Z]{1}[a-z]{2,30})$/,
-            address: /^([A-Za-z0-9\-\._]{3,30})$/,
-            title: /^([A-Za-z0-9\-\._]{2,30})$/,
-            content: /^([A-Za-z0-9\-.?!:_]{10,5000})$/
+            username: /^([A-Za-z0-9\-\._]{2,30})$/,
+            address: /^([\w\d\-\._]+@[\w\d]+\.[\w]{2,3})$/,
+            title: /^([A-Z]{1}[A-Za-z\s]{1,30})$/,
+            content: /([A-Za-z0-9@#%&!:_"'~\$\^\(\)\[\]\{\}\*\\\-\.\?\s])+/
         }
     };
 

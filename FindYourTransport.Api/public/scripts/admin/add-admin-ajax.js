@@ -12,7 +12,7 @@ $("#tb-add-admin").on("click", (ev) => {
                     app.notificator.showNotification(parsedResponse.success, "success");
                     setTimeout(() => {
                         window.location.href = "/admin";
-                    }, 1000);
+                    }, 1500);
                 } else if (parsedResponse.error) {
                     app.notificator.showNotification(parsedResponse.error, "error");
                 }

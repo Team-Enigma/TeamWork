@@ -55,8 +55,8 @@ var app = app || {};
             return request("PUT", url, data);
         }
 
-        delete(url) {
-            return request("DELETE", url);
+        delete(url, data) {
+            return request("DELETE", url, data);
         }
     }
 

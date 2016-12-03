@@ -85,7 +85,7 @@ var app = app || {};
                 isDataValid = false;
             }
 
-            if (validateRequired(data.password)) {
+            if (validateRequired(data.confirmPassword)) {
                 app.notificator.showNotification(app.constants.user.messages.requiredConfirmPassword, "error");
                 isDataValid = false;
             }

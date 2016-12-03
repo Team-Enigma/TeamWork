@@ -22,7 +22,7 @@ $("#tb-send").on("click", (ev) => {
                     app.notificator.showNotification(parsedResponse.success, "success");
                     setTimeout(() => {
                         window.location.href = "/";
-                    }, 1000);
+                    }, 1500);
                 } else if (parsedResponse.error) {
                     app.notificator.showNotification(parsedResponse.error, "error");
                 }

@@ -87,10 +87,10 @@ block content
                                                 .col-lg-4.font-smlg
                                                         span #{moment(ride.dateOfTravel).format("lll")}
                                                 .col-lg-1
-                                                    form(action=`/rides/${ride.id}` method="post")
-                                                            input.hidden(type="text" name="rideId" value=`${ride.id}`)
-                                                            button.btn.btn-danger.btn-xs(type="submit")
-                                                                span.font-xs.glyphicon.glyphicon-remove
+                                                    #delete-form
+                                                        input.hidden(type="text" name="rideId" value=`${ride.id}`)
+                                                        button.btn.btn-danger.btn-xs.delete-ride(type="submit")
+                                                            span.font-xs.glyphicon.glyphicon-remove
                                             hr
                                             .row.secondary-row
                                                 .col-lg-4.font-md
@@ -220,6 +220,7 @@ block content
     script(src="/scripts/utils/constants.js")
     script(src="/scripts/utils/validator.js")
     script(src="/scripts/user/upload-picture-ajax.js")
+    script(src="/scripts/rides/delete-ride-ajax.js")
 
     script(type="text/javascript").
         jQuery(function($){
