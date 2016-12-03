@@ -22,6 +22,7 @@ $("#tb-upload-image").on("click", (ev) => {
             }
         })
         .catch(err => {
-            console.log(err);
+            let parsedError = JSON.parse(err.responseJSON);
+            app.notificator.showNotification(parsedError.error, "error");
         });
 });
