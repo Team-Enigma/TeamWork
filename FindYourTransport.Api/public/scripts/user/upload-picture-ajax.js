@@ -14,7 +14,7 @@ $("#tb-upload-image").on("click", (ev) => {
                 app.notificator.showNotification(parsedResponce.success, "success");
                 setTimeout(() => {
                     window.location.href = "/profile";
-                }, 1000);
+                }, 5000);
             } else if (parsedResponce.error) {
                 app.notificator.showNotification(parsedResponce.error, "error");
             }
