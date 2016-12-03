@@ -62,10 +62,19 @@ block content
                 .col-lg-12
                     hr
             .row.centered
-                #ride-sign.form(action="/sign-for-ride" method="post")
+                #ride-sign-form
                     input.hidden(type="text", id="tb-ride-id", value=`${ride.id}`, name="rideId")
                     input.hidden(type="text", id="tb-ride-passenger", value=`${currentUser.username}` name="passengerUsername")
                     input.btn.btn-success.btn-special(type="submit", id="tb-sign-for-ride", value="Sign for ride")
+        if currentUser.username !== ride.driver && isPassenger
+            .row
+                .col-lg-12
+                    hr
+            .row.centered
+                #ride-unsign-form
+                    input.hidden(type="text", id="tb-ride-id", value=`${ride.id}`, name="rideId")
+                    input.hidden(type="text", id="tb-ride-passenger", value=`${currentUser.username}` name="passengerUsername")
+                    input.btn.btn-danger.btn-special(type="submit", id="tb-unsign-from-ride", value="Unsign from ride")
 
         script(src="/scripts/utils/requester.js")
         script(src="/scripts/utils/notificator.js")
