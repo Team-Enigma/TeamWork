@@ -22,7 +22,7 @@ let requester = (function() {
                 method: "GET",
                 headers: headers,
                 contentType: "application/json",
-                success(response) {
+                success: function(response) {
                     resolve(response);
                 }
             });
@@ -38,10 +38,10 @@ let requester = (function() {
                 method: "PUT",
                 contentType: "application/json",
                 data: JSON.stringify(body),
-                success(response) {
+                success: function(response) {
                     resolve(response);
                 },
-                error(err) {
+                error: function(err) {
                     reject(err);
                 }
             });

@@ -8,7 +8,6 @@ $("#tb-add-admin").on("click", (ev) => {
         app.requester.put("/admin", data)
             .then(response => {
                 let parsedResponse = JSON.parse(response);
-                console.log(parsedResponse);
                 if (parsedResponse.success) {
                     app.notificator.showNotification(parsedResponse.success, "success");
                     setTimeout(() => {

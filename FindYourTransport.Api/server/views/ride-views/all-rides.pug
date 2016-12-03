@@ -51,8 +51,6 @@ block content
                                         span  #{ride.price}
                                     .col-lg-3.font-md
                                         a(href=`/rides/${ride.id}`) Details
-        #{length}
-        #{pagesCount}
         div.paging-form-inputs
             .row
                 .col-lg-3.matchheight
@@ -84,16 +82,18 @@ block content
                             foundCurrentPage = false;
 
                         for(let i = 0; i < pageSizeOptions.length; i++) {
-                            if (parseInt(pageSizeOptions[i].innerText) === #{pageSize}) {
+                            if (parseInt(pageSizeOptions[i].text) === #{pageSize}) {
                                 foundPageSize = true;
                                 $(pageSizeOptions[i]).attr("selected", "selected");
+                                break;
                             }
                         }
 
                         for(let i = 0; i < pagesOptions.length; i++) {
-                            if (parseInt(pagesOptions[i].innerText) === #{currentPage}) {
+                            if (parseInt(pagesOptions[i].text) === #{currentPage}) {
                                 foundCurrentPage = true;
                                 $(pagesOptions[i]).attr("selected", "selected");
+                                break;
                             }
                         }
 
