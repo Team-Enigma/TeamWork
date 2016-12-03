@@ -1,6 +1,6 @@
 /* globals window $*/
 
-let app = app || {};
+var app = app || {};
 
 $("#tb-sign-for-ride").on("click", (ev) => {
     const rideId = $("#tb-ride-id").val();

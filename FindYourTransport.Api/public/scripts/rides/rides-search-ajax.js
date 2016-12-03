@@ -1,6 +1,6 @@
 /* globals window $*/
 
-let app = app || {};
+var app = app || {};
 
 $("#tb-search-ride").on("click", (ev) => {
     let fromCity = $("#tb-from-city").val();

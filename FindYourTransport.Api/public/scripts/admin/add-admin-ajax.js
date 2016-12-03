@@ -1,5 +1,5 @@
 /* globals window $*/
-let app = app || {};
+var app = app || {};
 
 $("#tb-add-admin").on("click", (ev) => {
     const username = $("#tb-username").val();

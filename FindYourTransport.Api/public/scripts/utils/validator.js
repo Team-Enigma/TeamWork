@@ -295,6 +295,47 @@ var app = app || {};
 
             return isDataValid;
         }
+
+        validateUpdatePassword(data) {
+            let isDataValid = true;
+
+            if (validateRequired(data.oldPassword)) {
+                app.notificator.showNotification(app.constants.user.messages.requiredOldPassword, "error");
+                isDataValid = false;
+            }
+
+            if (validateRequired(data.newPassword)) {
+                app.notificator.showNotification(app.constants.user.messages.requiredNewPassword, "error");
+                isDataValid = false;
+            }
+
+            if (validateRequired(data.newPasswordConfirm)) {
+                app.notificator.showNotification(app.constants.user.messages.requiredConfirmPassword, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.oldPassword, app.constants.user.matchers.password)) {
+                app.notificator.showNotification(app.constants.user.messages.password, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.newPassword, app.constants.user.matchers.password)) {
+                app.notificator.showNotification(app.constants.user.messages.password, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.newPasswordConfirm, app.constants.user.matchers.password)) {
+                app.notificator.showNotification(app.constants.user.messages.password, "error");
+                isDataValid = false;
+            }
+
+            if (validateEquality(data.newPassword, data.newPasswordConfirm)) {
+                app.notificator.showNotification(app.constants.user.messages.confirmPassword, "error");
+                isDataValid = false;
+            }
+
+            return isDataValid;
+        }
     }
 
     app.validator = new Validator();

@@ -1,5 +1,5 @@
 /* globals document $*/
-let app = app || {};
+var app = app || {};
 
 $("#tb-calculate-price").on("click", (ev) => {
     const distance = $("#tb-distance").val();

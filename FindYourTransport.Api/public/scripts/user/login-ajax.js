@@ -1,6 +1,6 @@
 /* globals window $*/
 
-let app = app || {};
+var app = app || {};
 
 $("#tb-login").on("click", (ev) => {
     const username = $("#tb-username").val();

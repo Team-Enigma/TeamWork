@@ -1,6 +1,6 @@
 /* globals window $*/
 
-let app = app || {};
+var app = app || {};
 
 $("#tb-update-message").on("click", (ev) => {
     const messageId = $("#tb-hidden-message-id").val();

@@ -1,6 +1,6 @@
 /* globals window $ FormData*/
 
-let app = app || {};
+var app = app || {};
 
 $("#tb-upload-image").on("click", (ev) => {
     const picture = $("#tb-avatar")[0].files[0];
