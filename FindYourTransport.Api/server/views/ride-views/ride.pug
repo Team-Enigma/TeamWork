@@ -62,10 +62,14 @@ block content
                 .col-lg-12
                     hr
             .row.centered
-                form(action="/sign-for-ride" method="post")
-                    input.hidden(type="text" value=`${ride.id}` name="rideId")
-                    input.hidden(type="text" value=`${currentUser.username}` name="passengerUsername")
-                    input.btn.btn-success.btn-special(type="submit" value="Sign for it")
+                #ride-sign.form(action="/sign-for-ride" method="post")
+                    input.hidden(type="text", id="tb-ride-id", value=`${ride.id}`, name="rideId")
+                    input.hidden(type="text", id="tb-ride-passenger", value=`${currentUser.username}` name="passengerUsername")
+                    input.btn.btn-success.btn-special(type="submit", id="tb-sign-for-ride", value="Sign for ride")
+
+        script(src="/scripts/utils/requester.js")
+        script(src="/scripts/utils/notificator.js")
+        script(src="/scripts/rides/sign-ride-ajax.js")
 
         script(type="text/javascript").
             jQuery(function($){
