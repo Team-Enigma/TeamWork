@@ -21,7 +21,7 @@ var app = app || {};
                 "onclick": null,
                 "showDuration": "100",
                 "hideDuration": "100",
-                "timeOut": "1500",
+                "timeOut": "3000",
                 "extendedTimeOut": "1000",
                 "showEasing": "linear",
                 "hideEasing": "linear",
