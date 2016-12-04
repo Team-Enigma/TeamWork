@@ -4,6 +4,7 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const expect = chai.expect;
 chai.use(chaiHttp);
+let expectedMessage = "404 Not Found";
 
 describe("Test rides routers", () => {
 
@@ -37,11 +38,11 @@ describe("Test rides routers", () => {
             });
     });
 
-    it("GET /add-ride to return status code 200", (done) => {
+    it("GET /add-ride to return expected message and status code 404", (done) => {
         chai.request("http://localhost:8080")
             .get("/add-ride")
             .end((err, res) => {
-                expect(err.response.text).to.contains("Cannot GET");
+                expect(err.response.text).to.contains(expectedMessage);
                 expect(res).to.have.status(404);
                 done();
             });
@@ -51,7 +52,7 @@ describe("Test rides routers", () => {
         chai.request("http://localhost:8080")
             .post("/add-ride")
             .end((err, res) => {
-                expect(err.response.text).to.contains("Cannot POST");
+                expect(err.response.text).to.contains(expectedMessage);
                 expect(res).to.have.status(404);
                 done();
             });

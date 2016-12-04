@@ -11,7 +11,7 @@ describe("Ride controller", () => {
     let sinon;
     let data = {
         getFilteredRides: () => {},
-        getSpecificRide: id => {}
+        getSpecificRide: (id) => {}
     };
 
     const Rides = [{

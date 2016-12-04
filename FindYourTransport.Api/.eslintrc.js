@@ -68,7 +68,6 @@ module.exports = {
         ],
         "func-style": [
             "error",
-            "declaration"
         ],
         "generator-star-spacing": "error",
         "guard-for-in": "error",
@@ -119,7 +118,6 @@ module.exports = {
         "no-div-regex": "error",
         "no-duplicate-imports": "error",
         "no-else-return": "error",
-        "no-empty-function": "error",
         "no-eq-null": "error",
         "no-eval": "error",
         "no-extend-native": "error",
@@ -143,7 +141,7 @@ module.exports = {
             "error",
             {
                 "groups": [
-                    ["+", "-",],
+                    ["+", "-", ],
                     ["*", "/", "%", "**"],
                     ["&", "|", "^", "~", "<<", ">>", ">>>"],
                     ["==", "!=", "===", "!==", ">", ">=", "<", "<="],

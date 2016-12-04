@@ -56,7 +56,6 @@ describe("Test user data", () => {
                     done();
                 });
         });
-
     });
 
     describe("getUserByUsername", () => {
