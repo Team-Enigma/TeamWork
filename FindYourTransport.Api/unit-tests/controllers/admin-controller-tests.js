@@ -41,6 +41,11 @@ describe("Admin controller", () => {
         sinon.restore();
     });
 
+    it("loadAdminDetailedMessage to exist", () => {
+        let controller = require("../../server/controllers/admin-controller")(data, passport, constants);
+        expect(controller.loadAdminDetailedMessage).to.exist;
+    });
+
     it("loadAdminPage expect to work properly", (done) => {
         let controller = require("../../server/controllers/admin-controller")(data, passport, constants);
         let req = requestResponseMock.createRequest();
@@ -63,5 +68,15 @@ describe("Admin controller", () => {
         });
         done();
         controller.loadAdminDetailedMessage(req, res);
+    });
+
+    it("updateMessageStatus to be a function", () => {
+        let controller = require("../../server/controllers/admin-controller")(data, passport, constants);
+        expect(controller.updateMessageStatus).to.be.a("function");
+    });
+
+    it("updateUserRole to be a function", () => {
+        let controller = require("../../server/controllers/admin-controller")(data, passport, constants);
+        expect(controller.updateUserRole).to.be.a("function");
     });
 });

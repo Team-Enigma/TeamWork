@@ -38,7 +38,12 @@ describe("Ride controller", () => {
         sinon.restore();
     });
 
-    it("loadAllRides expect to work properly", (done) => {
+    it("loadFilteredRides to exist", () => {
+        let controller = require("../../server/controllers/ride-controller")(data, passport, constants);
+        expect(controller.loadFilteredRides).to.exist;
+    });
+
+    it("loadFilteredRides expect to work properly", (done) => {
         let controller = require("../../server/controllers/ride-controller")(data, passport, constants);
         let req = requestResponseMock.createRequest();
         let res = requestResponseMock.createResponse();
@@ -60,5 +65,25 @@ describe("Ride controller", () => {
         });
         done();
         controller.loadSpecificRide(req, res);
+    });
+
+    it("addComment to be a function", () => {
+        let controller = require("../../server/controllers/ride-controller")(data, passport, constants);
+        expect(controller.addComment).to.be.a("function");
+    });
+
+    it("addNewRide to be a function", () => {
+        let controller = require("../../server/controllers/ride-controller")(data, passport, constants);
+        expect(controller.addNewRide).to.be.a("function");
+    });
+
+    it("removeRideById to be a function", () => {
+        let controller = require("../../server/controllers/ride-controller")(data, passport, constants);
+        expect(controller.removeRideById).to.be.a("function");
+    });
+
+    it("removePassenger to be a function", () => {
+        let controller = require("../../server/controllers/ride-controller")(data, passport, constants);
+        expect(controller.removePassenger).to.be.a("function");
     });
 });

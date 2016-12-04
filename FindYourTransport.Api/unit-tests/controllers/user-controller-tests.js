@@ -60,4 +60,24 @@ describe("User controller", () => {
         done();
         controller.loadDetailedUserPage(req, res);
     });
+
+    it("loginUser to be a function", () => {
+        let controller = require("../../server/controllers/user-controller")(data, passport, constants);
+        expect(controller.loginUser).to.be.a("function");
+    });
+
+    it("registerNewUser to be a function", () => {
+        let controller = require("../../server/controllers/user-controller")(data, passport, constants);
+        expect(controller.registerNewUser).to.be.a("function");
+    });
+
+    it("logoutUser to be a function", () => {
+        let controller = require("../../server/controllers/user-controller")(data, passport, constants);
+        expect(controller.logoutUser).to.be.a("function");
+    });
+
+    it("controller to be an object", () => {
+        let controller = require("../../server/controllers/user-controller")(data, passport, constants);
+        expect(controller).to.be.a("object");
+    });
 });
