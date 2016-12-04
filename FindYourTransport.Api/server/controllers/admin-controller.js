@@ -1,5 +1,4 @@
 module.exports = (data, passport, constants) => {
-
     function loadAdminPage(req, res) {
         data.getAllMessages()
             .then((contactMessages) => {
@@ -14,7 +13,7 @@ module.exports = (data, passport, constants) => {
             .then((resultMessage) => {
                 res.render("../views/admin-views/detailed-message.pug", { message: resultMessage });
             })
-            .catch((err) => {
+            .catch(() => {
                 res.status(404);
                 res.render("common/error-page");
                 res.end();
@@ -27,18 +26,15 @@ module.exports = (data, passport, constants) => {
         data.getUserByUsername(username)
             .then((user) => {
                 user.role = "Admin";
-                return user;
-            })
-            .then((user) => {
                 return data.updateUserRole(user);
             })
             .then(() => {
                 res.status(201);
-                return res.json("{\"success\": \"Successful change of role. The user is now admin. \"}");
+                return res.json(`{"success": "${constants.successfulMessages.admin.changeRole}"}`);
             })
             .catch((err) => {
                 res.status(400);
-                return res.json(`{"error": "${err}"}`);
+                return res.json(`{"error": "${constants.errorMessages.default} ${err}"}`);
             });
     }
 
@@ -55,11 +51,11 @@ module.exports = (data, passport, constants) => {
             })
             .then(() => {
                 res.status(201);
-                return res.json("{\"success\": \"Successfully updated the status of this message.\"}");
+                return res.json(`{"success": "${constants.successfulMessages.admin.changeMessageStatus}"}`);
             })
             .catch((err) => {
                 res.status(400);
-                return res.json(`{"error": "Problem occured while changing the status of this message. ${err.message}"}`);
+                return res.json(`{"error": "${constants.errorMessages.default} ${err.message}"}`);
             });
     }
 

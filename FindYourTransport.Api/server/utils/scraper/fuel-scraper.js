@@ -5,8 +5,7 @@ module.exports = (data) => {
 
     const cron = require("node-cron");
 
-    return cron.schedule("0 */6 * * * *", () => {
-        console.log("Updating database every 10 minutes");
+    return cron.schedule("0 0 12 * * *", () => {
         urlLinks.forEach((url) => {
             httpRequester.get(url)
                 .then((result) => {

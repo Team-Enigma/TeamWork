@@ -5,15 +5,14 @@ module.exports = (data, passport, constants) => {
     }
 
     function sendMessage(req, res) {
-        const cashedMessage = req.body;
         data.sendMessage(req.body, req.user)
             .then(() => {
                 res.status(201);
-                return res.json("{\"success\": \"Successful message sent. We will respond to your request as soon as possible.\"}");
+                return res.json(`{"success": "${constants.successfulMessages.contact.sendMessage}."}`);
             })
             .catch(err => {
                 res.status(400);
-                return res.json(`{"error": "Problem occured while sending this message. ${err.message}"}`);
+                return res.json(`{"error": ""${constants.errorMessages.default} ${err.message}"}`);
             });
     }
 

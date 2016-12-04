@@ -1,7 +1,7 @@
-const jsdom = require("jsdom").jsdom,
-    doc = jsdom(),
-    window = doc.defaultView,
-    $ = require("jquery")(window);
+const jsdom = require("jsdom").jsdom;
+const doc = jsdom();
+const window = doc.defaultView;
+const $ = require("jquery")(window);
 
 function parseFuelPrice(firstSelector, secondSelector, html) {
     $("body").html(html);

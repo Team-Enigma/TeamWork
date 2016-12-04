@@ -4,47 +4,46 @@ module.exports = (models) => {
     function createNewRide(body, user) {
         return new Promise((resolve, reject) => {
             Ride.create({
-                    driver: user.username,
-                    fromCity: body.fromCity,
-                    toCity: body.toCity,
-                    dateOfTravel: Date.parse(body.dateOfTravel),
-                    freePlaces: body.freePlaces,
-                    price: body.price,
-                    contact: body.contact,
-                    remarks: body.remarks
-                })
-                .then(() => {
-                    return resolve();
-                })
-                .catch(err => {
-                    return reject(err);
-                });
+                driver: user.username,
+                fromCity: body.fromCity,
+                toCity: body.toCity,
+                dateOfTravel: Date.parse(body.dateOfTravel),
+                freePlaces: body.freePlaces,
+                price: body.price,
+                contact: body.contact,
+                remarks: body.remarks
+            })
+            .then(() => {
+                return resolve();
+            })
+            .catch(err => {
+                return reject(err);
+            });
         });
     }
 
     function addNewRide(body, user) {
         return new Promise((resolve, reject) => {
             Ride.findOne({
-                    fromCity: body.fromCity,
-                    toCity: body.toCity,
-                    dateOfTravel: Date.parse(body.dateOfTravel),
-                    freePlaces: body.freePlaces,
-                    price: body.price
-                })
-                .then(ride => {
-                    if (ride) {
-                        throw new Error("Ride already exists!");
-                    }
-                })
-                .then(() => {
-                    return createNewRide(body, user);
-                })
-                .then(() => {
-                    return resolve();
-                })
-                .catch(err => {
-                    return reject(err);
-                });
+                fromCity: body.fromCity,
+                toCity: body.toCity,
+                dateOfTravel: Date.parse(body.dateOfTravel),
+                freePlaces: body.freePlaces,
+                price: body.price
+            })
+            .then(ride => {
+                if (ride) {
+                    throw new Error("Ride already exists.");
+                }
+
+                return createNewRide(body, user);
+            })
+            .then(() => {
+                return resolve();
+            })
+            .catch(err => {
+                return reject(err);
+            });
         });
     }
 
@@ -85,18 +84,20 @@ module.exports = (models) => {
             query.where("dateOfTravel").lte(filter.endDate);
         }
 
-        return query
-            .where("isRemoved")
-            .equals(false)
-            .where("dateOfTravel")
-            .gt(Date.now())
-            .sort("dateOfTravel")
-            .exec((err, rides) => {
-                if (err) {
-                    return err;
-                }
-                return rides;
-            });
+        return new Promise((resolve, reject) => {
+            query
+                .where("isRemoved")
+                .equals(false)
+                .where("dateOfTravel")
+                .gt(Date.now())
+                .sort("dateOfTravel")
+                .exec((err, rides) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    return resolve(rides);
+                });
+        });
     }
 
     function getSpecificRide(id) {

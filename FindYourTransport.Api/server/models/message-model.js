@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const mongooseSchema = mongoose.Schema;
 const constants = require("../utils/constants");
 
-
 const messageSchema = mongooseSchema({
     name: { type: String, required: true },
     address: { type: String, required: true },

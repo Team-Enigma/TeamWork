@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const mongooseSchema = mongoose.Schema;
-const userSchema = require("./ride-model");
 const constants = require("../utils/constants");
 
 const rideSchema = mongooseSchema({
@@ -19,7 +18,7 @@ const rideSchema = mongooseSchema({
         type: Date,
         required: [true, constants.ride.messages.requiredDate],
         validate: {
-            validator: function(inputDate) {
+            validator(inputDate) {
                 const date = new Date(inputDate);
                 return date.getTime() >= Date.now();
             },

@@ -36,8 +36,6 @@ function authenticateRolePostRequests(role) {
             return res.json("{\"error\": \"You are not authorized for this request. Only certain users are authorized.\"}");
         }
     };
-
-    next();
 }
 
 function authenticateRole(role) {

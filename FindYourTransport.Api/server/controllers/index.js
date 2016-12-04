@@ -7,9 +7,9 @@ module.exports = function(data, passport, constants) {
     fs.readdirSync(__dirname)
         .filter(file => file.includes("-controller"))
         .forEach(file => {
-            let controllerModule = require(path.join(__dirname, file))(data, passport, constants)
+            let controllerModule = require(path.join(__dirname, file))(data, passport, constants);
             Object.keys(controllerModule)
-                .forEach(key => {
+                .forEach(() => {
                     controllers[controllerModule.name] = controllerModule;
                 });
         });

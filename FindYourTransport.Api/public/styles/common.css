@@ -113,12 +113,21 @@ textarea {
 
 /* All rides page */
 
+.rides-search {
+    margin: 10px 0px;
+    padding: 30px 0px 40px 0px;
+}
+
 .all-rides-container {
     background-color: #FFFFFF;
 }
 
 .all-rides-container label {
     padding: 5px 0px;
+}
+
+#all-rides {
+    margin: 30px 0px;
 }
 
 .bot-vert-align {
@@ -321,4 +330,14 @@ textarea {
     color: #3CC477;
     margin-bottom: 0px;
     padding-top: 70px;
+}
+
+/* Contact page */
+.contact-section {
+    background-color: #FFFFFF;
+}
+
+.contact-section .right-section,
+.left-section {
+    margin: 30px 0px;
 }

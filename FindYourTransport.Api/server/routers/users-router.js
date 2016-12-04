@@ -1,7 +1,6 @@
 const upload = require("../configurations/multer");
-const queryStringBuilder = require("../utils/query-string-builder");
 
-module.exports = function(app, authenticator, validator, controllers) {
+module.exports = (app, authenticator, validator, controllers) => {
 
     app.get("/register", authenticator.authenticateNotLoggedUser, controllers.user.loadRegisterPage);
     app.post("/register", validator.validateUserRegistration, controllers.user.registerNewUser);

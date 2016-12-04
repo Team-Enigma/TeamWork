@@ -4,7 +4,6 @@ const User = require("../models/user-model");
 
 module.exports = function() {
     passport.use(new LocalStrategy((username, password, done) => {
-        // name parameters in site must be username and password
         User.findOne({ username }, (err, user) => {
             if (err) {
                 return done(err);
@@ -18,8 +17,7 @@ module.exports = function() {
 
             return done(null, user);
         });
-    }
-    ));
+    }));
 
     passport.serializeUser((user, done) => {
         done(null, user.id);

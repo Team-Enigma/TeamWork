@@ -9,44 +9,43 @@ module.exports = (models) => {
             const hashedPassword = encryption.generateHashedPassword(salt, body.password);
 
             User.create({
-                    username: body.username,
-                    hashedPassword,
-                    salt,
-                    firstName: body.firstName,
-                    lastName: body.lastName,
-                    email: body.email
-                })
-                .then(() => {
-                    return resolve();
-                })
-                .catch(err => {
-                    return reject(err);
-                });
+                username: body.username,
+                hashedPassword,
+                salt,
+                firstName: body.firstName,
+                lastName: body.lastName,
+                email: body.email
+            })
+            .then(() => {
+                return resolve();
+            })
+            .catch(err => {
+                return reject(err);
+            });
         });
     }
 
     function registerNewUser(body) {
         return new Promise((resolve, reject) => {
             User.findOne({
-                    $or: [
+                $or: [
                         { username: body.username },
                         { email: body.email }
-                    ]
-                })
-                .then(user => {
-                    if (user) {
-                        return reject(new Error("A user with this username or email already exists"));
-                    }
-                })
-                .then(() => {
-                    return createNewUser(body);
-                })
-                .then(() => {
-                    return resolve();
-                })
-                .catch(err => {
-                    return reject(err);
-                });
+                ]
+            })
+            .then(user => {
+                if (user) {
+                    return reject(new Error("A user with this username or email already exists"));
+                }
+
+                return createNewUser(body);
+            })
+            .then(() => {
+                return resolve();
+            })
+            .catch(err => {
+                return reject(err);
+            });
         });
     }
 
@@ -120,7 +119,7 @@ module.exports = (models) => {
     function updateUserInfo(user, params) {
         const changes = {};
 
-        for (param in params) {
+        for (let param in params) {
             if (params[param] !== user[param]) {
                 changes[param] = params[param];
             }
@@ -146,7 +145,6 @@ module.exports = (models) => {
             }
 
             const hashedNewPassword = encryption.generateHashedPassword(user.salt, requestPassword);
-            let newPassword = { hashedPassword: hashedNewPassword };
 
             User.update({ _id: user._id }, { hashedPassword: hashedNewPassword }, null, (err) => {
                 if (err) {
@@ -172,7 +170,6 @@ module.exports = (models) => {
 
     return {
         registerNewUser,
-        //getAllUsers,
         getUserByUsername,
         getUserByEmail,
         getFilteredUsers,

@@ -20,5 +20,6 @@ module.exports = function() {
                     data[key] = dataModule[key];
                 });
         });
+
     return data;
 };

@@ -23,7 +23,6 @@ module.exports = {
         "block-scoped-var": "error",
         "block-spacing": "error",
         "brace-style": "error",
-        "callback-return": "error",
         "camelcase": "error",
         "comma-dangle": "error",
         "comma-spacing": [
@@ -72,7 +71,6 @@ module.exports = {
             "declaration"
         ],
         "generator-star-spacing": "error",
-        "global-require": "error",
         "guard-for-in": "error",
         "handle-callback-err": "error",
         "id-blacklist": "error",
@@ -100,7 +98,10 @@ module.exports = {
             }
         ],
         "max-nested-callbacks": "error",
-        "max-params": "error",
+        "max-params": [
+            "error",
+            5
+        ],
         "max-statements-per-line": "error",
         "new-cap": "error",
         "new-parens": "error",
@@ -138,7 +139,20 @@ module.exports = {
         "no-lonely-if": "error",
         "no-loop-func": "error",
         "no-magic-numbers": "off",
-        "no-mixed-operators": "error",
+        "no-mixed-operators": [
+            "error",
+            {
+                "groups": [
+                    ["+", "-",],
+                    ["*", "/", "%", "**"],
+                    ["&", "|", "^", "~", "<<", ">>", ">>>"],
+                    ["==", "!=", "===", "!==", ">", ">=", "<", "<="],
+                    ["&&", "||"],
+                    ["in", "instanceof"]
+                ],
+                "allowSamePrecedence": true
+            }
+        ],
         "no-mixed-requires": "off",
         "no-multi-spaces": "error",
         "no-multi-str": "error",
@@ -155,7 +169,6 @@ module.exports = {
         "no-octal-escape": "error",
         "no-path-concat": "error",
         "no-plusplus": "error",
-        "no-process-env": "error",
         "no-process-exit": "error",
         "no-proto": "error",
         "no-prototype-builtins": "error",
@@ -171,17 +184,13 @@ module.exports = {
         "no-shadow": "error",
         "no-shadow-restricted-names": "error",
         "no-spaced-func": "off",
-        "no-sync": "error",
         "no-tabs": "error",
         "no-template-curly-in-string": "error",
         "no-throw-literal": "error",
         "no-trailing-spaces": "error",
         "no-undef-init": "error",
-        "no-undefined": "error",
-        "no-underscore-dangle": "error",
         "no-unmodified-loop-condition": "error",
         "no-unneeded-ternary": "error",
-        "no-unused-expressions": "error",
         "no-use-before-define": "error",
         "no-useless-call": "error",
         "no-useless-computed-key": "error",

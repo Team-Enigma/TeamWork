@@ -21,7 +21,6 @@ module.exports = (models) => {
             setDefaultsOnInsert: true
         };
 
-
         return new Promise((resolve, reject) => {
             Fuel.findOneAndUpdate({ fuelName: fuel.fuelName }, { fuelPrice: fuel.fuelPrice }, options, (err) => {
                 if (err) {

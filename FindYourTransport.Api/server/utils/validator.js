@@ -59,9 +59,9 @@ function validateUserLogin(req, res, next) {
 
         res.status(400);
         return res.json(`{"error": "Invalid data. ${JSON.stringify(messagesObject)}"}`);
-    } else {
-        next();
     }
+
+    next();
 }
 
 function validateUserRegistration(req, res, next) {
@@ -110,8 +110,6 @@ function validateUserRegistration(req, res, next) {
     const fields = Object.keys(registrationFormFields).map(key => {
         return registrationFormFields[key];
     });
-
-    console.log(fields);
 
     fields.forEach(f => {
         validateRequired(f.field, f.requiredMessage, messages);
@@ -202,7 +200,6 @@ function validateRideCreation(req, res, next) {
 }
 
 function validatePasswordChange(req, res, next) {
-    let user = req.user;
     let formData = req.body;
     let messages = [];
 

@@ -1,5 +1,9 @@
 module.exports = (data, passport, constants) => {
 
+    function loadNewRidePage(req, res) {
+        res.render("../views/ride-views/add-new-ride.pug");
+    }
+
     function loadSpecificRide(req, res) {
         const rideId = req.params.id;
 
@@ -7,15 +11,11 @@ module.exports = (data, passport, constants) => {
             .then((resultRide) => {
                 res.render("ride-views/ride.pug", { ride: resultRide });
             })
-            .catch((err) => {
+            .catch(() => {
                 res.status(404);
                 res.render("common/error-page");
                 res.end();
             });
-    }
-
-    function loadNewRidePage(req, res) {
-        res.render("../views/ride-views/add-new-ride.pug");
     }
 
     function loadFilteredRides(req, res) {
@@ -23,17 +23,15 @@ module.exports = (data, passport, constants) => {
         let fromCity = req.query.fromCity;
         let startDate = req.query.startDate;
         let endDate = req.query.endDate;
-        let pageSize = parseInt(req.query.size) || 5,
-            currentPage = parseInt(req.query.page) || 1,
-            pagesCount,
-            allRidesLength;
+        let pageSize = parseInt(req.query.size, 10) || 5;
+        let currentPage = parseInt(req.query.page, 10) || 1;
+        let pagesCount;
+        let allRidesLength;
 
         data.getFilteredRides(req.query)
             .then((rides) => {
                 pagesCount = Math.ceil(rides.length / pageSize);
-
                 allRidesLength = rides.length;
-                console.log(rides.length);
 
                 if (allRidesLength % 5 !== 0) {
                     allRidesLength += 5 - allRidesLength % 5;
@@ -59,11 +57,11 @@ module.exports = (data, passport, constants) => {
         data.addNewRide(req.body, req.user)
             .then(() => {
                 res.status(201);
-                return res.json("{\"success\": \"Successful ride creation.\"}");
+                return res.json(`{"success": "${constants.successfulMessages.ride.createRide}"}`);
             })
             .catch(err => {
                 res.status(400);
-                return res.json(`{"error": "Problem occured while adding a new ride. ${err.message}"}`);
+                return res.json(`{"error": "${constants.errorMessages.default} ${err.message}"}`);
             });
     }
 
@@ -86,26 +84,25 @@ module.exports = (data, passport, constants) => {
             })
             .then(() => {
                 res.status(201);
-                return res.json("{\"success\": \"Successful sign for ride. Enjoy your trip. \"}");
+                return res.json(`{"success": "${constants.successfulMessages.ride.signRide}"}`);
             })
             .catch((err) => {
                 res.status(400);
-                return res.json(`{"error": "Problem occured while signing for a ride. ${err.message}"}`);
+                return res.json(`{"error": "${constants.errorMessages.default} ${err.message}"}`);
             });
 
     }
 
     function removeRideById(req, res) {
         const id = req.body.rideId;
-        console.log(req.body);
         data.removeRideById(id)
             .then(() => {
                 res.status(201);
-                return res.json("{\"success\": \"Successfully removed ride. \"}");
+                return res.json(`{"success": "${constants.successfulMessages.ride.removeRide}"}`);
             })
             .catch((err) => {
                 res.status(400);
-                return res.json(`{"error": "Problem occured while removing ride. ${err.message}"}`);
+                return res.json(`{"error": "${constants.errorMessages.default} ${err.message}"}`);
             });
     }
 
@@ -128,11 +125,11 @@ module.exports = (data, passport, constants) => {
             })
             .then(() => {
                 res.status(200);
-                return res.json("{\"success\": \"Successfully unsigned from ride. \"}")
+                return res.json(`{"success": "${constants.successfulMessages.ride.unsignRide}"}`);
             })
             .catch((err) => {
                 res.status(400);
-                return res.json(`{"error": "Problem occured while unsigning from ride. ${err.message}"}`);
+                return res.json(`{"error": "${constants.errorMessages.default} ${err.message}"}`);
             });
     }
 

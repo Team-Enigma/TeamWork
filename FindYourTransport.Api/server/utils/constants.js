@@ -1,5 +1,3 @@
-const encryption = require("./encryption");
-
 const user = {
     messages: {
         uniqueUsername: "A user with this username already exists",
@@ -68,13 +66,41 @@ const car = {
     }
 };
 
-const contact = {
-    enums: { statusTypes: ["Not Processed", "In Process", "Processed"] }
-}
+const contact = { enums: { statusTypes: ["Not Processed", "In Process", "Processed"] } };
+
+const errorMessages = {
+    default: "Problem occured.",
+    user: "Invalid username or password.",
+    userEmail: "A user with this email already exists."
+};
+
+const successfulMessages = {
+    admin: {
+        changeRole: "Successful change of role. The user is now admin.",
+        changeMessageStatus: "Successfully updated the status of this message."
+    },
+    contact: { sendMessage: "Successful message sent. We will respond to your request as soon as possible." },
+    ride: {
+        createRide: "Successful ride creation.",
+        removeRide: "Successful removal of ride.",
+        signRide: "Successful sign for ride. Enjoy your trip.",
+        unsignRide: "Successful unsign from ride."
+    },
+    user: {
+        registration: "Successful registration. Please login.",
+        login: "Successful login.",
+        uploadPicture: "Successfully uploaded new profile picture.",
+        updateProfile: "Successfully changed your profile information.",
+        updatePassword: "Successfully changed your password.",
+        updateCar: "Successfully changed your car information."
+    }
+};
 
 module.exports = {
     user,
     ride,
     car,
-    contact
+    contact,
+    errorMessages,
+    successfulMessages
 };

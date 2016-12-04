@@ -9,20 +9,20 @@ module.exports = (data, passport, constants) => {
     }
 
     function loadProfilePage(req, res) {
-        const currentUser = req.user;
+        const user = req.user;
 
-        data.getRidesForUser(currentUser.username)
+        data.getRidesForUser(user.username)
             .then((rides) => {
-                res.render("user-views/profile", { rides: rides, fuelTypes: constants.car.enums.fuelTypes, transmissionTypes: constants.car.enums.transmissionTypes });
+                res.render("user-views/profile", { rides, fuelTypes: constants.car.enums.fuelTypes, transmissionTypes: constants.car.enums.transmissionTypes });
             });
     }
 
     function loadUsersPage(req, res) {
         let username = req.query.username;
-        let pageSize = parseInt(req.query.size) || 8,
-            currentPage = parseInt(req.query.page) || 1,
-            pagesCount,
-            allUsersLength;
+        let pageSize = parseInt(req.query.size, 10) || 8;
+        let currentPage = parseInt(req.query.page, 10) || 1;
+        let pagesCount;
+        let allUsersLength;
 
         data.getFilteredUsers(req.query)
             .then((users) => {
@@ -60,15 +60,9 @@ module.exports = (data, passport, constants) => {
                 return data.getRidesForUser(username);
             })
             .then((rides) => {
-                return {
-                    user: foundUser,
-                    userRides: rides
-                };
+                res.render("../views/user-views/user", { user: foundUser, rides });
             })
-            .then((result) => {
-                res.render("../views/user-views/user", { user: result.user, rides: result.userRides });
-            })
-            .catch((err) => {
+            .catch(() => {
                 res.status(404);
                 res.render("common/error-page");
                 res.end();
@@ -80,9 +74,9 @@ module.exports = (data, passport, constants) => {
         data.registerNewUser(user)
             .then(() => {
                 res.status(201);
-                return res.json("{\"success\": \"Successful registration. Please login.\"}");
+                return res.json(`{"success": "${constants.successfulMessages.user.registration}"}`);
             })
-            .catch(err => {
+            .catch((err) => {
                 res.status(400);
                 return res.json(`{"error": "${err.message}"}`);
             });
@@ -97,15 +91,15 @@ module.exports = (data, passport, constants) => {
                 req.login(user, (err2) => {
                     if (err2) {
                         res.status(200);
-                        return res.json("{\"error\": \"Invalid username or password.\"}");
+                        return res.json(`{"error": "${constants.errorMessages.user}"}`);
                     }
 
                     res.status(200);
-                    return res.json(`{"success": "Successful login. Welcome ${user.username}"}`);
+                    return res.json(`{"success": "${constants.successfulMessages.user.login} Welcome ${user.username}"}`);
                 });
             } else {
                 res.status(200);
-                return res.json("{\"error\": \"Invalid username or password.\"}");
+                return res.json(`{"error": "${constants.errorMessages.user}"}`);
             }
 
         })(req, res, next);
@@ -129,11 +123,11 @@ module.exports = (data, passport, constants) => {
             })
             .then(() => {
                 res.status(201);
-                return res.json("{\"success\": \"Successfully uploaded new profile picture.\"}");
+                return res.json(`{"success": "${constants.successfulMessages.user.uploadPicture}"}`);
             })
             .catch((err) => {
                 res.status(400);
-                return res.json(`{"error": "Problem occured while uploading the picture. ${err.message}"}`);
+                return res.json(`{"error": "${constants.errorMessages.default} ${err.message}"}`);
             });
     }
 
@@ -145,21 +139,21 @@ module.exports = (data, passport, constants) => {
             .then((user) => {
                 if (user && user.username !== req.user.username) {
                     res.status(400);
-                    return res.json("{\"error\": \"A user with this email already exists\"}");
+                    return res.json(`{"error": "${constants.errorMessages.userEmail}"}`);
                 }
 
-                return data.getUserByUsername(currentUser.username)
+                return data.getUserByUsername(currentUser.username);
             })
             .then((user) => {
                 return data.updateUserInfo(user, req.body);
             })
             .then(() => {
                 res.status(201);
-                return res.json("{\"success\": \"Successfully changed your profile information.\"}");
+                return res.json(`{"success": "${constants.successfulMessages.user.updateProfile}"}`);
             })
             .catch((err) => {
                 res.status(400);
-                return res.json(`{"error": "Problem occured while changing your profile information. ${err.message}"}`);
+                return res.json(`{"error": "${constants.errorMessages.default} ${err.message}"}`);
             });
     }
 
@@ -174,7 +168,7 @@ module.exports = (data, passport, constants) => {
             })
             .then(() => {
                 res.status(201);
-                return res.json("{\"success\": \"Successfully changed your password.\"}");
+                return res.json(`{"success": "${constants.successfulMessages.user.updatePassword}"}`);
             })
             .catch((err) => {
                 res.status(400);
@@ -199,11 +193,11 @@ module.exports = (data, passport, constants) => {
             })
             .then(() => {
                 res.status(201);
-                return res.json("{\"success\": \"Successfully changed your car information.\"}");
+                return res.json(`{"success": "${constants.successfulMessages.user.updateCar}"}`);
             })
             .catch((err) => {
                 res.status(400);
-                return res.json(`{"error": "Problem occured while updating your car information. ${err.message}"}`);
+                return res.json(`{"error": "${constants.errorMessages.default} ${err.message}"}`);
             });
     }
 

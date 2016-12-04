@@ -9,13 +9,8 @@ module.exports = (data, passport, constants) => {
         const consumption = req.body.consumption;
         const fuelType = req.body.fuelType;
 
-        console.log(req.body);
-
         data.getSpecificFuelByName(fuelType)
             .then((fuel) => {
-
-                console.log(fuel);
-
                 const fuelPrice = fuel.fuelPrice.replace(",", ".");
                 const parsedFuelPrice = parseFloat(fuelPrice);
                 const parsedDistance = parseFloat(distance);
@@ -37,8 +32,8 @@ module.exports = (data, passport, constants) => {
             })
             .catch((err) => {
                 res.status(400);
-                return res.json(`{"error": "Problem occured while calculating the price. ${err}"}`);
-            })
+                return res.json(`{"error": "${constants.errorMessages.default} ${err}"}`);
+            });
     }
 
     return {
