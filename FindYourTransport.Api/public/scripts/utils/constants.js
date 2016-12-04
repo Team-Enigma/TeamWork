@@ -90,13 +90,13 @@ var app = app || {};
             username: "Username should contain latin letters both capital and small as well as digits and -._ symbols and be between 3 and 20 characters (e.g. john.42)",
             address: "Email should contain latin letters both capital and small as well as digits and -._ symbols (e.g. john.42@mail.com)",
             title: "Title should contain latin letters and begin with capital letter and be between 2 and 30 characters (e.g. Title)",
-            content: "Content should contain latin letters and begin with capital letter and be between 10 and 5000 characters"
+            content: "Content could contain latin letters numbers and special symbols and have length between 5 and 1000"
         },
         matchers: {
             username: /^([A-Za-z0-9\-\._]{2,30})$/,
             address: /^([\w\d\-\._]+@[\w\d]+\.[\w]{2,3})$/,
             title: /^([A-Z]{1}[A-Za-z\s]{1,30})$/,
-            content: /([A-Za-z0-9@#%&!:_"'~\$\^\(\)\[\]\{\}\*\\\-\.\?\s])+/
+            content: /^([A-Za-z0-9@#%&!:_"'~\$\^\(\)\[\]\{\}\*\\\-\.\?\s]{5,1000})$/
         }
     };
 
@@ -107,7 +107,15 @@ var app = app || {};
             distance: "Distance should be a valid number (e.g. 14.4 or 14,2)",
             consumption: "Consumption should be a valid number (e.g. 4.2 or 6,4)"
         },
-        matcher: { number: /^((?:\d*\.)?\d+)$/ }
+        matchers: { number: /^((?:\d*\.)?\d+)$/ }
+    };
+
+    const comment = {
+        messages: {
+            requiredComment: "Comment is required",
+            comment: "Comment could contain latin letters, numbers and special symbols and have length between 5 and 1000"
+        },
+        matchers: { comment: /^([A-Za-z0-9@#%&!:_"'~\$\^\(\)\[\]\{\}\*\\\-\.\?\s]{5,1000})$/ }
     };
 
     app.constants = {
@@ -115,6 +123,7 @@ var app = app || {};
         ride,
         car,
         contact,
-        fuel
+        fuel,
+        comment
     };
 }());

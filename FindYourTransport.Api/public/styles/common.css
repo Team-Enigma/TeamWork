@@ -209,6 +209,20 @@ textarea {
     padding: 0px;
 }
 
+.comment-container {
+    border: 2px solid #DCE4EC;
+    margin: 10px 15px;
+    padding: 20px 10px;
+}
+
+#ride-comment-form {
+    margin: 10px 0px;
+}
+
+#tb-ride-comment {
+    margin-bottom: 10px;
+}
+
 /* Add ride page*/
 
 .img-add-ride {

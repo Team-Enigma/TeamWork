@@ -35,6 +35,7 @@ const rideSchema = mongooseSchema({
     contact: { type: String, required: [true, constants.ride.messages.requiredContact] },
     remarks: { type: String },
     passengers: { type: [] },
+    comments: { type: [] },
     isRemoved: { type: Boolean, default: false }
 });
 
