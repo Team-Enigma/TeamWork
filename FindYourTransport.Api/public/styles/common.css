@@ -93,7 +93,6 @@ footer a:hover {
     width: 100%;
 }
 
-
 /* Forms */
 
 .form-container {
@@ -111,7 +110,6 @@ textarea {
     display: inline-block;
     margin-left: 15px;
 }
-
 
 /* All rides page */
 
@@ -202,13 +200,11 @@ textarea {
     padding: 0px;
 }
 
-
 /* Add ride page*/
 
 .img-add-ride {
     width: 100%;
 }
-
 
 /* User detailed page*/
 
@@ -216,7 +212,6 @@ textarea {
     background-color: #FFFFFF;
     padding: 20px 0px;
 }
-
 
 /* Profile page */
 
@@ -258,6 +253,7 @@ textarea {
 }
 
 /* Admin page */
+
 .message-container {
     border: 2px solid #DCE4EC;
     margin: 10px 15px;
@@ -271,6 +267,7 @@ textarea {
 #add-admin #tb-username {
     margin-bottom: 20px;
 }
+
 /* All users page */
 
 .all-users-container {
@@ -317,6 +314,7 @@ textarea {
     font-weight: bold;
     font-size: 1.5em;
 }
+
 .error-title{
     font-size: 4em;
     font-weight: bold;

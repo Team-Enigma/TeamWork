@@ -1,4 +1,11 @@
+/* globals window $*/
+/* eslint-disable no-var */
+/* eslint-disable no-use-before-define */
+
 var app = app || {};
+
+/* eslint-enable no-var */
+/* eslint-enable no-use-before-define */
 
 function getData() {
     const fromCity = $("#tb-from-city").val();
@@ -9,7 +16,7 @@ function getData() {
     const contact = $("#tb-contact-info").val();
     const remarks = $("#tb-more-info").val();
 
-    return data = {
+    const data = {
         fromCity,
         toCity,
         dateOfTravel,
@@ -18,6 +25,8 @@ function getData() {
         contact,
         remarks
     };
+
+    return data;
 }
 
 function handleSubmit() {
@@ -43,12 +52,12 @@ function handleSubmit() {
     }
 }
 
-$("#tb-add-ride").on("click", (ev) => {
+$("#tb-add-ride").on("click", () => {
     handleSubmit();
 });
 
 $(window).keypress((ev) => {
-    if (ev.which == 13) {
+    if (ev.which === 13) {
         handleSubmit();
     }
 });

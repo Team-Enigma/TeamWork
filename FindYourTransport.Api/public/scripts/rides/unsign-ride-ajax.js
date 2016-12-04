@@ -1,12 +1,17 @@
 /* globals window $*/
+/* eslint-disable no-var */
+/* eslint-disable no-use-before-define */
 
 var app = app || {};
 
-$("#tb-unsign-from-ride").on("click", (ev) => {
+/* eslint-enable no-var */
+/* eslint-enable no-use-before-define */
+
+$("#tb-unsign-from-ride").on("click", () => {
     const rideId = $("#tb-ride-id").val();
     const passengerUsername = $("#tb-ride-passenger").val();
 
-    let data = {
+    const data = {
         rideId,
         passengerUsername
     };

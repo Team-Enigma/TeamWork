@@ -1,14 +1,21 @@
 /* globals window $*/
+/* eslint-disable no-var */
+/* eslint-disable no-use-before-define */
+
 var app = app || {};
 
-$("#tb-add-admin").on("click", (ev) => {
+/* eslint-enable no-var */
+/* eslint-enable no-use-before-define */
+
+$("#tb-add-admin").on("click", () => {
     const username = $("#tb-username").val();
 
-    let data = { username };
+    const data = { username };
 
     app.requester.put("/admin", data)
         .then(response => {
             let parsedResponse = JSON.parse(response);
+
             if (parsedResponse.success) {
                 app.notificator.showNotification(parsedResponse.success, "success");
                 setTimeout(() => {

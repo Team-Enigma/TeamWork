@@ -1,6 +1,11 @@
 /* globals window $*/
+/* eslint-disable no-var */
+/* eslint-disable no-use-before-define */
 
 var app = app || {};
+
+/* eslint-enable no-var */
+/* eslint-enable no-use-before-define */
 
 function getData() {
     let fromCity = $("#tb-from-city").val();
@@ -10,7 +15,7 @@ function getData() {
     let page = $("#sel-selected-page option:selected").text();
     let size = $("#sel-page-size option:selected").text();
 
-    return params = {
+    const data = {
         fromCity,
         toCity,
         startDate,
@@ -18,17 +23,19 @@ function getData() {
         page,
         size
     };
+
+    return data;
 }
 
 function buildQueryString(params) {
     let queryString = "/rides";
 
     for (let element in params) {
-        if (params[element] !== "" && params[element] !== undefined && params[element] !== null) {
-            if (queryString !== "/rides") {
-                queryString += "&";
-            } else {
+        if (params[element] !== "") {
+            if (queryString === "/rides") {
                 queryString += "?";
+            } else {
+                queryString += "&";
             }
 
             queryString += `${element}=${params[element]}`;
@@ -49,10 +56,11 @@ function handleSubmit() {
 }
 
 $("#tb-search-ride").on("click", () => {
-    handleSubmit()
+    handleSubmit();
 });
+
 $(window).keypress((ev) => {
-    if (ev.which == 13) {
+    if (ev.which === 13) {
         handleSubmit();
     }
 });

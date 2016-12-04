@@ -1,4 +1,10 @@
+/* eslint-disable no-var */
+/* eslint-disable no-use-before-define */
+
 var app = app || {};
+
+/* eslint-enable no-var */
+/* eslint-enable no-use-before-define */
 
 (function() {
 
@@ -39,8 +45,8 @@ var app = app || {};
     }
 
     function validateRange(number, min, max) {
-        if (typeof(number) !== "number") {
-            number = parseInt(number);
+        if (typeof number !== "number") {
+            number = parseInt(number, 10);
         }
 
         if (number < min || number > max) {

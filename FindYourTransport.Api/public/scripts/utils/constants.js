@@ -1,4 +1,10 @@
+/* eslint-disable no-var */
+/* eslint-disable no-use-before-define */
+
 var app = app || {};
+
+/* eslint-enable no-var */
+/* eslint-enable no-use-before-define */
 
 (function() {
 

@@ -1,13 +1,21 @@
 /* globals document $*/
+/* eslint-disable no-var */
+/* eslint-disable no-use-before-define */
+
 var app = app || {};
 
-$("#tb-calculate-price").on("click", (ev) => {
-    const distance = $("#tb-distance").val().replace(",", ".");
-    const consumption = $("#tb-consumption").val().replace(",", ".");
-    const fuelType = $("#tb-fuel-type option:selected").text().trim();
+/* eslint-enable no-var */
+/* eslint-enable no-use-before-define */
 
+$("#tb-calculate-price").on("click", () => {
+    const distance = $("#tb-distance").val()
+        .replace(",", ".");
+    const consumption = $("#tb-consumption").val()
+        .replace(",", ".");
+    const fuelType = $("#tb-fuel-type option:selected").text()
+        .trim();
 
-    let data = {
+    const data = {
         distance,
         consumption,
         fuelType

@@ -25,7 +25,6 @@ module.exports = {
         "brace-style": "error",
         "callback-return": "error",
         "camelcase": "error",
-        "class-methods-use-this": "error",
         "comma-dangle": "error",
         "comma-spacing": [
             "error",
@@ -93,11 +92,16 @@ module.exports = {
         "lines-around-directive": "off",
         "max-depth": "error",
         "max-len": "off",
-        "max-lines": "error",
+        "max-lines": [
+            "error",
+            {
+                "max": 350,
+                "skipBlankLines": true
+            }
+        ],
         "max-nested-callbacks": "error",
         "max-params": "error",
         "max-statements-per-line": "error",
-        "multiline-ternary": "error",
         "new-cap": "error",
         "new-parens": "error",
         "newline-after-var": "off",
@@ -149,7 +153,6 @@ module.exports = {
         "no-new-require": "error",
         "no-new-wrappers": "error",
         "no-octal-escape": "error",
-        "no-param-reassign": "error",
         "no-path-concat": "error",
         "no-plusplus": "error",
         "no-process-env": "error",
@@ -162,7 +165,6 @@ module.exports = {
         "no-restricted-properties": "error",
         "no-restricted-syntax": "error",
         "no-return-assign": "error",
-        "no-return-await": "error",
         "no-script-url": "error",
         "no-self-compare": "error",
         "no-sequences": "error",
@@ -172,7 +174,6 @@ module.exports = {
         "no-sync": "error",
         "no-tabs": "error",
         "no-template-curly-in-string": "error",
-        "no-ternary": "error",
         "no-throw-literal": "error",
         "no-trailing-spaces": "error",
         "no-undef-init": "error",
@@ -188,7 +189,6 @@ module.exports = {
         "no-useless-constructor": "error",
         "no-useless-escape": "error",
         "no-useless-rename": "error",
-        "no-useless-return": "error",
         "no-var": "error",
         "no-void": "error",
         "no-warning-comments": "error",

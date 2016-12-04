@@ -1,17 +1,24 @@
 /* globals window $*/
+/* eslint-disable no-var */
+/* eslint-disable no-use-before-define */
 
 var app = app || {};
+
+/* eslint-enable no-var */
+/* eslint-enable no-use-before-define */
 
 function getData() {
     let username = $("#tb-username").val();
     let page = $("#sel-selected-page option:selected").text();
     let size = $("#sel-page-size option:selected").text();
 
-    return params = {
+    const data = {
         username,
         page,
         size
     };
+
+    return data;
 }
 
 function buildQueryString(params) {
@@ -19,10 +26,10 @@ function buildQueryString(params) {
 
     for (let element in params) {
         if (params[element] !== "") {
-            if (queryString !== "/users") {
-                queryString += "&";
-            } else {
+            if (queryString === "/users") {
                 queryString += "?";
+            } else {
+                queryString += "&";
             }
 
             queryString += `${element}=${params[element]}`;
@@ -42,12 +49,12 @@ function handleSubmit() {
     redirectToQueryRoute(queryString);
 }
 
-$("#tb-search-user").on("click", (ev) => {
+$("#tb-search-user").on("click", () => {
     handleSubmit();
 });
 
 $(window).keypress((ev) => {
-    if (ev.which == 13) {
+    if (ev.which === 13) {
         handleSubmit();
     }
 });

@@ -1,8 +1,13 @@
-/* globals window $ FormData*/
+/* globals window FormData $*/
+/* eslint-disable no-var */
+/* eslint-disable no-use-before-define */
 
 var app = app || {};
 
-$("#tb-upload-image").on("click", (ev) => {
+/* eslint-enable no-var */
+/* eslint-enable no-use-before-define */
+
+$("#tb-upload-image").on("click", () => {
     const picture = $("#tb-avatar")[0].files[0];
 
     let data = new FormData();

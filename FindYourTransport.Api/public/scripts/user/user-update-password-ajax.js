@@ -1,11 +1,18 @@
+/* globals window $*/
+/* eslint-disable no-var */
+/* eslint-disable no-use-before-define */
+
 var app = app || {};
 
-$("#tb-update-password").on("click", (ev) => {
+/* eslint-enable no-var */
+/* eslint-enable no-use-before-define */
+
+$("#tb-update-password").on("click", () => {
     const oldPassword = $("#tb-password").val();
     const newPassword = $("#tb-new-password").val();
     const newPasswordConfirm = $("#tb-new-password-confirm").val();
 
-    let data = {
+    const data = {
         oldPassword,
         newPassword,
         newPasswordConfirm
@@ -30,5 +37,4 @@ $("#tb-update-password").on("click", (ev) => {
                 app.notificator.showNotification(parsedError.error, "error");
             });
     }
-
 });

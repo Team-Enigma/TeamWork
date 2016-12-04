@@ -1,12 +1,17 @@
 /* globals window $*/
+/* eslint-disable no-var */
+/* eslint-disable no-use-before-define */
 
 var app = app || {};
 
-$("#tb-update-message").on("click", (ev) => {
+/* eslint-enable no-var */
+/* eslint-enable no-use-before-define */
+
+$("#tb-update-message").on("click", () => {
     const messageId = $("#tb-hidden-message-id").val();
     const option = $("#tb-message-status option:selected").text();
 
-    let data = {
+    const data = {
         messageId,
         option
     };

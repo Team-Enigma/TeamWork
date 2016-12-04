@@ -1,6 +1,11 @@
 /* globals window $*/
+/* eslint-disable no-var */
+/* eslint-disable no-use-before-define */
 
 var app = app || {};
+
+/* eslint-enable no-var */
+/* eslint-enable no-use-before-define */
 
 $(".delete-ride").on("click", (ev) => {
     const rideId = $(ev.target)
@@ -8,7 +13,7 @@ $(".delete-ride").on("click", (ev) => {
         .prev()
         .val();
 
-    let data = { rideId };
+    const data = { rideId };
 
     app.requester.delete(`/rides/${rideId}`, data)
         .then(response => {

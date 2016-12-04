@@ -1,9 +1,13 @@
 /* globals window $*/
+/* eslint-disable no-var */
+/* eslint-disable no-use-before-define */
 
 var app = app || {};
 
-$("#tb-update-car").on("click", (ev) => {
-    console.log("here");
+/* eslint-enable no-var */
+/* eslint-enable no-use-before-define */
+
+$("#tb-update-car").on("click", () => {
     const manufacturer = $("#tb-manufacturer").val();
     const model = $("#tb-model").val();
     const seats = $("#tb-seats option:selected").text();
@@ -11,7 +15,7 @@ $("#tb-update-car").on("click", (ev) => {
     const transmissionType = $("#tb-transmission-type option:selected").text();
     const registrationNumber = $("#tb-registration-number").val();
 
-    let data = {
+    const data = {
         manufacturer,
         model,
         seats,
@@ -39,5 +43,4 @@ $("#tb-update-car").on("click", (ev) => {
                 app.notificator.showNotification(parsedError.error, "error");
             });
     }
-
 });

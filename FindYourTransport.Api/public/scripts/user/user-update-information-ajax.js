@@ -1,16 +1,20 @@
 /* globals window $*/
+/* eslint-disable no-var */
+/* eslint-disable no-use-before-define */
 
 var app = app || {};
 
-$("#tb-update-profile").on("click", (ev) => {
-    console.log("here");
+/* eslint-enable no-var */
+/* eslint-enable no-use-before-define */
+
+$("#tb-update-profile").on("click", () => {
     const firstName = $("#tb-first-name").val();
     const lastName = $("#tb-last-name").val();
     const city = $("#tb-city").val();
     const email = $("#tb-email").val();
     const contact = $("#tb-contact").val();
 
-    let data = {
+    const data = {
         firstName,
         lastName,
         city,
@@ -18,7 +22,6 @@ $("#tb-update-profile").on("click", (ev) => {
         contact
     };
 
-    console.log(data);
     if (app.validator.validateUpdateProfile(data)) {
         app.requester.put("/profile/update-info", data)
             .then(response => {
@@ -38,5 +41,4 @@ $("#tb-update-profile").on("click", (ev) => {
                 app.notificator.showNotification(parsedError.error, "error");
             });
     }
-
 });
