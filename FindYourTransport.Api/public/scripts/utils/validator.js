@@ -392,16 +392,31 @@ var app = app || {};
                 isDataValid = false;
             }
 
-            if (validateMatcher(data.distance, app.constants.fuel.matcher.number)) {
+            if (validateMatcher(data.distance, app.constants.fuel.matchers.number)) {
                 app.notificator.showNotification(app.constants.fuel.messages.distance, "error");
                 isDataValid = false;
             }
 
-            if (validateMatcher(data.consumption, app.constants.fuel.matcher.number)) {
+            if (validateMatcher(data.consumption, app.constants.fuel.matchers.number)) {
                 app.notificator.showNotification(app.constants.fuel.messages.consumption, "error");
                 isDataValid = false;
             }
 
+            return isDataValid;
+        }
+
+        validateComment(data) {
+            let isDataValid = true;
+
+            if (validateRequired(data.comment)) {
+                app.notificator.showNotification(app.constants.comment.messages.requiredComment, "error");
+                isDataValid = false;
+            }
+
+            if (validateMatcher(data.comment, app.constants.comment.matchers.comment)) {
+                app.notificator.showNotification(app.constants.comment.messages.comment, "error");
+                isDataValid = false;
+            }
             return isDataValid;
         }
     }

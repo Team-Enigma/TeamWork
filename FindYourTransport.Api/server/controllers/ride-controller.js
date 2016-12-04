@@ -66,8 +66,8 @@ module.exports = (data, passport, constants) => {
     }
 
     function addPassenger(req, res) {
-        const id = req.body.rideId,
-            user = req.body.passengerUsername;
+        const id = req.body.rideId;
+        const user = req.body.passengerUsername;
 
         data.getSpecificRide(id)
             .then((ride) => {
@@ -77,9 +77,6 @@ module.exports = (data, passport, constants) => {
                     ride.freePlaces -= 1;
                 }
 
-                return ride;
-            })
-            .then((ride) => {
                 return data.updateRideInfo(ride);
             })
             .then(() => {
@@ -91,6 +88,33 @@ module.exports = (data, passport, constants) => {
                 return res.json(`{"error": "${constants.errorMessages.default} ${err.message}"}`);
             });
 
+    }
+
+    function addComment(req, res) {
+        console.log(req.body);
+        const id = req.body.rideId;
+        const username = req.user.username;
+        const comment = req.body.comment;
+        const date = Date.now();
+
+        console.log(id);
+        console.log(username);
+        console.log(comment);
+
+        data.getSpecificRide(id)
+            .then((ride) => {
+                ride.comments.push({ username, comment, date });
+
+                return data.addRideComment(ride);
+            })
+            .then(() => {
+                res.status(201);
+                return res.json(`{"success": "${constants.successfulMessages.ride.comment}"}`);
+            })
+            .catch((err) => {
+                res.status(400);
+                return res.json(`{"error": "${constants.errorMessages.default} ${err.message}"}`);
+            });
     }
 
     function removeRideById(req, res) {
@@ -118,10 +142,7 @@ module.exports = (data, passport, constants) => {
                     ride.freePlaces += 1;
                 }
 
-                return ride;
-            })
-            .then((ride) => {
-                data.updateRideInfo(ride);
+                return data.updateRideInfo(ride);
             })
             .then(() => {
                 res.status(200);
@@ -141,6 +162,7 @@ module.exports = (data, passport, constants) => {
         addNewRide,
         addPassenger,
         removeRideById,
-        removePassenger
+        removePassenger,
+        addComment
     };
 };

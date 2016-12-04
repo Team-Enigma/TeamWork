@@ -23,6 +23,8 @@ block content
                         a.tab-title(href="#information", data-toggle="tab", aria-expanded="true") Information
                     li
                         a.tab-title(href="#passengers", data-toggle="tab", aria-expanded="false") Passengers
+                    li
+                        a.tab-title(href="#comments", data-toggle="tab", aria-expanded="false") Comments
                 #my-tab-content.tab-content
                     #information.tab-pane.fade.active.in
                         .matchheight.detailed-information
@@ -56,7 +58,37 @@ block content
                                             -isPassenger = true
                             else
                                 ul
-                                    li No passengers signed for this travel
+                                    li No passengers signed for this ride
+                    #comments.tab-pane.fade
+                        .matchheight.detailed-information
+                            if ride.comments.length > 0
+                                each comment in ride.comments
+                                    .row.col-xs-10.col-xs-offset-1
+                                        .comment-container
+                                                .row.main-row
+                                                    .col-xs-9.font-s
+                                                            a(href=`/users/${comment.username}`) #{comment.username}
+                                                    .col-xs-3.font-s
+                                                            span #{moment(comment.date).format("lll")}
+                                                .row
+                                                    hr
+                                                .row.comment-row
+                                                    p.col-lg-12 #{comment.comment}
+                            else
+
+                                ul
+                                    li No comments for this ride
+
+                            .col-xs-10.col-xs-offset-1
+                                #ride-comment-form
+                                    input.hidden(type="text", id="tb-comment-ride-id", value=`${ride.id}`, name="rideId")
+                                    .row
+                                        .col-xs-12
+                                            textarea.form-control(rows="4", id="tb-ride-comment", name="comment", value="comment")
+                                    .row
+                                        .col-xs-12
+                                            input.btn.btn-primary.btn-block(type="submit", id="tb-send-comment", value="Send")
+
         if currentUser.username !== ride.driver && !isPassenger
             .row
                 .col-lg-12
@@ -78,8 +110,11 @@ block content
 
     script(src="/scripts/utils/requester.js")
     script(src="/scripts/utils/notificator.js")
+    script(src="/scripts/utils/constants.js")
+    script(src="/scripts/utils/validator.js")
     script(src="/scripts/rides/sign-ride-ajax.js")
     script(src="/scripts/rides/unsign-ride-ajax.js")
+    script(src="/scripts/rides/comment-ride-ajax.js")
 
     script(type="text/javascript").
         jQuery(function($){

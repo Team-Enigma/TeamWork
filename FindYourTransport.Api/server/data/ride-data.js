@@ -122,7 +122,18 @@ module.exports = (models) => {
                 return resolve();
             });
         });
+    }
 
+    function addRideComment(ride) {
+        return new Promise((resolve, reject) => {
+            Ride.update({ _id: ride._id }, { comments: ride.comments }, null, (err) => {
+                if (err) {
+                    return reject(err);
+                }
+
+                return resolve();
+            });
+        });
     }
 
     function removeRideById(rideId) {
@@ -143,6 +154,7 @@ module.exports = (models) => {
         getRidesForUser,
         getFilteredRides,
         updateRideInfo,
-        removeRideById
+        removeRideById,
+        addRideComment
     };
 };

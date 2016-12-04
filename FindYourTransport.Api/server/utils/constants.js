@@ -84,7 +84,8 @@ const successfulMessages = {
         createRide: "Successful ride creation.",
         removeRide: "Successful removal of ride.",
         signRide: "Successful sign for ride. Enjoy your trip.",
-        unsignRide: "Successful unsign from ride."
+        unsignRide: "Successful unsign from ride.",
+        comment: "Successful addition of comment."
     },
     user: {
         registration: "Successful registration. Please login.",
