@@ -96,7 +96,7 @@ var app = app || {};
             username: /^([A-Za-z0-9\-\._]{2,30})$/,
             address: /^([\w\d\-\._]+@[\w\d]+\.[\w]{2,3})$/,
             title: /^([A-Z]{1}[A-Za-z\s]{1,30})$/,
-            content: /^([A-Za-z0-9@#%&!:_"'~\$\^\(\)\[\]\{\}\*\\\-\.\?\s]{5,1000})$/
+            content: /^([A-Za-z0-9@#%&!:;,_"'~\$\^\(\)\[\]\{\}\*\\\-\.\?\s]{5,1000})$/
         }
     };
 
@@ -115,7 +115,7 @@ var app = app || {};
             requiredComment: "Comment is required",
             comment: "Comment could contain latin letters, numbers and special symbols and have length between 5 and 1000"
         },
-        matchers: { comment: /^([A-Za-z0-9@#%&!:_"'~\$\^\(\)\[\]\{\}\*\\\-\.\?\s]{5,1000})$/ }
+        matchers: { comment: /^([A-Za-z0-9@#%&!:;,_"'~\$\^\(\)\[\]\{\}\*\\\-\.\?\s]{5,1000})$/ }
     };
 
     app.constants = {
