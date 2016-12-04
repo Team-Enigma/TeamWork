@@ -1,7 +1,7 @@
 extends ../base
 
 block app-title
-        | send message
+        | Contact
 
 block content
     .row.contact-section
@@ -32,13 +32,13 @@ block content
                 .col-xs-8.col-xs-offset-2
                     img.img-responsive.img-add-ride(src="/images/contact-picture.png")
 
-        script(type="text/javascript").
-            jQuery(function($){
-            $(".matchheight").matchHeight({byRow: false});
-            });
-
     script(src="/scripts/utils/requester.js")
     script(src="/scripts/utils/notificator.js")
     script(src="/scripts/utils/constants.js")
     script(src="/scripts/utils/validator.js")
     script(src="/scripts/contact/contact-ajax.js")
+
+    script(type="text/javascript").
+        jQuery(function($){
+        $(".matchheight").matchHeight({byRow: false});
+        });

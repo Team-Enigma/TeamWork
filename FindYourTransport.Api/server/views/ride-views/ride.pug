@@ -1,7 +1,7 @@
 extends ../base
 
 block app-title
-        | Ride: #{ride.fromCity} to #{ride.toCity}
+        | Ride details
 
 block content
     - let isPassenger = false;
@@ -76,12 +76,12 @@ block content
                     input.hidden(type="text", id="tb-ride-passenger", value=`${currentUser.username}` name="passengerUsername")
                     input.btn.btn-danger.btn-special(type="submit", id="tb-unsign-from-ride", value="Unsign from ride")
 
-        script(src="/scripts/utils/requester.js")
-        script(src="/scripts/utils/notificator.js")
-        script(src="/scripts/rides/sign-ride-ajax.js")
-        script(src="/scripts/rides/unsign-ride-ajax.js")
+    script(src="/scripts/utils/requester.js")
+    script(src="/scripts/utils/notificator.js")
+    script(src="/scripts/rides/sign-ride-ajax.js")
+    script(src="/scripts/rides/unsign-ride-ajax.js")
 
-        script(type="text/javascript").
-            jQuery(function($){
-            $(".matchheight").matchHeight({byRow: false});
-            });
+    script(type="text/javascript").
+        jQuery(function($){
+        $(".matchheight").matchHeight({byRow: false});
+        });

@@ -1,7 +1,7 @@
 extends ../base
 
 block app-title
-        | information for user: #{user.username}
+        | User details
 
 block content
     div.user-detailed-container
@@ -74,10 +74,10 @@ block content
                                 ul
                                     li
                                         span No rides information for this user
-                                                    
+
                     #car.tab-pane.fade
                         .matchheight.detailed-information
-                            if user.car.manufacturer 
+                            if user.car.manufacturer
                                 ul
                                     li
                                         span Manufacturer:&nbsp

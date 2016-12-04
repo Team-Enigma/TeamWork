@@ -1,7 +1,7 @@
 extends ../base
 
 block app-title
-        | price calculating
+        | Price calculation
 
 block content
     .row.home-section
@@ -48,8 +48,6 @@ block content
                         .form-group
                             .col-lg-8.col-lg-offset-4
                                 input.btn.btn-sm.btn-primary.btn-lg.btn-block(type="submit", id="tb-calculate-price" value="Calculate")
-                #{fuelType}
-
                 if(sum)
                     hr
                     row
@@ -62,13 +60,13 @@ block content
                 .col-xs-8.col-xs-offset-2
                     img.img-responsive.img-add-ride(src="/images/calculate-picture.png")
 
-        script(src="/scripts/utils/requester.js")
-        script(src="/scripts/utils/notificator.js")
-        script(src="/scripts/utils/constants.js")
-        script(src="/scripts/utils/validator.js")
-        script(src="/scripts/fuel/calculate-price-ajax.js")
+    script(src="/scripts/utils/requester.js")
+    script(src="/scripts/utils/notificator.js")
+    script(src="/scripts/utils/constants.js")
+    script(src="/scripts/utils/validator.js")
+    script(src="/scripts/fuel/calculate-price-ajax.js")
 
-        script(type="text/javascript").
-            jQuery(function($){
-            $(".matchheight").matchHeight({byRow: false});
-            });
+    script(type="text/javascript").
+        jQuery(function($){
+        $(".matchheight").matchHeight({byRow: false});
+        });

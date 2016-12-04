@@ -1,7 +1,7 @@
 extends ../base
 
 block app-title
-        | users
+        | Users
 
 block content
     div.all-users-container
@@ -48,69 +48,69 @@ block content
                                 option #{i}
                             -}
 
-        script(src="/scripts/user/users-search-ajax.js")
+    script(src="/scripts/user/users-search-ajax.js")
 
-        script(type="text/javascript").
-                    window.onload = (function () {
-                        let pageSizeOptions = $("#sel-page-size").find("option");
-                        let pagesOptions = $("#sel-selected-page").find("option"),
-                            foundPageSize = false,
-                            foundCurrentPage = false;
+    script(type="text/javascript").
+                window.onload = (function () {
+                    let pageSizeOptions = $("#sel-page-size").find("option");
+                    let pagesOptions = $("#sel-selected-page").find("option"),
+                        foundPageSize = false,
+                        foundCurrentPage = false;
 
-                        for(let i = 0; i < pageSizeOptions.length; i++) {
-                            if (parseInt(pageSizeOptions[i].text) === #{pageSize}) {
-                                foundPageSize = true;
-                                $(pageSizeOptions[i]).attr("selected", "selected");
-                                break;
-                            }
+                    for(let i = 0; i < pageSizeOptions.length; i++) {
+                        if (parseInt(pageSizeOptions[i].text) === #{pageSize}) {
+                            foundPageSize = true;
+                            $(pageSizeOptions[i]).attr("selected", "selected");
+                            break;
                         }
-
-                        for(let i = 0; i < pagesOptions.length; i++) {
-                            if (parseInt(pagesOptions[i].text) === #{currentPage}) {
-                                foundCurrentPage = true;
-                                $(pagesOptions[i]).attr("selected", "selected");
-                                break;
-                            }
-                        }
-
-                        if (!foundPageSize || !foundCurrentPage) {
-                            if (!foundPageSize) {
-                                $(pageSizeOptions[0]).attr("selected", "selected");
-                            }
-
-                            if (!foundCurrentPage) {
-                                $(pagesOptions[pagesOptions.length-1]).attr("selected", "selected");
-                            }
-
-                            $("#tb-search-user").trigger("click");
-
-                        }
-                    }());
-
-        script(type="text/javascript").
-            jQuery(function($){
-            $("#sel-page-size").on("change", function (ev) {
-                let tabs = $(ev.target).find("option");
-                for(let i = 0; i < tabs.length; i++) {
-                    if (tabs[i].selected === true) {
-                        size = tabs[i].innerText;
                     }
-                }
 
-                $("#tb-search-user").trigger("click");
-            });
-            });
-
-        script(type="text/javascript").
-            jQuery(function($){
-            $("#sel-selected-page").on("change", function (ev) {
-                let tabs = $(ev.target).find("option");
-                for(let i = 0; i < tabs.length; i++) {
-                    if (tabs[i].selected === true) {
-                        size = tabs[i].innerText;
+                    for(let i = 0; i < pagesOptions.length; i++) {
+                        if (parseInt(pagesOptions[i].text) === #{currentPage}) {
+                            foundCurrentPage = true;
+                            $(pagesOptions[i]).attr("selected", "selected");
+                            break;
+                        }
                     }
-                }
 
-                $("#tb-search-user").trigger("click");
-            });
-            });
+                    if (!foundPageSize || !foundCurrentPage) {
+                        if (!foundPageSize) {
+                            $(pageSizeOptions[0]).attr("selected", "selected");
+                        }
+
+                        if (!foundCurrentPage) {
+                            $(pagesOptions[pagesOptions.length-1]).attr("selected", "selected");
+                        }
+
+                        $("#tb-search-user").trigger("click");
+
+                    }
+                }());
+
+    script(type="text/javascript").
+        jQuery(function($){
+        $("#sel-page-size").on("change", function (ev) {
+            let tabs = $(ev.target).find("option");
+            for(let i = 0; i < tabs.length; i++) {
+                if (tabs[i].selected === true) {
+                    size = tabs[i].innerText;
+                }
+            }
+
+            $("#tb-search-user").trigger("click");
+        });
+        });
+
+    script(type="text/javascript").
+        jQuery(function($){
+        $("#sel-selected-page").on("change", function (ev) {
+            let tabs = $(ev.target).find("option");
+            for(let i = 0; i < tabs.length; i++) {
+                if (tabs[i].selected === true) {
+                    size = tabs[i].innerText;
+                }
+            }
+
+            $("#tb-search-user").trigger("click");
+        });
+        });
