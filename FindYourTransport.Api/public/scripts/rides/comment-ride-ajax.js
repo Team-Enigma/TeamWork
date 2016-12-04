@@ -10,7 +10,7 @@ var app = app || {};
 $("#tb-send-comment").on("click", () => {
     const rideId = $("#tb-comment-ride-id").val();
     const comment = $("#tb-ride-comment").val();
-    console.log(rideId);
+
     const data = {
         rideId,
         comment

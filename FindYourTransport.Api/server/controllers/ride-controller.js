@@ -72,6 +72,11 @@ module.exports = (data, passport, constants) => {
         data.getSpecificRide(id)
             .then((ride) => {
 
+                if (ride.freePlaces === 0) {
+                    res.status(400);
+                    return res.json(`{"error": "${constants.errorMessages.ride}"}`);
+                }
+
                 if (ride.passengers.indexOf(user) === -1) {
                     ride.passengers.push(user);
                     ride.freePlaces -= 1;
@@ -91,15 +96,10 @@ module.exports = (data, passport, constants) => {
     }
 
     function addComment(req, res) {
-        console.log(req.body);
         const id = req.body.rideId;
         const username = req.user.username;
         const comment = req.body.comment;
         const date = Date.now();
-
-        console.log(id);
-        console.log(username);
-        console.log(comment);
 
         data.getSpecificRide(id)
             .then((ride) => {
@@ -136,6 +136,7 @@ module.exports = (data, passport, constants) => {
 
         data.getSpecificRide(rideId)
             .then((ride) => {
+
                 if (ride.passengers.indexOf(passenger) !== -1) {
                     let index = ride.passengers.indexOf(passenger);
                     ride.passengers.splice(index, 1);
