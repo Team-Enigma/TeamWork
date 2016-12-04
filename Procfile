@@ -1,1 +1,1 @@
-web: sh-c 'cd ./FindYourTransport.Api && npm start'
+web: sh -c 'cd ./FindYourTransport.Api && npm start'
